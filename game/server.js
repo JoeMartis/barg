@@ -97,7 +97,10 @@ app.post('/lti/outcomes', async (req, res) => {
  * Provides LMS with tool configuration for easy installation
  */
 app.get('/lti/config.xml', (req, res) => {
-  const baseUrl = BASE_URL || `${req.protocol}://${req.get('host')}`;
+  if (!BASE_URL) {
+    return res.status(500).send('BASE_URL environment variable must be set for LTI configuration');
+  }
+  const baseUrl = BASE_URL;
 
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>
 <cartridge_basiclti_link
@@ -119,7 +122,7 @@ app.get('/lti/config.xml', (req, res) => {
   <blti:extensions platform="canvas.instructure.com">
     <lticm:property name="tool_id">ai_ethics_quest</lticm:property>
     <lticm:property name="privacy_level">public</lticm:property>
-    <lticm:property name="domain">${BASE_URL ? new URL(BASE_URL).host : req.get('host')}</lticm:property>
+    <lticm:property name="domain">${new URL(BASE_URL).host}</lticm:property>
   </blti:extensions>
 
   <cartridge_bundle identifierref="BLTI001_Bundle"/>

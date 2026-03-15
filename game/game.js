@@ -842,11 +842,11 @@ const Game = {
 
     if (isCorrect) {
       this.state.correct++;
+      this.handleCombo(true);
       const points = 100 * (1 + Math.floor(this.state.combo / 3) * 0.5);
       this.state.score += points;
       this.state.trust = Math.min(100, this.state.trust + (scene.trustDelta || 10));
       this.awardXP(20);
-      this.handleCombo(true);
       this.showToast('correct', `+${points} points!`);
       Effects.burst(clickedBtn, '#00e676', 18);
       Effects.ripple(clickedBtn, '#00e676');
@@ -925,6 +925,7 @@ const Game = {
   },
 
   renderQuizQuestion() {
+    if (this.state.autoAdvanceTimeout) { clearTimeout(this.state.autoAdvanceTimeout); this.state.autoAdvanceTimeout = null; }
     if (this.state.quizQuestionIndex >= this.state.quizQuestions.length) {
       clearInterval(this.state.quizTimer);
       this.showResults();
@@ -1464,7 +1465,7 @@ const Game = {
   renderMatchingScenario(scenario) {
     const pairs = this.shuffleArray([...scenario.pairs]);
     const rightItems = this.shuffleArray(pairs.map(p => p.right));
-    this.matchState = { pairs, rightItems, selectedLeft: null, matched: new Set(), attempts: 0 };
+    this.matchState = { pairs, rightItems, selectedLeft: null, matched: new Set(), matchedRight: new Set(), attempts: 0 };
 
     let leftHTML = pairs.map((p, i) =>
       `<div class="match-item" id="match-left-${i}" onclick="Game.selectMatchLeft(${i})">${this.escapeHtml(p.left)}</div>`
