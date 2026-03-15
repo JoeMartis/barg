@@ -193,9 +193,31 @@
     <div class="feedback-icon" id="feedback-icon"></div>
     <div class="feedback-text" id="feedback-text"></div>
   </div>
+
+  <!-- XP Bar (persistent) -->
+  <div id="xp-bar" class="xp-bar" style="display:none">
+    <div class="xp-info">
+      <span class="xp-level">Lv.1 Intern</span>
+      <span class="xp-numbers">0/100 XP</span>
+    </div>
+    <div class="xp-track"><div class="xp-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- Level Up Overlay -->
+  <div id="levelup-overlay" class="levelup-overlay">
+    <div class="levelup-content">
+      <div class="levelup-icon">&#x2B50;</div>
+      <div class="levelup-level">Level 2</div>
+      <div class="levelup-title">Junior Auditor</div>
+    </div>
+  </div>
 </div>
 
+<!-- Effects Canvas -->
+<canvas id="fx-canvas" class="fx-canvas"></canvas>
+
 <script src="gamedata.js"></script>
+<script src="effects.js"></script>
 <script src="game.js"></script>
 <script src="lti.js"></script>
 </body>
