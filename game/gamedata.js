@@ -823,13 +823,13 @@ const GAME_DATA = {
         </div>
         <div class="feature-bar">
           <span style="width:80px; color: var(--text-secondary);">oldpeak</span>
-          <div class="bar bar-negative" style="width:90px;"></div>
-          <span class="shap-negative">-0.11</span>
+          <div class="bar bar-negative" style="width:50px;"></div>
+          <span class="shap-negative">-0.06</span>
         </div>
         <div class="feature-bar">
           <span style="width:80px; color: var(--text-secondary);">thal_3</span>
-          <div class="bar bar-negative" style="width:100px;"></div>
-          <span class="shap-negative">-0.13</span>
+          <div class="bar bar-negative" style="width:50px;"></div>
+          <span class="shap-negative">-0.06</span>
         </div>
       </div>`,
       questions: [
@@ -1021,6 +1021,7 @@ const GAME_DATA = {
             "Post-processing predictions with random sampling."
           ],
           correct: 1,
+          damage: 25,
           explanation: "Decision trees provide inherent interpretability through explicit rule-based paths. Deep networks require post-hoc explanation methods."
         },
         {

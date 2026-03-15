@@ -3,6 +3,7 @@
 
 const LTI = {
   config: null,
+  trustedOrigin: null, // Set during LTI launch to restrict postMessage
 
   /**
    * Check if the game was launched via an LTI context.
@@ -47,8 +48,18 @@ const LTI = {
     }
 
     // LTI 1.3: Listen for postMessage from LMS platform
+    // Store the parent origin from the referrer for validation
+    if (window.parent !== window && document.referrer) {
+      try { this.trustedOrigin = new URL(document.referrer).origin; } catch (e) {}
+    }
     window.addEventListener('message', (event) => {
+      // Validate origin: only accept config from the trusted LMS parent
+      if (this.trustedOrigin && event.origin !== this.trustedOrigin) {
+        console.warn('[LTI] Rejected postMessage from untrusted origin:', event.origin);
+        return;
+      }
       if (event.data && event.data.type === 'lti-config') {
+        this.trustedOrigin = this.trustedOrigin || event.origin;
         this.config = event.data.config;
       }
     });
@@ -135,7 +146,7 @@ const LTI = {
           score: score,
           activityProgress: 'Completed',
           gradingProgress: 'FullyGraded'
-        }, '*');
+        }, this.trustedOrigin || window.location.origin);
         console.log('[LTI 1.3] Score sent via postMessage:', score);
         return true;
       }
