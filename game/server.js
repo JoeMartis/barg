@@ -18,9 +18,9 @@ if (!process.env.LTI_CONSUMER_KEY || !process.env.LTI_CONSUMER_SECRET) {
   console.warn('[SECURITY] Using default LTI credentials. Set LTI_CONSUMER_KEY and LTI_CONSUMER_SECRET environment variables for production.');
 }
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.text({ type: 'application/xml' }));
+app.use(express.urlencoded({ extended: true, limit: '100kb' }));
+app.use(express.json({ limit: '100kb' }));
+app.use(express.text({ type: 'application/xml', limit: '100kb' }));
 
 // Serve static game files
 app.use(express.static(path.join(__dirname)));
@@ -114,7 +114,7 @@ app.get('/lti/config.xml', (req, res) => {
   <blti:extensions platform="canvas.instructure.com">
     <lticm:property name="tool_id">ai_ethics_quest</lticm:property>
     <lticm:property name="privacy_level">public</lticm:property>
-    <lticm:property name="domain">${req.get('host')}</lticm:property>
+    <lticm:property name="domain">${BASE_URL ? new URL(BASE_URL).host : req.get('host')}</lticm:property>
   </blti:extensions>
 
   <cartridge_bundle identifierref="BLTI001_Bundle"/>
