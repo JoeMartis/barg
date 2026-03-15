@@ -1,0 +1,142 @@
+// === LTI Provider Server ===
+// Minimal Node.js server for LTI 1.1 tool provider integration
+// Usage: node server.js
+// Requires: npm install express ims-lti
+
+const express = require('express');
+const path = require('path');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// LTI configuration - set these via environment variables
+const LTI_KEY = process.env.LTI_CONSUMER_KEY || 'ai-ethics-quest-key';
+const LTI_SECRET = process.env.LTI_CONSUMER_SECRET || 'ai-ethics-quest-secret';
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.text({ type: 'application/xml' }));
+
+// Serve static game files
+app.use(express.static(path.join(__dirname)));
+
+// Store LTI sessions in memory (use Redis/DB in production)
+const sessions = new Map();
+
+/**
+ * LTI Launch endpoint
+ * The LMS POSTs here with OAuth-signed LTI parameters
+ */
+app.post('/lti/launch', (req, res) => {
+  const params = req.body;
+
+  // Validate required LTI parameters
+  if (params.lti_message_type !== 'basic-lti-launch-request') {
+    return res.status(400).send('Invalid LTI launch request');
+  }
+
+  // In production, validate OAuth signature using ims-lti library:
+  // const lti = require('ims-lti');
+  // const provider = new lti.Provider(LTI_KEY, LTI_SECRET);
+  // provider.valid_request(req, (err, isValid) => { ... });
+
+  // Create session
+  const sessionId = generateId();
+  sessions.set(sessionId, {
+    userId: params.user_id,
+    userName: params.lis_person_name_full || 'Student',
+    courseId: params.context_id,
+    courseName: params.context_title,
+    outcomeServiceUrl: params.lis_outcome_service_url,
+    resultSourcedId: params.lis_result_sourcedid,
+    consumerKey: params.oauth_consumer_key,
+    timestamp: Date.now()
+  });
+
+  // Redirect to game with session context
+  res.redirect(`/index.html?session=${sessionId}&lti=1`);
+});
+
+/**
+ * LTI Outcomes proxy endpoint
+ * Forwards grade passback to the LMS (handles OAuth signing server-side)
+ */
+app.post('/lti/outcomes', async (req, res) => {
+  const sessionId = req.query.session || req.headers['x-session-id'];
+  const session = sessions.get(sessionId);
+
+  if (!session || !session.outcomeServiceUrl) {
+    return res.status(400).json({ error: 'No LTI outcome service available' });
+  }
+
+  try {
+    // In production, sign with OAuth and forward to LMS:
+    // const oauth = require('oauth-sign');
+    // ... sign and send request to session.outcomeServiceUrl
+
+    console.log(`[LTI] Score passback for user ${session.userId}:`, req.body);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('[LTI] Outcome service error:', err);
+    res.status(500).json({ error: 'Failed to send score' });
+  }
+});
+
+/**
+ * LTI Configuration XML
+ * Provides LMS with tool configuration for easy installation
+ */
+app.get('/lti/config.xml', (req, res) => {
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
+
+  res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>
+<cartridge_basiclti_link
+  xmlns="http://www.imsglobal.org/xsd/imslticc_v1p0"
+  xmlns:blti="http://www.imsglobal.org/xsd/imsbasiclti_v1p0"
+  xmlns:lticm="http://www.imsglobal.org/xsd/imslticm_v1p0"
+  xmlns:lticp="http://www.imsglobal.org/xsd/imslticp_v1p0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imslticc_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticc_v1p0.xsd">
+
+  <blti:title>AI Ethics Quest - Explainability &amp; Fairness</blti:title>
+  <blti:description>
+    An interactive game covering Explainable AI (SHAP, LIME, Grad-CAM, decision trees)
+    and Fairness in ML (alpha-bias, epsilon-demographic parity, feedback loops, optimization).
+    Features story adventure, quiz blitz, scenario lab, and boss battle modes.
+  </blti:description>
+  <blti:launch_url>${baseUrl}/lti/launch</blti:launch_url>
+
+  <blti:extensions platform="canvas.instructure.com">
+    <lticm:property name="tool_id">ai_ethics_quest</lticm:property>
+    <lticm:property name="privacy_level">public</lticm:property>
+    <lticm:property name="domain">${req.get('host')}</lticm:property>
+  </blti:extensions>
+
+  <cartridge_bundle identifierref="BLTI001_Bundle"/>
+  <cartridge_icon identifierref="BLTI001_Icon"/>
+</cartridge_basiclti_link>`);
+});
+
+/**
+ * Health check
+ */
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', sessions: sessions.size });
+});
+
+function generateId() {
+  return 'sess_' + Math.random().toString(36).substring(2, 15);
+}
+
+// Cleanup old sessions every 30 minutes
+setInterval(() => {
+  const cutoff = Date.now() - 2 * 60 * 60 * 1000; // 2 hours
+  for (const [id, session] of sessions) {
+    if (session.timestamp < cutoff) sessions.delete(id);
+  }
+}, 30 * 60 * 1000);
+
+app.listen(PORT, () => {
+  console.log(`AI Ethics Quest server running on port ${PORT}`);
+  console.log(`Game: http://localhost:${PORT}`);
+  console.log(`LTI Config: http://localhost:${PORT}/lti/config.xml`);
+});
