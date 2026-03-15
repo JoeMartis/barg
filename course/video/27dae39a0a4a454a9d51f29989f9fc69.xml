@@ -1,0 +1,11 @@
+<video url_name="27dae39a0a4a454a9d51f29989f9fc69" sub="" transcripts="{&quot;en&quot;: &quot;07f16829-66f6-4b47-b175-3aacc0fd2c74-en.srt&quot;}" display_name="L1.1 Why Should AI Be Explainable " download_track="true" download_video="true" edx_video_id="07f16829-66f6-4b47-b175-3aacc0fd2c74" html5_sources="[&quot;https://d3tsb3m56iwvoq.cloudfront.net/transcoded/07f1682966f64b47b1753aacc0fd2c74/video__index.m3u8&quot;]" youtube_id_1_0="">
+  <source src="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/07f1682966f64b47b1753aacc0fd2c74/video__index.m3u8"/>
+  <video_asset client_video_id="M14_L1_S1_v2.mp4" duration="472.208" image="">
+    <encoded_video profile="hls" url="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/07f1682966f64b47b1753aacc0fd2c74/video__index.m3u8" file_size="0" bitrate="0"/>
+    <encoded_video profile="desktop_mp4" url="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/07f1682966f64b47b1753aacc0fd2c74/video_custom.mp4" file_size="0" bitrate="0"/>
+    <transcripts>
+      <transcript language_code="en" file_format="srt" provider="Custom"/>
+    </transcripts>
+  </video_asset>
+  <transcript language="en" src="07f16829-66f6-4b47-b175-3aacc0fd2c74-en.srt"/>
+</video>

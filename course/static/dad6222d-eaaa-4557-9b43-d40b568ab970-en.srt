@@ -1,0 +1,640 @@
+0
+00:00:00,000 --> 00:00:01,820
+INSTRUCTOR: The explanations presented
+
+1
+00:00:01,820 --> 00:00:04,730
+earlier represent ideal scenarios
+
+2
+00:00:04,730 --> 00:00:08,550
+of how AI systems should justify their predictions.
+
+3
+00:00:08,550 --> 00:00:11,210
+The reality is that machine learning
+
+4
+00:00:11,210 --> 00:00:15,660
+based AI systems, especially the most accurate ones,
+
+5
+00:00:15,660 --> 00:00:19,430
+do not inherently operate within such
+
+6
+00:00:19,430 --> 00:00:23,240
+a structured symbolic knowledge framework.
+
+7
+00:00:23,240 --> 00:00:27,210
+Most successful AI models, like deep learning systems,
+
+8
+00:00:27,210 --> 00:00:31,520
+operate by identifying statistical complex patterns
+
+9
+00:00:31,520 --> 00:00:36,680
+in data rather than applying explicit symbolic reasoning.
+
+10
+00:00:36,680 --> 00:00:40,560
+While AI can provide highly accurate predictions,
+
+11
+00:00:40,560 --> 00:00:43,880
+it often lacks the ability to articulate the reasons
+
+12
+00:00:43,880 --> 00:00:47,150
+behind these predictions in a manner that aligns
+
+13
+00:00:47,150 --> 00:00:49,670
+with human-like reasoning.
+
+14
+00:00:49,670 --> 00:00:52,820
+This limitation makes it difficult to extract
+
+15
+00:00:52,820 --> 00:00:56,070
+explanations that are meaningful to humans,
+
+16
+00:00:56,070 --> 00:01:01,050
+because AI models don't inherently comprehend concepts
+
+17
+00:01:01,050 --> 00:01:03,900
+in the same way humans do.
+
+18
+00:01:03,900 --> 00:01:09,090
+So post-hoc interpretations of AI models can be challenging.
+
+19
+00:01:09,090 --> 00:01:12,420
+Rather than revealing the actual reasoning process
+
+20
+00:01:12,420 --> 00:01:14,970
+behind the prediction, models often
+
+21
+00:01:14,970 --> 00:01:17,880
+provide general justifications that
+
+22
+00:01:17,880 --> 00:01:20,410
+make the decision appear valid.
+
+23
+00:01:20,410 --> 00:01:23,340
+Consequently, post-hoc explanations
+
+24
+00:01:23,340 --> 00:01:27,960
+may not accurately reflect the exact thought process
+
+25
+00:01:27,960 --> 00:01:31,170
+that led to an AI prediction.
+
+26
+00:01:31,170 --> 00:01:34,750
+Let's illustrate this concept with a simple example.
+
+27
+00:01:34,750 --> 00:01:39,460
+Imagine an AI system trained to classify images of animals.
+
+28
+00:01:39,460 --> 00:01:42,720
+Its training data, data set D, includes
+
+29
+00:01:42,720 --> 00:01:47,550
+images of various animals like tigers and domestic cats.
+
+30
+00:01:47,550 --> 00:01:51,480
+During the training phase, the parameters of a predictor H
+
+31
+00:01:51,480 --> 00:01:54,540
+are adjusted to accurately classify
+
+32
+00:01:54,540 --> 00:01:56,590
+the images in the data set.
+
+33
+00:01:56,590 --> 00:02:00,080
+The goal is to achieve generalization.
+
+34
+00:02:00,080 --> 00:02:04,150
+Remember, this means ensuring that the model correctly
+
+35
+00:02:04,150 --> 00:02:10,360
+labels unseen animal images while avoiding overfitting.
+
+36
+00:02:10,360 --> 00:02:13,330
+During the inference phase, the predictor
+
+37
+00:02:13,330 --> 00:02:17,050
+processes unseen images and assigns
+
+38
+00:02:17,050 --> 00:02:21,220
+them a label, for example, tiger or domestic cat.
+
+39
+00:02:21,220 --> 00:02:24,350
+Of course, labeling can be challenging,
+
+40
+00:02:24,350 --> 00:02:28,660
+as some animal images may be more difficult to classify
+
+41
+00:02:28,660 --> 00:02:30,160
+than others.
+
+42
+00:02:30,160 --> 00:02:34,570
+Since a human can often identify key features or patterns
+
+43
+00:02:34,570 --> 00:02:38,360
+at a glance and label an image as a tiger,
+
+44
+00:02:38,360 --> 00:02:42,460
+a question arises, can we semantically explain
+
+45
+00:02:42,460 --> 00:02:46,130
+how we recognize these features or patterns?
+
+46
+00:02:46,130 --> 00:02:49,570
+Can we describe the cognitive process
+
+47
+00:02:49,570 --> 00:02:53,180
+behind this identification and labeling?
+
+48
+00:02:53,180 --> 00:02:57,430
+And most importantly, what technical requirements
+
+49
+00:02:57,430 --> 00:02:59,840
+would be necessary for the predictor
+
+50
+00:02:59,840 --> 00:03:04,370
+to achieve a similar level of explainability?
+
+51
+00:03:04,370 --> 00:03:09,140
+Addressing these questions is crucial to ensure that AI models
+
+52
+00:03:09,140 --> 00:03:13,160
+not only accurately classify data, but also
+
+53
+00:03:13,160 --> 00:03:16,490
+provide the real explanations and reasoning
+
+54
+00:03:16,490 --> 00:03:18,680
+behind their prediction.
+
+55
+00:03:18,680 --> 00:03:22,160
+Providing semantic explanations for labeling an image
+
+56
+00:03:22,160 --> 00:03:25,670
+as a tiger or a domestic cat requires
+
+57
+00:03:25,670 --> 00:03:28,070
+describing the typical characteristics
+
+58
+00:03:28,070 --> 00:03:30,800
+that distinguish these animals.
+
+59
+00:03:30,800 --> 00:03:33,680
+For example, distinguishing characteristics
+
+60
+00:03:33,680 --> 00:03:37,710
+could be visual, structural, and behavioral.
+
+61
+00:03:37,710 --> 00:03:42,000
+A tiger is typically characterized by its large size,
+
+62
+00:03:42,000 --> 00:03:45,570
+muscular build, orange fur with black stripes,
+
+63
+00:03:45,570 --> 00:03:48,450
+and distinctive facial markings.
+
+64
+00:03:48,450 --> 00:03:52,800
+In contrast, a domestic cat is significantly smaller,
+
+65
+00:03:52,800 --> 00:03:56,000
+has a more varied fur pattern, and has
+
+66
+00:03:56,000 --> 00:04:00,030
+different body proportions and facial structures.
+
+67
+00:04:00,030 --> 00:04:03,900
+By defining these features, we establish a context
+
+68
+00:04:03,900 --> 00:04:07,890
+for semantic explanations, enabling both humans and AI
+
+69
+00:04:07,890 --> 00:04:13,230
+models to articulate why a particular image belongs to one
+
+70
+00:04:13,230 --> 00:04:15,870
+category rather than another.
+
+71
+00:04:15,870 --> 00:04:19,060
+With a certain level of abstraction,
+
+72
+00:04:19,060 --> 00:04:24,040
+we can identify features that distinguish between categories,
+
+73
+00:04:24,040 --> 00:04:28,020
+even though some characteristics may overlap and create
+
+74
+00:04:28,020 --> 00:04:30,070
+similarities in appearance.
+
+75
+00:04:30,070 --> 00:04:33,960
+These features help in recognizing patterns that
+
+76
+00:04:33,960 --> 00:04:37,140
+are crucial for classification.
+
+77
+00:04:37,140 --> 00:04:41,070
+For instance, both tigers and certain domestic cats
+
+78
+00:04:41,070 --> 00:04:44,400
+may share striped fur patterns, but factors
+
+79
+00:04:44,400 --> 00:04:48,540
+like size, body proportions, facial structures, and muscle
+
+80
+00:04:48,540 --> 00:04:53,100
+build can help draw clearer distinctions.
+
+81
+00:04:53,100 --> 00:04:56,160
+While similarities do exist, focusing
+
+82
+00:04:56,160 --> 00:04:58,810
+on the most discriminative features
+
+83
+00:04:58,810 --> 00:05:02,350
+makes classification easier, whether performed
+
+84
+00:05:02,350 --> 00:05:05,590
+by humans or AI systems.
+
+85
+00:05:05,590 --> 00:05:09,070
+The table summarizes these features.
+
+86
+00:05:09,070 --> 00:05:11,560
+Explanations based on these features
+
+87
+00:05:11,560 --> 00:05:13,820
+can be highly informative.
+
+88
+00:05:13,820 --> 00:05:17,200
+For example, instance A was classified
+
+89
+00:05:17,200 --> 00:05:22,250
+as a tiger due to its bold black stripes, orange coat,
+
+90
+00:05:22,250 --> 00:05:28,720
+large muscular build, and broad face with small rounded ears.
+
+91
+00:05:28,720 --> 00:05:32,800
+Or instance B was classified as a domestic cat
+
+92
+00:05:32,800 --> 00:05:37,030
+due to its small body size, thinner build,
+
+93
+00:05:37,030 --> 00:05:43,630
+rounder eyes, narrow, irregular stripes, and long, thin tail.
+
+94
+00:05:43,630 --> 00:05:45,910
+Of course, there are also other contexts
+
+95
+00:05:45,910 --> 00:05:48,980
+in which explanation can be extracted,
+
+96
+00:05:48,980 --> 00:05:53,410
+referring to the different image backgrounds, a jungle setting
+
+97
+00:05:53,410 --> 00:05:58,020
+for a and an indoor environment for B.
+
+98
+00:05:58,020 --> 00:06:01,440
+And so the question is, in which context
+
+99
+00:06:01,440 --> 00:06:06,870
+is the predictors functioning most effectively described?
+
+100
+00:06:06,870 --> 00:06:10,990
+Shifting our focus to the human brain's recognition process,
+
+101
+00:06:10,990 --> 00:06:15,510
+it appears that humans rely on a complex interplay
+
+102
+00:06:15,510 --> 00:06:19,470
+of visual processing, memory, experience, and cognitive
+
+103
+00:06:19,470 --> 00:06:23,700
+reasoning to identify objects and entities.
+
+104
+00:06:23,700 --> 00:06:26,280
+Unlike symbolic reasoning, this process
+
+105
+00:06:26,280 --> 00:06:31,330
+is not entirely transparent or explicitly rule based.
+
+106
+00:06:31,330 --> 00:06:34,740
+Instead, recognition often occurs
+
+107
+00:06:34,740 --> 00:06:40,020
+intuitively and subconsciously, saved by learned patterns
+
+108
+00:06:40,020 --> 00:06:41,880
+and prior experience.
+
+109
+00:06:41,880 --> 00:06:46,840
+In borderline cases, ambiguous situations, or when explaining,
+
+110
+00:06:46,840 --> 00:06:51,510
+humans can engage in deliberate thinking and reasoning
+
+111
+00:06:51,510 --> 00:06:55,800
+to refine or describe their classification.
+
+112
+00:06:55,800 --> 00:06:59,180
+AI predictors, such as deep neural networks,
+
+113
+00:06:59,180 --> 00:07:03,340
+rely on nonlinear processes to make predictions.
+
+114
+00:07:03,340 --> 00:07:07,150
+Deep neural networks learn intricate patterns
+
+115
+00:07:07,150 --> 00:07:10,000
+from vast amounts of data, making
+
+116
+00:07:10,000 --> 00:07:14,230
+their decision-making process challenging to interpret.
+
+117
+00:07:14,230 --> 00:07:18,790
+Their predictions emerge through layered transformations
+
+118
+00:07:18,790 --> 00:07:24,850
+of input data and abstract features that may not always be
+
+119
+00:07:24,850 --> 00:07:28,090
+directly explainable to humans.
+
+120
+00:07:28,090 --> 00:07:31,880
+While their accuracy can be highly impressive,
+
+121
+00:07:31,880 --> 00:07:34,180
+the lack of transparent reasoning
+
+122
+00:07:34,180 --> 00:07:37,570
+poses challenges in understanding and validating
+
+123
+00:07:37,570 --> 00:07:42,460
+their decisions, necessitating post-hoc explanation techniques
+
+124
+00:07:42,460 --> 00:07:48,460
+to approximate their internal logic in human terms.
+
+125
+00:07:48,460 --> 00:07:51,520
+However, there is a risk in relying
+
+126
+00:07:51,520 --> 00:07:56,550
+on post-hoc explanations that approximate the internal logic
+
+127
+00:07:56,550 --> 00:07:57,990
+in human terms.
+
+128
+00:07:57,990 --> 00:08:01,460
+They may provide intuitive descriptions
+
+129
+00:08:01,460 --> 00:08:07,400
+that might not accurately reflect how the system actually
+
+130
+00:08:07,400 --> 00:08:10,220
+makes its predictions, especially
+
+131
+00:08:10,220 --> 00:08:13,040
+in the presence of bias.
+
+132
+00:08:13,040 --> 00:08:16,880
+Deep neural networks excel at detecting statistical patterns
+
+133
+00:08:16,880 --> 00:08:18,570
+within data sets.
+
+134
+00:08:18,570 --> 00:08:21,720
+If the training data contains bias,
+
+135
+00:08:21,720 --> 00:08:26,840
+the model may learn and reinforce these biases.
+
+136
+00:08:26,840 --> 00:08:29,730
+Explanations should not obscure this issue,
+
+137
+00:08:29,730 --> 00:08:32,360
+but instead highlight it.
+
+138
+00:08:32,360 --> 00:08:35,669
+Rather than simply justifying a prediction,
+
+139
+00:08:35,669 --> 00:08:38,690
+an explanation should help reveal
+
+140
+00:08:38,690 --> 00:08:43,370
+whether biases in the data influence the outcome.
+
+141
+00:08:43,370 --> 00:08:45,480
+Consider the following example.
+
+142
+00:08:45,480 --> 00:08:50,090
+An AI model is employed to help to approve or reject
+
+143
+00:08:50,090 --> 00:08:54,200
+loan applications by analyzing applicant data.
+
+144
+00:08:54,200 --> 00:08:58,620
+The system was trained on historical financial records
+
+145
+00:08:58,620 --> 00:09:00,780
+that contain biases.
+
+146
+00:09:00,780 --> 00:09:05,010
+In the past, applicants from specific neighborhoods
+
+147
+00:09:05,010 --> 00:09:09,910
+were denied loans due to systemic inequalities.
+
+148
+00:09:09,910 --> 00:09:14,010
+Suppose that an applicant from a historical underprivileged
+
+149
+00:09:14,010 --> 00:09:18,390
+neighborhood applies for a loan and is rejected
+
+150
+00:09:18,390 --> 00:09:23,220
+by the AI system that encodes the statistical relevance that
+
+151
+00:09:23,220 --> 00:09:26,490
+is a result of bias in this case.
+
+152
+00:09:26,490 --> 00:09:29,280
+A standard misleading explanation
+
+153
+00:09:29,280 --> 00:09:32,730
+could be the loan application was rejected
+
+154
+00:09:32,730 --> 00:09:36,780
+because the applicant's income and credit score did not
+
+155
+00:09:36,780 --> 00:09:40,470
+meet the required threshold, while the real reason
+
+156
+00:09:40,470 --> 00:09:44,560
+is the underprivileged neighborhood of the applicant.
+
+157
+00:09:44,560 --> 00:09:47,190
+In this case, the correct explanation
+
+158
+00:09:47,190 --> 00:09:51,060
+should be the applicant's residential area
+
+159
+00:09:51,060 --> 00:09:56,000
+is the significant factor for rejecting the loan application.
+

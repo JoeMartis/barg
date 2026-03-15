@@ -1,0 +1,668 @@
+0
+00:00:00,000 --> 00:00:04,760
+INSTRUCTOR: In this lecture, we'll discuss fairness and bias
+
+1
+00:00:04,760 --> 00:00:07,040
+in machine learning.
+
+2
+00:00:07,040 --> 00:00:08,660
+The problem we will be addressing
+
+3
+00:00:08,660 --> 00:00:11,720
+is the problem of systemic bias.
+
+4
+00:00:11,720 --> 00:00:15,780
+Systemic bias with respect to gender, race, and ethnicity,
+
+5
+00:00:15,780 --> 00:00:20,840
+often unconscious, but is prevalent in data sets involving
+
+6
+00:00:20,840 --> 00:00:23,480
+choices made by people.
+
+7
+00:00:23,480 --> 00:00:27,110
+Some examples include data sets related
+
+8
+00:00:27,110 --> 00:00:33,450
+to human choices like college admissions, hiring, lending,
+
+9
+00:00:33,450 --> 00:00:36,470
+or parole decisions that discriminate
+
+10
+00:00:36,470 --> 00:00:40,070
+against African-Americans or women.
+
+11
+00:00:40,070 --> 00:00:44,030
+Let me discuss the definitions of diversity and meritocracy
+
+12
+00:00:44,030 --> 00:00:45,960
+that is relevant in this lecture.
+
+13
+00:00:45,960 --> 00:00:51,170
+Diversity is defined as the practice of including people
+
+14
+00:00:51,170 --> 00:00:55,950
+from a range of different social and ethnic backgrounds,
+
+15
+00:00:55,950 --> 00:01:00,470
+and of different genders and sexual orientation.
+
+16
+00:01:00,470 --> 00:01:02,990
+Meritocracy is defined as the practice
+
+17
+00:01:02,990 --> 00:01:07,040
+of selecting people when a choice is made based
+
+18
+00:01:07,040 --> 00:01:10,700
+on achievement, as opposed to wealth or membership
+
+19
+00:01:10,700 --> 00:01:14,270
+in a special social class.
+
+20
+00:01:14,270 --> 00:01:18,290
+Often in practice, these two goals are in conflict,
+
+21
+00:01:18,290 --> 00:01:21,990
+and we observe an inherent trade-off between them.
+
+22
+00:01:21,990 --> 00:01:26,570
+Society has found it challenging to alleviate such bias
+
+23
+00:01:26,570 --> 00:01:30,710
+and achieve diversity in a way that maintains meritocracy
+
+24
+00:01:30,710 --> 00:01:32,480
+in these settings.
+
+25
+00:01:32,480 --> 00:01:37,250
+In recent years, due to the growing volume of applications
+
+26
+00:01:37,250 --> 00:01:40,620
+in college admission, hiring, lending, et cetera,
+
+27
+00:01:40,620 --> 00:01:44,450
+machine learning models are being increasingly employed
+
+28
+00:01:44,450 --> 00:01:47,870
+for such classification problems.
+
+29
+00:01:47,870 --> 00:01:53,390
+It has been shown that without appropriate intervention
+
+30
+00:01:53,390 --> 00:01:57,050
+during training or evaluation, classification models
+
+31
+00:01:57,050 --> 00:02:02,090
+train on such data sets can be biased against certain groups
+
+32
+00:02:02,090 --> 00:02:04,760
+of individuals.
+
+33
+00:02:04,760 --> 00:02:08,710
+Of course, we can apply simple remedies, for example,
+
+34
+00:02:08,710 --> 00:02:12,310
+ignoring the protected attributes, for example, gender,
+
+35
+00:02:12,310 --> 00:02:14,040
+race, ethnicity, et cetera.
+
+36
+00:02:14,040 --> 00:02:18,060
+But such practices are largely ineffective
+
+37
+00:02:18,060 --> 00:02:22,350
+due to the other factors being correlated with the protected
+
+38
+00:02:22,350 --> 00:02:24,360
+attributes.
+
+39
+00:02:24,360 --> 00:02:28,960
+The data can be inherently biased in possibly complex ways,
+
+40
+00:02:28,960 --> 00:02:32,850
+thus making it difficult to alleviate bias.
+
+41
+00:02:32,850 --> 00:02:37,230
+Of course, there is price on inaction.
+
+42
+00:02:37,230 --> 00:02:41,900
+Classification models that are actively trained on such data
+
+43
+00:02:41,900 --> 00:02:44,850
+sets become more biased over time
+
+44
+00:02:44,850 --> 00:02:48,180
+through feedback loops, wherein the bias
+
+45
+00:02:48,180 --> 00:02:52,560
+against a certain subpopulation can be amplified.
+
+46
+00:02:52,560 --> 00:02:56,410
+Feedback loops have been observed in predictive policing,
+
+47
+00:02:56,410 --> 00:03:01,620
+for example, credit markets, or many other applications.
+
+48
+00:03:01,620 --> 00:03:03,750
+Let me give you an example of the notion
+
+49
+00:03:03,750 --> 00:03:07,530
+of feedback loop in the context of predictive policing.
+
+50
+00:03:07,530 --> 00:03:10,980
+So whenever we encounter more crimes and arrests
+
+51
+00:03:10,980 --> 00:03:14,280
+in a particular neighborhood, this
+
+52
+00:03:14,280 --> 00:03:18,340
+results in an update of the crime database.
+
+53
+00:03:18,340 --> 00:03:22,240
+And of course, based on this updated database,
+
+54
+00:03:22,240 --> 00:03:24,010
+we train a predictive model.
+
+55
+00:03:24,010 --> 00:03:29,760
+This results in deploying more law enforcement resources
+
+56
+00:03:29,760 --> 00:03:33,630
+in these certain neighborhoods.
+
+57
+00:03:33,630 --> 00:03:36,810
+This means that there is an encounter more
+
+58
+00:03:36,810 --> 00:03:39,310
+crimes and arrests in these neighborhoods,
+
+59
+00:03:39,310 --> 00:03:42,720
+and the feedback loop continues.
+
+60
+00:03:42,720 --> 00:03:45,750
+Let me illustrate what we'll do today
+
+61
+00:03:45,750 --> 00:03:49,890
+using a data set involving law students.
+
+62
+00:03:49,890 --> 00:03:55,050
+This data set examines whether the bar exam taken
+
+63
+00:03:55,050 --> 00:03:57,210
+by law students in the United States
+
+64
+00:03:57,210 --> 00:04:02,340
+is biased against ethnic minorities, especially
+
+65
+00:04:02,340 --> 00:04:04,290
+Black students.
+
+66
+00:04:04,290 --> 00:04:07,740
+The data set also contains anonymized historical
+
+67
+00:04:07,740 --> 00:04:14,350
+information, including age, LSAT scores, law school GPA,
+
+68
+00:04:14,350 --> 00:04:17,920
+and undergraduate GPA.
+
+69
+00:04:17,920 --> 00:04:20,930
+To mathematize the information we'll present,
+
+70
+00:04:20,930 --> 00:04:22,930
+I'm going to use the following notation
+
+71
+00:04:22,930 --> 00:04:27,370
+that each of the students is assigned an outcome, minus 1
+
+72
+00:04:27,370 --> 00:04:32,770
+or plus 1, representing passing, plus 1, or failing, minus 1,
+
+73
+00:04:32,770 --> 00:04:35,980
+of the bar exam taken by the student.
+
+74
+00:04:35,980 --> 00:04:43,030
+We define the set w to be the set of white students, the set
+
+75
+00:04:43,030 --> 00:04:46,690
+capital B to be the set of Black students,
+
+76
+00:04:46,690 --> 00:04:52,300
+and then we denote by nw, the total number of white students
+
+77
+00:04:52,300 --> 00:04:56,860
+that have taken the exam, and b, the total number
+
+78
+00:04:56,860 --> 00:05:00,220
+of Black students who have taken the exam,
+
+79
+00:05:00,220 --> 00:05:03,130
+pw is the total number of white students
+
+80
+00:05:03,130 --> 00:05:06,970
+who have passed the exam, and pb,
+
+81
+00:05:06,970 --> 00:05:09,490
+the total number of Black students
+
+82
+00:05:09,490 --> 00:05:12,010
+who have passed the exam.
+
+83
+00:05:12,010 --> 00:05:16,010
+So we need to define what does it mean
+
+84
+00:05:16,010 --> 00:05:17,760
+to for a data set to be biased.
+
+85
+00:05:17,760 --> 00:05:20,420
+We utilize the notion of alpha bias,
+
+86
+00:05:20,420 --> 00:05:23,040
+alpha is a number between 0 and 1.
+
+87
+00:05:23,040 --> 00:05:25,100
+So we call a data set to be alpha
+
+88
+00:05:25,100 --> 00:05:28,700
+biased if the difference between the rates
+
+89
+00:05:28,700 --> 00:05:33,830
+of positive observation among the group of white students
+
+90
+00:05:33,830 --> 00:05:38,900
+and the group of Black students is at least alpha.
+
+91
+00:05:38,900 --> 00:05:43,730
+In other words, the percentage of white students
+
+92
+00:05:43,730 --> 00:05:48,170
+that have passed the exam minus the percentage of Black students
+
+93
+00:05:48,170 --> 00:05:52,040
+that have passed the exam, this difference is above a threshold
+
+94
+00:05:52,040 --> 00:05:52,560
+alpha.
+
+95
+00:05:52,560 --> 00:05:56,130
+In that case, the data set is alpha biased.
+
+96
+00:05:56,130 --> 00:05:59,550
+For example, if it's, let's say, 50%,
+
+97
+00:05:59,550 --> 00:06:03,930
+it means that the percentages are 50% apart,
+
+98
+00:06:03,930 --> 00:06:06,590
+an undesirable effect.
+
+99
+00:06:06,590 --> 00:06:10,880
+Let me define the notion of demographic parity.
+
+100
+00:06:10,880 --> 00:06:14,130
+So demographic parity of a classifier,
+
+101
+00:06:14,130 --> 00:06:18,540
+this is a system that decides who gets a positive outcome,
+
+102
+00:06:18,540 --> 00:06:21,630
+passes the bar exam, versus does not pass.
+
+103
+00:06:21,630 --> 00:06:23,310
+The definition is as follows.
+
+104
+00:06:23,310 --> 00:06:27,290
+If you take the percentage of white people who
+
+105
+00:06:27,290 --> 00:06:30,140
+pass the exam based on this classifier,
+
+106
+00:06:30,140 --> 00:06:32,180
+minus the percentage of Black people
+
+107
+00:06:32,180 --> 00:06:35,100
+who pass the exam based on this classifier,
+
+108
+00:06:35,100 --> 00:06:36,650
+this difference, the absolute value,
+
+109
+00:06:36,650 --> 00:06:40,130
+is less than some value epsilon, let's say, 1%, epsilon
+
+110
+00:06:40,130 --> 00:06:42,090
+equals 0.01.
+
+111
+00:06:42,090 --> 00:06:47,000
+In that case, we have parity, which is a desirable outcome
+
+112
+00:06:47,000 --> 00:06:51,330
+so that we have some notion of fairness.
+
+113
+00:06:51,330 --> 00:06:55,220
+So let me give you an example of such demographic parity.
+
+114
+00:06:55,220 --> 00:06:57,020
+Let's say we have two subpopulations,
+
+115
+00:06:57,020 --> 00:07:00,200
+subpopulation A and subpopulation B.
+
+116
+00:07:00,200 --> 00:07:07,050
+On the top left, we see that, out of 6 people,
+
+117
+00:07:07,050 --> 00:07:09,990
+4 had a positive outcome, passed the exam,
+
+118
+00:07:09,990 --> 00:07:14,250
+whereas on the subgroup B, out of the 6, 2 pass the exam.
+
+119
+00:07:14,250 --> 00:07:20,790
+So in this case, the data set is alpha equals 1/3 bias, so 1/3,
+
+120
+00:07:20,790 --> 00:07:27,860
+the difference is 4/6 minus 2/6, that's 1/3.
+
+121
+00:07:27,860 --> 00:07:32,360
+And then on the right, we see 3 out of 6
+
+122
+00:07:32,360 --> 00:07:36,830
+on the subgroup A who passed the exam, and 3 out of 6
+
+123
+00:07:36,830 --> 00:07:39,270
+on subgroup B that pass the exam.
+
+124
+00:07:39,270 --> 00:07:41,070
+So in this case, alpha equals 0.
+
+125
+00:07:41,070 --> 00:07:43,940
+That is demographic parity.
+
+126
+00:07:43,940 --> 00:07:48,260
+So now let me go into the key proposed solution.
+
+127
+00:07:48,260 --> 00:07:53,510
+So what we do is we allow to flip the outcome
+
+128
+00:07:53,510 --> 00:07:57,830
+labels while training the model to achieve parity.
+
+129
+00:07:57,830 --> 00:08:00,800
+And in particular, we're going to use optimization
+
+130
+00:08:00,800 --> 00:08:03,030
+to flip in an optimal way.
+
+131
+00:08:03,030 --> 00:08:06,920
+So we propose a mixed integer optimization
+
+132
+00:08:06,920 --> 00:08:12,000
+of the type you have seen in the area of prescriptive AI.
+
+133
+00:08:12,000 --> 00:08:14,525
+So we used mixed integer optimization, MIO,
+
+134
+00:08:14,525 --> 00:08:22,130
+for short, that introduces a variable Zi, 0 or 1,
+
+135
+00:08:22,130 --> 00:08:26,860
+to decide which outcome label to flip.
+
+136
+00:08:26,860 --> 00:08:31,500
+For example, a particular student
+
+137
+00:08:31,500 --> 00:08:35,919
+who was originally assigned plus 1, meaning passed the exam.
+
+138
+00:08:35,919 --> 00:08:38,440
+And if Zi equals 1, we flip.
+
+139
+00:08:38,440 --> 00:08:41,169
+So this Yi become minus 1.
+
+140
+00:08:41,169 --> 00:08:44,610
+And similarly, if Yi was minus 1, it did not pass the exam
+
+141
+00:08:44,610 --> 00:08:48,160
+and we flip, we make it Yi plus 1,
+
+142
+00:08:48,160 --> 00:08:51,420
+meaning the person passed the exam.
+
+143
+00:08:51,420 --> 00:08:56,430
+So if we decide to flip the outcome label of the ith
+
+144
+00:08:56,430 --> 00:09:01,590
+observation of the ith student, so the new, Yi, let's call it
+
+145
+00:09:01,590 --> 00:09:10,150
+Yí, the new Yi, is equal to Yi times 1 minus 2 times Zi.
+
+146
+00:09:10,150 --> 00:09:13,630
+In other words, if Zi is 0, we don't flip.
+
+147
+00:09:13,630 --> 00:09:18,100
+Then the new Yi is equal to Yi, we then flip it.
+
+148
+00:09:18,100 --> 00:09:23,470
+If, on the other hand, Zi is 1, 1 minus 2 Zi is minus 1.
+
+149
+00:09:23,470 --> 00:09:30,100
+So then Yí becomes minus Yi, therefore, we flipped it.
+
+150
+00:09:30,100 --> 00:09:32,450
+So of course, we need to be careful
+
+151
+00:09:32,450 --> 00:09:34,670
+how many variables we flip.
+
+152
+00:09:34,670 --> 00:09:39,040
+So we define the set of variables Zi
+
+153
+00:09:39,040 --> 00:09:43,160
+so that we only flip a portion.
+
+154
+00:09:43,160 --> 00:09:50,080
+We call it Tw of labels to flip among the white population,
+
+155
+00:09:50,080 --> 00:09:53,540
+and T subscript b proportion of labels
+
+156
+00:09:53,540 --> 00:09:58,150
+we flip in the b population, in the Black population.
+
+157
+00:09:58,150 --> 00:10:01,330
+And in order to achieve demographic parity at the level
+
+158
+00:10:01,330 --> 00:10:04,810
+epsilon, recall that this is the number of people
+
+159
+00:10:04,810 --> 00:10:08,920
+who pass the exam among the white population
+
+160
+00:10:08,920 --> 00:10:10,450
+minus the percentage of people who
+
+161
+00:10:10,450 --> 00:10:12,688
+pass the exam in the Black population,
+
+162
+00:10:12,688 --> 00:10:14,480
+this difference would be less than epsilon.
+
+163
+00:10:14,480 --> 00:10:18,670
+So we select Tw and Tb correctly,
+
+164
+00:10:18,670 --> 00:10:21,770
+as shown in the calculation.
+
+165
+00:10:21,770 --> 00:10:24,400
+Then we achieve epsilon demographic parity
+
+166
+00:10:24,400 --> 00:10:29,220
+if we flip Tw and Tb labels.
+

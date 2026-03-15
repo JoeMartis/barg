@@ -1,0 +1,18 @@
+<problem url_name="problem_33f04d9245d9d556530775c799925c3d">
+  <choiceresponse>
+    <label>Using the SHAP summary plot, consider the following pairs of patients. Assume all other features are identical unless stated otherwise. Which statements are supported by the plot?  (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">A patient with <b>high</b> <code>oldpeak</code> is generally predicted to have <b>lower risk</b> than a patient with low <code>oldpeak</code>.</choice>
+      <choice correct="false">A patient with <code>cp_0 = 1</code> is generally predicted to have <b>higher risk</b> than a patient with <code>cp_0 = 0</code></choice>
+      <choice correct="false">A patient with <b>high</b> <code>chol</code> is always predicted to have higher risk than a patient with low <code>chol</code>.</choice>
+      <choice correct="true">A patient with<code> ca_0 = 1</code> is generally predicted to have <b>higher risk</b> than a patient with <code>ca_0 = 0.</code></choice>
+      <choice correct="false">For <code>age</code>, the effect on predicted risk appears consistent in direction for all patients.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>The SHAP summary plot shows how feature values (color) relate to direction and magnitude of impact (horizontal position). For <code>oldpeak</code>, higher values (red points) tend to appear on the negative side, indicating that higher <code>oldpeak</code> generally reduces predicted risk in this model. For binary indicators like <code>cp_0</code> and <code>ca_0</code>, the SHAP plot shows that observations where the indicator is active tend to cluster on the negative side for <code>cp_0</code> and on the positive side for <code>ca_0.</code> This suggests that the presence of <code>cp_0</code> generally lowers predicted risk, while the presence of <code>ca_0</code> generally increases it in the model.In contrast, <code>chol</code> shows spread on both sides of zero, meaning its effect is not uniform across patients. Similarly, <code>age</code> displays both positive and negative SHAP values, indicating that its effect depends on context rather than having a single consistent direction.</p>
+    </div>
+  </solution>
+</problem>

@@ -1,0 +1,396 @@
+0
+00:00:00,000 --> 00:00:00,830
+
+
+1
+00:00:00,830 --> 00:00:03,020
+INSTRUCTOR: Let's describe a simple example,
+
+2
+00:00:03,020 --> 00:00:06,800
+a movie recommender that gathers and analyzes relevant data
+
+3
+00:00:06,800 --> 00:00:08,220
+and knowledge from the web.
+
+4
+00:00:08,220 --> 00:00:10,790
+Through the web, we can access relevant information
+
+5
+00:00:10,790 --> 00:00:13,290
+that can prove highly valuable for this app.
+
+6
+00:00:13,290 --> 00:00:16,190
+For example, a Google search for La La Land
+
+7
+00:00:16,190 --> 00:00:19,470
+retrieves over 4 billion results.
+
+8
+00:00:19,470 --> 00:00:22,740
+This vast pool of information is indeed rich,
+
+9
+00:00:22,740 --> 00:00:26,300
+but it also contains a considerable amount
+
+10
+00:00:26,300 --> 00:00:27,720
+of redundancy.
+
+11
+00:00:27,720 --> 00:00:30,920
+It's interesting that the data is presented by Google
+
+12
+00:00:30,920 --> 00:00:32,430
+in a structured format.
+
+13
+00:00:32,430 --> 00:00:34,400
+This means that the search engine
+
+14
+00:00:34,400 --> 00:00:37,910
+uses some type of semantics to organize the presentation
+
+15
+00:00:37,910 --> 00:00:40,190
+of the results accordingly.
+
+16
+00:00:40,190 --> 00:00:42,660
+Concerning the type of the retrieved data,
+
+17
+00:00:42,660 --> 00:00:44,930
+we see structured data about the movie,
+
+18
+00:00:44,930 --> 00:00:49,190
+like title, genre, director, actors, awards, et cetera.
+
+19
+00:00:49,190 --> 00:00:53,520
+We also see unstructured data, like text, audio, images,
+
+20
+00:00:53,520 --> 00:00:54,390
+or video.
+
+21
+00:00:54,390 --> 00:00:59,190
+Examples include movie synopsis, scripts, audio clips, trailers,
+
+22
+00:00:59,190 --> 00:01:01,140
+photos, soundtracks, and more.
+
+23
+00:01:01,140 --> 00:01:04,180
+In addition, meta information about the movie--
+
+24
+00:01:04,180 --> 00:01:08,000
+examples are ratings, reviews, and critics' assessments.
+
+25
+00:01:08,000 --> 00:01:11,080
+Finally, some user-oriented information,
+
+26
+00:01:11,080 --> 00:01:14,090
+like the user's viewing history, preferences,
+
+27
+00:01:14,090 --> 00:01:15,650
+likes, and dislikes.
+
+28
+00:01:15,650 --> 00:01:18,820
+Using AI services, the movie recommender
+
+29
+00:01:18,820 --> 00:01:22,480
+should view this diverse array of information
+
+30
+00:01:22,480 --> 00:01:26,140
+as a virtual database containing an exceptionally
+
+31
+00:01:26,140 --> 00:01:29,690
+rich and multifaceted relevant information,
+
+32
+00:01:29,690 --> 00:01:32,620
+especially if we see this information as entity
+
+33
+00:01:32,620 --> 00:01:36,320
+descriptions rather than sets of words.
+
+34
+00:01:36,320 --> 00:01:40,000
+Symbolic AI focuses on the use of symbols and rules
+
+35
+00:01:40,000 --> 00:01:42,980
+to represent and manipulate knowledge.
+
+36
+00:01:42,980 --> 00:01:46,150
+The goal is to emulate the way humans solve
+
+37
+00:01:46,150 --> 00:01:50,090
+problems using logical representations and reasoning.
+
+38
+00:01:50,090 --> 00:01:53,260
+The first challenge is the semantic data description
+
+39
+00:01:53,260 --> 00:01:56,080
+that involves understanding and representing
+
+40
+00:01:56,080 --> 00:02:00,610
+data in a semantically rich format using formal semantics
+
+41
+00:02:00,610 --> 00:02:05,560
+like common understandable names and references to domain
+
+42
+00:02:05,560 --> 00:02:06,710
+terminology.
+
+43
+00:02:06,710 --> 00:02:10,270
+This involves the process of making data more meaningful
+
+44
+00:02:10,270 --> 00:02:13,000
+and machine understandable by associations
+
+45
+00:02:13,000 --> 00:02:14,870
+with knowledge and context.
+
+46
+00:02:14,870 --> 00:02:18,460
+This allows the capture of underlying data meaning,
+
+47
+00:02:18,460 --> 00:02:22,510
+making it more valuable for decision-making.
+
+48
+00:02:22,510 --> 00:02:26,540
+In our example, given the data and terminology,
+
+49
+00:02:26,540 --> 00:02:30,220
+we can associate terms from the terminology with the schema
+
+50
+00:02:30,220 --> 00:02:31,820
+of data sources.
+
+51
+00:02:31,820 --> 00:02:34,420
+The goal is to consume data terminologies
+
+52
+00:02:34,420 --> 00:02:37,160
+and their associations-- here, for example,
+
+53
+00:02:37,160 --> 00:02:42,610
+data from IMDb and terminology from schema.org or DBpedia.org--
+
+54
+00:02:42,610 --> 00:02:47,770
+and produce useful statements with intuitive explicit meaning,
+
+55
+00:02:47,770 --> 00:02:51,100
+like has director, La La Land, Damien Chazelle;
+
+56
+00:02:51,100 --> 00:02:54,460
+and has author, La La Land, Damien Chazelle.
+
+57
+00:02:54,460 --> 00:02:56,650
+Sometimes we find the same information
+
+58
+00:02:56,650 --> 00:03:00,440
+in different data sources, for example in IMDb and Wikipedia.
+
+59
+00:03:00,440 --> 00:03:02,950
+Semantic data integration technologies
+
+60
+00:03:02,950 --> 00:03:05,940
+can help us combine and unify data.
+
+61
+00:03:05,940 --> 00:03:09,360
+This is important since in order to make decisions,
+
+62
+00:03:09,360 --> 00:03:12,470
+we first need to harmonize and interrelate
+
+63
+00:03:12,470 --> 00:03:15,510
+data from different sources to enrich it.
+
+64
+00:03:15,510 --> 00:03:18,320
+In this example, these formal statements
+
+65
+00:03:18,320 --> 00:03:23,630
+represents information collected from IMDb and Wikipedia.
+
+66
+00:03:23,630 --> 00:03:25,850
+The next step is to build technologies
+
+67
+00:03:25,850 --> 00:03:29,780
+to see the vast amount of big, heterogeneous data
+
+68
+00:03:29,780 --> 00:03:34,040
+as a single database and gather information based
+
+69
+00:03:34,040 --> 00:03:36,200
+on the meaning of the data.
+
+70
+00:03:36,200 --> 00:03:39,980
+This refers to the ability to pose possibly complex questions
+
+71
+00:03:39,980 --> 00:03:42,740
+to a large and diverse set of data
+
+72
+00:03:42,740 --> 00:03:46,700
+and get meaningful, context-sensitive answers.
+
+73
+00:03:46,700 --> 00:03:51,050
+In this example, using semantic data representation and data
+
+74
+00:03:51,050 --> 00:03:53,090
+integration, we can gather information
+
+75
+00:03:53,090 --> 00:03:57,690
+about the genre of the movie, its director, release date,
+
+76
+00:03:57,690 --> 00:03:59,340
+and production country.
+
+77
+00:03:59,340 --> 00:04:02,580
+When analyzing data from different sources,
+
+78
+00:04:02,580 --> 00:04:04,640
+we may reach conclusions that are
+
+79
+00:04:04,640 --> 00:04:08,740
+based on common knowledge of the domain using reasoning.
+
+80
+00:04:08,740 --> 00:04:13,350
+For example, it is evident that every romantic musical film
+
+81
+00:04:13,350 --> 00:04:15,280
+is also a romantic film.
+
+82
+00:04:15,280 --> 00:04:18,640
+And every romantic film is a love story.
+
+83
+00:04:18,640 --> 00:04:21,899
+Taking into account this domain knowledge and the fact
+
+84
+00:04:21,899 --> 00:04:24,670
+that La La Land is a romantic musical film,
+
+85
+00:04:24,670 --> 00:04:29,730
+we can infer that La La Land is a love story, even if it is not
+
+86
+00:04:29,730 --> 00:04:31,740
+explicitly stated.
+
+87
+00:04:31,740 --> 00:04:34,620
+This is particularly important in cases
+
+88
+00:04:34,620 --> 00:04:38,230
+that the recommender tries to retrieve love stories.
+
+89
+00:04:38,230 --> 00:04:41,380
+Here, we understand that only through reasoning,
+
+90
+00:04:41,380 --> 00:04:44,250
+we can infer that La La Land is a love story
+
+91
+00:04:44,250 --> 00:04:46,930
+and give this information to the recommender.
+
+92
+00:04:46,930 --> 00:04:49,230
+Symbolic AI technologies can help
+
+93
+00:04:49,230 --> 00:04:52,050
+to automate this human ability and possibly
+
+94
+00:04:52,050 --> 00:04:57,310
+enrich data by making explicit some implicit information.
+
+95
+00:04:57,310 --> 00:05:00,240
+This is the goal of automated reasoning, which
+
+96
+00:05:00,240 --> 00:05:02,730
+involves the use of computational methods
+
+97
+00:05:02,730 --> 00:05:08,480
+to draw inferences by making logical deductions.
+
+98
+00:05:08,480 --> 00:05:09,000
+
+

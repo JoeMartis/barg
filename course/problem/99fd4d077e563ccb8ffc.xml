@@ -1,0 +1,18 @@
+<problem url_name="problem_e9906068571de67e375483cc93b6ec3c">
+  <choiceresponse>
+    <label>Check the Lime explainer output for the second sentence: <i>“Thanks for your purchase. If anything looks incorrect, reply to this email and we’ll help.”</i> Why does this message receive a high spam probability according to LIME? (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">Words like <i>“purchase”</i> and <i>“reply”</i> strongly support the spam class.</choice>
+      <choice correct="true">The word <i>“Thanks”</i> contributes toward ham but is outweighed by other terms.</choice>
+      <choice correct="false">The model assigns spam mainly because the sentence contains multiple sentences.</choice>
+      <choice correct="false">The LIME explanation alone is sufficient to determine whether the message is truly spam in the real world.</choice>
+      <choice correct="true">The explanation shows conflicting signals resolved in favor of spam.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>The LIME explainer highlights specific words in the sentence that push the model’s prediction toward spam, most notably <i>“purchase” </i>and <i>“reply”</i>, which are commonly associated with transactional or promotional messages. At the same time, <i>“Thanks” </i>contributes toward the ham class, but its influence is smaller in magnitude. The model’s final prediction reflects the <b>combined effect of these opposing word-level contributions,</b> with the spam-supporting words dominating. Importantly, LIME explains how the model arrived at this prediction for this specific sentence; it does not judge whether the message is truly spam in a real-world sense or rely on sentence structure such as the number of sentences.</p>
+    </div>
+  </solution>
+</problem>

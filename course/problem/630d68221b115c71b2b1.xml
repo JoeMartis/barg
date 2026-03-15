@@ -1,0 +1,18 @@
+<problem url_name="problem_f61e09f6c5f6aeeea389e2dd76e882e2">
+  <choiceresponse>
+    <label>Two patients differ only as follows:<ul><li>Patient A: <code>thal_2 ≤ 0.5, oldpeak −0.151</code></li><li> Patient B: <code>thal_2 0.5, age ≤ 0.019</code></li></ul> Which statements are true?  (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">The two patients follow different paths in the tree.</choice>
+      <choice correct="true">The model uses different features to explain each patient’s prediction.</choice>
+      <choice correct="false">The tree combines features additively, like logistic regression.</choice>
+      <choice correct="false">The patients get the same prediction.</choice>
+      <choice correct="false">Both patients are evaluated using the same sequence of rules.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Decision trees explain predictions by routing patients through explicit sequences of conditional rules that end at specific leaf nodes. In this tree, Patient A and Patient B diverge at the root split on <code>thal_2</code> and are evaluated using different features thereafter (<code>oldpeak</code> for Patient A and <code>age</code> for Patient B). Because they follow different paths, they reach different leaf nodes. In this case, those leaf nodes predict different classes, which is why the two patients receive different final predictions (Patient A ends in up in one of the orange leaf nodes (no disease), while Patient B in one of the blue leaf nodes (disease)). This illustrates a key interpretability property of decision trees: both the prediction and the explanation depend on the path taken, and different patients may be classified using entirely different reasoning structures.</p>
+    </div>
+  </solution>
+</problem>

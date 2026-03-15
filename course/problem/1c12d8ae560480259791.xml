@@ -1,0 +1,17 @@
+<problem url_name="problem_ab9815361bd9d4724cbf1423a14e75d8">
+  <multiplechoiceresponse>
+    <label>A student asks: “For this one patient, which features pushed the model toward predicting disease?” Which response is most appropriate given that you currently only have the Random Forest feature importance table?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">“Use the feature importance table; it already explains individual predictions.”</choice>
+      <choice correct="false">“Look at the logistic regression coefficients; they are the same as Random Forest importance.”</choice>
+      <choice correct="true">“Use a local explainability method (e.g., SHAP values for the forest) because global feature importance does not explain individual predictions.”</choice>
+      <choice correct="false">“You can’t explain Random Forest predictions.”</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Global feature importance summarizes which features matter overall, but it does not decompose a single prediction. For patient-level explanation, you need a local method that attributes contributions for that specific case (commonly SHAP for tree models). Random Forests are explainable, but the appropriate tool depends on whether you want global understanding or local justification.</p>
+    </div>
+  </solution>
+</problem>

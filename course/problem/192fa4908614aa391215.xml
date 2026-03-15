@@ -1,0 +1,17 @@
+<problem url_name="problem_6a59229c48b4ad72a4c6d2614d3e597c">
+  <multiplechoiceresponse>
+    <label>Suppose a city hypothetically freezes police patrol allocation for one year, regardless of model predictions. During that year, arrest disparities across neighborhoods decrease. What does this suggest about the original system?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">The model’s predictions were inaccurate and needed better features</choice>
+      <choice correct="false">The original dataset lacked sufficient diversity</choice>
+      <choice correct="true">Model-driven decisions were influencing the data-generating process</choice>
+      <choice correct="false">The system was violating demographic parity constraints during deployment</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Decisions based on model predictions can shape the data that gets collected in the future. When patrol allocation is frozen, the link between prediction and data collection is broken, and disparities decrease. This indicates that the original disparities were being reinforced by the system’s own actions, not just by underlying crime rates. While demographic parity concerns fairness of outcomes, the key issue here is that the data itself was being altered by prior decisions.</p>
+    </div>
+  </solution>
+</problem>

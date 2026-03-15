@@ -1,0 +1,11 @@
+<video url_name="764711aa2e9949b59dc9e3098eb3b01a" sub="" transcripts="{&quot;en&quot;: &quot;dad6222d-eaaa-4557-9b43-d40b568ab970-en.srt&quot;}" display_name="L1.3 Challenges in Providing Accurate Explanations" download_track="true" download_video="true" edx_video_id="dad6222d-eaaa-4557-9b43-d40b568ab970" end_time="00:00:00" html5_sources="[&quot;https://d3tsb3m56iwvoq.cloudfront.net/transcoded/dad6222deaaa45579b43d40b568ab970/video__index.m3u8&quot;]" only_on_web="true" start_time="00:00:00" track="" youtube_id_1_0="">
+  <source src="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/dad6222deaaa45579b43d40b568ab970/video__index.m3u8"/>
+  <video_asset client_video_id="M14_L1_S3_v2.mp4" duration="595.791" image="">
+    <encoded_video profile="hls" url="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/dad6222deaaa45579b43d40b568ab970/video__index.m3u8" file_size="0" bitrate="0"/>
+    <encoded_video profile="desktop_mp4" url="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/dad6222deaaa45579b43d40b568ab970/video_custom.mp4" file_size="0" bitrate="0"/>
+    <transcripts>
+      <transcript language_code="en" file_format="srt" provider="Custom"/>
+    </transcripts>
+  </video_asset>
+  <transcript language="en" src="dad6222d-eaaa-4557-9b43-d40b568ab970-en.srt"/>
+</video>

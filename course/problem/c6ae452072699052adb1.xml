@@ -1,0 +1,17 @@
+<problem url_name="problem_88d7bf2983d7ad5af84e18e8cf0e4b25">
+  <multiplechoiceresponse>
+    <label>A city retrains its crime prediction model every six months using the most recent arrest data. After several retraining cycles, the same neighborhoods are consistently ranked as higher risk, even though independent crime surveys show no increase in underlying crime. What best explains this outcome?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">Improved model calibration over time</choice>
+      <choice correct="false">Noise introduced by frequent retraining</choice>
+      <choice correct="true">A feedback loop caused by decision-dependent data collection</choice>
+      <choice correct="false">Alpha bias in the original dataset only</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>This outcome reflects a feedback loop created by decision‑dependent data collection. Because patrol decisions are based on past arrests, increased policing in certain neighborhoods produces more recorded arrests, even when true crime rates remain unchanged. Those arrests then dominate the next training cycle, causing the model to reinforce the same high‑risk designations over time. The pattern persists not because underlying crime is rising, but because the data continually reflects where police have been directed to look. Improved calibration or random noise wouldn’t create a stable pattern that contradicts independent crime measures, and focusing only on the original dataset misses the fact that the ongoing reinforcement comes from how new data is generated through policing decisions.</p>
+    </div>
+  </solution>
+</problem>

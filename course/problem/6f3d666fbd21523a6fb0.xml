@@ -1,0 +1,17 @@
+<problem url_name="problem_e39165629d26ad645d2d3dea4be3bc64">
+  <choiceresponse>
+    <label>After reviewing several explanations, Stella says: “The explanations look reasonable, so I think we can trust the model.” Thomas responds: “Explanations help, but I’m not convinced that’s enough.” Based on the course examples, which statements best support Thomas’s position? (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">Interpretability tools help diagnose how a model behaves, but do not verify prediction accuracy.</choice>
+      <choice correct="false">If a prediction has a clear explanation, it must be correct.</choice>
+      <choice correct="true">Explanations can uncover spurious or unintended patterns learned by the model.</choice>
+      <choice correct="true">Trust in a model should be based on both performance evaluation and interpretability.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Interpretability reveals <i>how</i> a model is making decisions, not whether those decisions are correct in the real world. Course examples show that models can rely on spurious cues that explanations help expose. Ultimately, trust requires combining quantitative performance evaluation with qualitative understanding of model behavior—not substituting one for the other.</p>
+    </div>
+  </solution>
+</problem>

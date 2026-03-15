@@ -1,0 +1,508 @@
+0
+00:00:00,000 --> 00:00:04,880
+
+
+1
+00:00:04,880 --> 00:00:08,150
+INSTRUCTOR: Most people believe that artificial intelligence
+
+2
+00:00:08,150 --> 00:00:11,760
+is powerful and risky at the same time.
+
+3
+00:00:11,760 --> 00:00:17,090
+So ensuring AI trust and, by extension, AI transparency
+
+4
+00:00:17,090 --> 00:00:18,090
+is key.
+
+5
+00:00:18,090 --> 00:00:21,210
+From model training to decision making,
+
+6
+00:00:21,210 --> 00:00:23,840
+it is important to provide explanations
+
+7
+00:00:23,840 --> 00:00:26,820
+of how the AI system works.
+
+8
+00:00:26,820 --> 00:00:30,420
+Explaining AI systems can be challenging.
+
+9
+00:00:30,420 --> 00:00:34,740
+The right form of explanations depend on the context.
+
+10
+00:00:34,740 --> 00:00:38,090
+Explanations should be intuitive in the sense
+
+11
+00:00:38,090 --> 00:00:42,110
+that humans should be able to understand it.
+
+12
+00:00:42,110 --> 00:00:46,340
+At the same time, explanations should be accurate in the sense
+
+13
+00:00:46,340 --> 00:00:49,700
+that they should ensure that AI systems
+
+14
+00:00:49,700 --> 00:00:51,690
+operation is transparent.
+
+15
+00:00:51,690 --> 00:00:54,230
+By addressing these challenges, we
+
+16
+00:00:54,230 --> 00:00:58,800
+can move towards responsible, interpretable,
+
+17
+00:00:58,800 --> 00:01:01,180
+and human-centered AI.
+
+18
+00:01:01,180 --> 00:01:05,890
+In this lecture, we will discuss the need for explainable AI,
+
+19
+00:01:05,890 --> 00:01:09,970
+its main challenges, and the technologies that support it.
+
+20
+00:01:09,970 --> 00:01:14,590
+Starting with the usefulness of AI and its main risks,
+
+21
+00:01:14,590 --> 00:01:18,540
+we will explore the challenges of providing explanations
+
+22
+00:01:18,540 --> 00:01:21,850
+that are both intuitive and accurate.
+
+23
+00:01:21,850 --> 00:01:24,780
+Next, we will outline the taxonomy
+
+24
+00:01:24,780 --> 00:01:28,860
+of methods for explainable AI, providing examples
+
+25
+00:01:28,860 --> 00:01:31,290
+and highlighting the key concepts
+
+26
+00:01:31,290 --> 00:01:35,280
+behind widely used approaches.
+
+27
+00:01:35,280 --> 00:01:38,410
+AI is changing the way we work every day.
+
+28
+00:01:38,410 --> 00:01:42,240
+We use AI to automate repetitive, sometimes
+
+29
+00:01:42,240 --> 00:01:47,070
+tedious tasks in various domains or to assist humans
+
+30
+00:01:47,070 --> 00:01:49,240
+in complex decision making.
+
+31
+00:01:49,240 --> 00:01:54,310
+In health care, AI is becoming increasingly prominent.
+
+32
+00:01:54,310 --> 00:01:58,740
+For example, AI-driven tools assist doctors
+
+33
+00:01:58,740 --> 00:02:02,310
+in detecting diseases with greater precision
+
+34
+00:02:02,310 --> 00:02:07,260
+or speed up drug discovery, reducing the time and cost
+
+35
+00:02:07,260 --> 00:02:10,320
+of developing new medications.
+
+36
+00:02:10,320 --> 00:02:14,560
+In manufacturing, AI is now a game changer.
+
+37
+00:02:14,560 --> 00:02:19,690
+AI robots dramatically improve repetitive tasks like assembly,
+
+38
+00:02:19,690 --> 00:02:21,670
+disassembly, and packaging.
+
+39
+00:02:21,670 --> 00:02:24,690
+AI-automated quality control systems
+
+40
+00:02:24,690 --> 00:02:28,240
+can quickly and efficiently detect defects,
+
+41
+00:02:28,240 --> 00:02:30,930
+improving product quality.
+
+42
+00:02:30,930 --> 00:02:35,590
+In education, AI is creating new learning experiences,
+
+43
+00:02:35,590 --> 00:02:38,580
+making education more accessible and
+
+44
+00:02:38,580 --> 00:02:40,960
+adaptable to individual needs.
+
+45
+00:02:40,960 --> 00:02:45,040
+AI-based technological innovations like gamification,
+
+46
+00:02:45,040 --> 00:02:49,470
+virtual reality, chatbots, generative AI, et cetera,
+
+47
+00:02:49,470 --> 00:02:53,260
+equip educators with powerful tools.
+
+48
+00:02:53,260 --> 00:02:57,070
+AI also plays a crucial role in culture,
+
+49
+00:02:57,070 --> 00:03:01,610
+enhancing preservation, accessibility, and creativity.
+
+50
+00:03:01,610 --> 00:03:04,930
+Users engage with cultural content
+
+51
+00:03:04,930 --> 00:03:08,510
+in more immersive and interactive ways
+
+52
+00:03:08,510 --> 00:03:10,430
+through AI technologies.
+
+53
+00:03:10,430 --> 00:03:17,800
+Creators are empowered by AI tools, including generative AI.
+
+54
+00:03:17,800 --> 00:03:22,840
+AI is also highly anticipated to play an important role
+
+55
+00:03:22,840 --> 00:03:26,030
+in sustainability and climate change,
+
+56
+00:03:26,030 --> 00:03:30,100
+helping scientists analyze vast amounts of data
+
+57
+00:03:30,100 --> 00:03:35,390
+to forecast climate conditions, track ecological changes,
+
+58
+00:03:35,390 --> 00:03:40,360
+deforestation, wildlife population shifts, and pollution
+
+59
+00:03:40,360 --> 00:03:42,460
+levels.
+
+60
+00:03:42,460 --> 00:03:45,460
+Besides its usefulness, AI also comes
+
+61
+00:03:45,460 --> 00:03:50,320
+with risks that can cause both material and immaterial harm
+
+62
+00:03:50,320 --> 00:03:51,520
+to people.
+
+63
+00:03:51,520 --> 00:03:54,910
+For instance, failures in autonomous vehicles
+
+64
+00:03:54,910 --> 00:03:57,330
+can lead to accidents.
+
+65
+00:03:57,330 --> 00:04:01,850
+Misdiagnosing medical conditions may result in adverse health
+
+66
+00:04:01,850 --> 00:04:03,690
+outcomes for patients.
+
+67
+00:04:03,690 --> 00:04:06,380
+Breakdowns in industrial automation
+
+68
+00:04:06,380 --> 00:04:09,150
+can lead to workplace accidents.
+
+69
+00:04:09,150 --> 00:04:13,400
+Failures in algorithmic trading or mistakes in logistics
+
+70
+00:04:13,400 --> 00:04:17,000
+can cause financial losses.
+
+71
+00:04:17,000 --> 00:04:22,280
+AI-generated deepfakes can impersonate individuals carrying
+
+72
+00:04:22,280 --> 00:04:24,990
+out unauthorized transactions.
+
+73
+00:04:24,990 --> 00:04:28,520
+AI can also cause immaterial harm.
+
+74
+00:04:28,520 --> 00:04:32,420
+Notably, AI poses significant risks
+
+75
+00:04:32,420 --> 00:04:36,080
+to personal data protection and privacy.
+
+76
+00:04:36,080 --> 00:04:39,050
+AI-powered behavior tracking systems
+
+77
+00:04:39,050 --> 00:04:41,480
+can be exploited for mass surveillance
+
+78
+00:04:41,480 --> 00:04:47,120
+without control, violating individuals' privacy rights.
+
+79
+00:04:47,120 --> 00:04:51,050
+AI's ability to interconnect data from across the web
+
+80
+00:04:51,050 --> 00:04:55,710
+can potentially lead to de-anonymization of individuals
+
+81
+00:04:55,710 --> 00:05:00,570
+and the exposure of sensitive personal information.
+
+82
+00:05:00,570 --> 00:05:03,330
+There are also major concerns related
+
+83
+00:05:03,330 --> 00:05:05,680
+to discrimination and fairness.
+
+84
+00:05:05,680 --> 00:05:10,020
+Bias in training data can lead to discrimination
+
+85
+00:05:10,020 --> 00:05:15,930
+against certain genders, ethnicities, or age groups.
+
+86
+00:05:15,930 --> 00:05:19,200
+AI-driven medical and financial services
+
+87
+00:05:19,200 --> 00:05:24,130
+may have reduced accuracy for specific demographic groups,
+
+88
+00:05:24,130 --> 00:05:30,420
+resulting in unequal access to care or financial opportunities.
+
+89
+00:05:30,420 --> 00:05:35,430
+These risks and potential implications associated with AI
+
+90
+00:05:35,430 --> 00:05:40,440
+contribute to a lack of trust in its use and recommendations.
+
+91
+00:05:40,440 --> 00:05:43,770
+On top of the existing risks, speculative ideas
+
+92
+00:05:43,770 --> 00:05:46,200
+such as human-like AI robots with
+
+93
+00:05:46,200 --> 00:05:50,070
+artificial superintelligence raise concerns
+
+94
+00:05:50,070 --> 00:05:54,150
+that machines could one day surpass humans.
+
+95
+00:05:54,150 --> 00:05:58,230
+As a result, end users, especially experts
+
+96
+00:05:58,230 --> 00:06:01,440
+such as medical practitioners, often
+
+97
+00:06:01,440 --> 00:06:05,070
+hesitate to trust AI recommendations even
+
+98
+00:06:05,070 --> 00:06:08,520
+in scenarios where they achieve greater performance
+
+99
+00:06:08,520 --> 00:06:10,690
+than human decision makers.
+
+100
+00:06:10,690 --> 00:06:14,170
+This phenomenon, known as algorithmic aversion,
+
+101
+00:06:14,170 --> 00:06:19,650
+significantly undermines human AI collaboration.
+
+102
+00:06:19,650 --> 00:06:23,950
+The only way to enhance AI excellence, usefulness,
+
+103
+00:06:23,950 --> 00:06:28,050
+and trust is to promote AI technologies that
+
+104
+00:06:28,050 --> 00:06:32,800
+ensure transparency, fairness, and accountability.
+
+105
+00:06:32,800 --> 00:06:35,640
+To this end, we should train models
+
+106
+00:06:35,640 --> 00:06:39,000
+on well-balanced and diverse data sets
+
+107
+00:06:39,000 --> 00:06:42,600
+to minimize biases and evaluate models
+
+108
+00:06:42,600 --> 00:06:48,250
+for potential gender, racial, or socioeconomic biases.
+
+109
+00:06:48,250 --> 00:06:53,140
+Moreover, AI systems should offer clear insights
+
+110
+00:06:53,140 --> 00:06:56,720
+into how they get to their conclusions.
+
+111
+00:06:56,720 --> 00:07:00,520
+Ideally, we should be able to understand the reasons
+
+112
+00:07:00,520 --> 00:07:06,530
+behind model predictions so that we are able to validate them.
+
+113
+00:07:06,530 --> 00:07:10,720
+The compliance to regulatory frameworks for AI
+
+114
+00:07:10,720 --> 00:07:15,460
+plays an important role, providing guarantees.
+
+115
+00:07:15,460 --> 00:07:18,740
+To reduce potential risks and build trust,
+
+116
+00:07:18,740 --> 00:07:22,750
+organizations utilizing AI technologies
+
+117
+00:07:22,750 --> 00:07:26,200
+should implement guidelines, standards,
+
+118
+00:07:26,200 --> 00:07:29,470
+or regulatory frameworks.
+
+119
+00:07:29,470 --> 00:07:33,130
+Technical services that validate compliance
+
+120
+00:07:33,130 --> 00:07:36,130
+with these regulations should be developed.
+
+121
+00:07:36,130 --> 00:07:38,600
+Based on these technical services,
+
+122
+00:07:38,600 --> 00:07:41,570
+high-risk AI systems used in practice,
+
+123
+00:07:41,570 --> 00:07:46,010
+like AI-assisted medical diagnosis systems,
+
+124
+00:07:46,010 --> 00:07:48,850
+should provide guarantees for compliance
+
+125
+00:07:48,850 --> 00:07:52,230
+with the AI regulatory framework.
+
+126
+00:07:52,230 --> 00:07:53,000
+
+

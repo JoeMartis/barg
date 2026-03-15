@@ -1,0 +1,18 @@
+<problem url_name="problem_af67f97a2b93461eb3d9024a57b4cd49">
+  <choiceresponse>
+    <label>Looking at the SHAP summary plot, you see that for <code>thal_3</code>, higher values (red points) tend to appear on the <b>left</b> side of the plot (negative SHAP values). Which conclusions are justified? (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">Higher <code>thal_3</code> values tend to push predictions toward lower disease risk in this model.</choice>
+      <choice correct="true">Lower <code>thal_3</code> values tend to increase the predicted probability of disease.</choice>
+      <choice correct="false"><code>thal_3</code> has no effect on the model’s predictions.</choice>
+      <choice correct="false">The direction of the effect of <code>thal_3</code> is consistent across all patients.</choice>
+      <choice correct="true">The plot reflects model behavior, not clinical causality.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>SHAP values encode both <b>magnitude and direction</b> of a feature’s effect on the model output. The SHAP summary plot shows that higher values of thal_3 (the red points) tend to have negative SHAP values, meaning they usually lower the model’s predicted risk of disease. Conversely, lower values of thal_3 (the blue points) tend to have positive SHAP values, which push the prediction toward higher risk. However, this describes how the model behaves, not causal relationships, and individual patients may still deviate from the overall trend.</p>
+    </div>
+  </solution>
+</problem>

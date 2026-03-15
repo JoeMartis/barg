@@ -1,0 +1,18 @@
+<problem url_name="problem_1c54db6efd136afdbc0b0eed73d4d0bf">
+  <choiceresponse>
+    <label>In the table, <code>cp_2</code> has noticeably lower importance than <code>cp_0</code>, and <code>exang_0</code> appears slightly more important than <code>exang_1.</code> Which statements are valid conclusions? (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">Chest pain type “0” is more useful to this forest than chest pain type “2” for splitting data across many trees.</choice>
+      <choice correct="false">This means <code>cp_0</code> increases disease risk more than <code>cp_2.</code></choice>
+      <choice correct="true">Importances can be influenced by correlations and redundancy: if multiple features contain similar information, importance can be split across them.</choice>
+      <choice correct="false">Lower importance means the feature has no relationship to the outcome.</choice>
+      <choice correct="true">It is possible for a feature to be important in a small subgroup but still have lower global importance.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>A higher global importance means the feature was more helpful for splitting across the forest overall. For a specific patient, a globally important feature may not be used at all, while a less important one can dominate the decision path, because global importance provides no information about which features were actually used or how strongly they contributed to that patient’s route through the forest. Importances are affected by redundancy and correlations (features can “share credit”). Also, a feature can be crucial for a niche subgroup yet have modest global importance because it is rarely used.</p>
+    </div>
+  </solution>
+</problem>

@@ -1,0 +1,13 @@
+{
+  "name": "ai-ethics-quest",
+  "version": "1.0.0",
+  "description": "Interactive game for Module 15: Explainability and Fairness in AI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

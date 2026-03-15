@@ -1,0 +1,17 @@
+<problem url_name="problem_77ba33eeeaec101d87941ef7a3854091">
+  <choiceresponse>
+    <label>Based on the structure of the tree, which statements are true?&amp;nbsp; (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true"><code>thal_2</code> affects predictions for all patients.</choice>
+      <choice correct="true"><code>age</code> influences predictions only for patients routed to the right subtree of the root.</choice>
+      <choice correct="false"><code>chol</code> influences predictions for all patients, but only weakly because it appears deep in the tree.</choice>
+      <choice correct="false">Features that appear deeper in the tree contribute less to predictions than features near the root.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Decision trees operate through conditional feature usage: a feature influences a prediction only if a patient reaches the node where that feature is tested. Because<code> thal_2 </code>appears at the root, it affects the routing of every patient. By contrast, <code>age</code> appears only in the right subtree, so it influences predictions only for that subset of patients. Features that appear deeper in the tree are not inherently weaker or less important; they may be highly informative for specific subgroups. Tree interpretability therefore comes from understanding <i>which features are used for which patients</i>, not from assuming a global ordering of importance based on depth.</p>
+    </div>
+  </solution>
+</problem>

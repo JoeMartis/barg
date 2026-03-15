@@ -1,0 +1,676 @@
+0
+00:00:00,000 --> 00:00:03,660
+INSTRUCTOR: The performance of AI systems, in particular, of LLMs,
+
+1
+00:00:03,660 --> 00:00:06,830
+is closely related to how questions
+
+2
+00:00:06,830 --> 00:00:11,570
+are formulated, meaning the input provided to the model.
+
+3
+00:00:11,570 --> 00:00:14,840
+The automation of prompting in AI systems
+
+4
+00:00:14,840 --> 00:00:19,310
+with multiple components is a key element.
+
+5
+00:00:19,310 --> 00:00:22,500
+Rather than relying on manual prompting,
+
+6
+00:00:22,500 --> 00:00:25,760
+automated techniques allow AI to generate
+
+7
+00:00:25,760 --> 00:00:29,010
+dynamic and optimized interactions,
+
+8
+00:00:29,010 --> 00:00:33,170
+improving efficiency and adaptability.
+
+9
+00:00:33,170 --> 00:00:35,150
+Let's examine the prompting process
+
+10
+00:00:35,150 --> 00:00:39,230
+in more detail, focusing on LLM prompting, which
+
+11
+00:00:39,230 --> 00:00:43,580
+is both the most complex and has a significant impact
+
+12
+00:00:43,580 --> 00:00:46,670
+on system performance.
+
+13
+00:00:46,670 --> 00:00:50,510
+Prompting is actually a black-box style communication
+
+14
+00:00:50,510 --> 00:00:52,010
+with a model.
+
+15
+00:00:52,010 --> 00:00:54,530
+Consider, for example, that we can prompt
+
+16
+00:00:54,530 --> 00:00:57,620
+an LLM to compose a poem.
+
+17
+00:00:57,620 --> 00:01:03,180
+We just tell the LLM, "Write a short poem about the blue sea."
+
+18
+00:01:03,180 --> 00:01:06,160
+The model then generates a poem as output.
+
+19
+00:01:06,160 --> 00:01:10,740
+So a prompt is the input to the generative AI model that defines
+
+20
+00:01:10,740 --> 00:01:13,200
+the task to be performed.
+
+21
+00:01:13,200 --> 00:01:15,450
+Prompt engineering is the process
+
+22
+00:01:15,450 --> 00:01:19,840
+of crafting a prompt to optimize the LLM's response.
+
+23
+00:01:19,840 --> 00:01:23,070
+This optimization involves structuring
+
+24
+00:01:23,070 --> 00:01:27,040
+the prompt to include necessary information and context,
+
+25
+00:01:27,040 --> 00:01:32,370
+enabling the LLM to generate a precise and accurate response.
+
+26
+00:01:32,370 --> 00:01:35,520
+The prompt is represented in various formats,
+
+27
+00:01:35,520 --> 00:01:39,040
+depending on the type of the prompt model.
+
+28
+00:01:39,040 --> 00:01:44,890
+For example, we can provide text, an image, a video, audio,
+
+29
+00:01:44,890 --> 00:01:48,810
+a multimedia file, or a combination of these as input
+
+30
+00:01:48,810 --> 00:01:52,020
+and request a corresponding text, image, video,
+
+31
+00:01:52,020 --> 00:01:55,260
+or other format as output.
+
+32
+00:01:55,260 --> 00:01:57,850
+The type of prompt can also vary.
+
+33
+00:01:57,850 --> 00:02:01,930
+For example, it can be a short statement, a command,
+
+34
+00:02:01,930 --> 00:02:04,740
+an evaluation, or a detailed prompt that
+
+35
+00:02:04,740 --> 00:02:08,560
+includes context descriptions, example references,
+
+36
+00:02:08,560 --> 00:02:10,960
+and specific instructions.
+
+37
+00:02:10,960 --> 00:02:13,170
+The goal of the prompt can also vary
+
+38
+00:02:13,170 --> 00:02:17,380
+depending on the phases of the interaction with the AI system.
+
+39
+00:02:17,380 --> 00:02:20,130
+For example, we can request information
+
+40
+00:02:20,130 --> 00:02:24,030
+to establish context describing the style of the desired
+
+41
+00:02:24,030 --> 00:02:28,090
+response, provide feedback to the AI system,
+
+42
+00:02:28,090 --> 00:02:33,700
+offer methodological guidance by outlining appropriate steps,
+
+43
+00:02:33,700 --> 00:02:36,690
+or ask for explanations and reasoning
+
+44
+00:02:36,690 --> 00:02:39,690
+behind the AI's response.
+
+45
+00:02:39,690 --> 00:02:44,040
+There are numerous examples of the above, such as the prompt,
+
+46
+00:02:44,040 --> 00:02:47,580
+"Write a short poem about the blue sea,"
+
+47
+00:02:47,580 --> 00:02:50,110
+where we request the generation of a text,
+
+48
+00:02:50,110 --> 00:02:53,190
+or, "What is a Turing Award?"
+
+49
+00:02:53,190 --> 00:02:55,660
+with which we request information,
+
+50
+00:02:55,660 --> 00:03:00,020
+or, "Write this as a native English speaker,"
+
+51
+00:03:00,020 --> 00:03:04,510
+with which we specify the style of the generated text.
+
+52
+00:03:04,510 --> 00:03:06,520
+Let's now explore some techniques
+
+53
+00:03:06,520 --> 00:03:09,100
+used in prompt engineering.
+
+54
+00:03:09,100 --> 00:03:13,900
+One of the core techniques is motivated by important findings
+
+55
+00:03:13,900 --> 00:03:16,880
+from the analysis of LLM performance,
+
+56
+00:03:16,880 --> 00:03:20,060
+particularly of the larger models.
+
+57
+00:03:20,060 --> 00:03:25,810
+These findings show that LLMs can adjust their output based
+
+58
+00:03:25,810 --> 00:03:28,460
+on examples provided in the input,
+
+59
+00:03:28,460 --> 00:03:32,200
+allowing them to adapt to different patterns.
+
+60
+00:03:32,200 --> 00:03:36,130
+This process is known as in-context learning.
+
+61
+00:03:36,130 --> 00:03:39,760
+For example, a prompt designed to assess
+
+62
+00:03:39,760 --> 00:03:42,910
+the likelihood of pneumonia could
+
+63
+00:03:42,910 --> 00:03:47,420
+list symptoms and request yes-or-no answer,
+
+64
+00:03:47,420 --> 00:03:49,700
+along with a brief explanation.
+
+65
+00:03:49,700 --> 00:03:53,200
+This prompt is called zero-shot learning
+
+66
+00:03:53,200 --> 00:03:56,050
+because the model is given only the instruction
+
+67
+00:03:56,050 --> 00:03:58,600
+without any example.
+
+68
+00:03:58,600 --> 00:04:00,700
+On the other hand, we can provide
+
+69
+00:04:00,700 --> 00:04:04,450
+the model with labeled examples before asking
+
+70
+00:04:04,450 --> 00:04:06,320
+to classify a new input.
+
+71
+00:04:06,320 --> 00:04:11,020
+This technique is known as few-shot learning.
+
+72
+00:04:11,020 --> 00:04:14,000
+In this example, before requesting an estimate,
+
+73
+00:04:14,000 --> 00:04:18,220
+pneumonia or not, we first provide a similar example
+
+74
+00:04:18,220 --> 00:04:21,790
+where the right answer is already known and given
+
+75
+00:04:21,790 --> 00:04:22,910
+to the LLM.
+
+76
+00:04:22,910 --> 00:04:27,760
+In this case, the LLM sticks to a specific form of the answer
+
+77
+00:04:27,760 --> 00:04:31,660
+while taking into account the ideal reasoning,
+
+78
+00:04:31,660 --> 00:04:36,160
+linking symptoms to a diagnosis.
+
+79
+00:04:36,160 --> 00:04:38,410
+In-context learning has been shown
+
+80
+00:04:38,410 --> 00:04:42,160
+to be highly effective in practice, significantly
+
+81
+00:04:42,160 --> 00:04:44,930
+enhancing the performance of LLMs.
+
+82
+00:04:44,930 --> 00:04:48,160
+Moreover, we can automate the construction
+
+83
+00:04:48,160 --> 00:04:53,110
+of in-context learning prompts using semantic search and data
+
+84
+00:04:53,110 --> 00:04:57,700
+retrieval to retrieve appropriate examples.
+
+85
+00:04:57,700 --> 00:05:00,080
+Another powerful prompting technique
+
+86
+00:05:00,080 --> 00:05:03,020
+which significantly enhances results
+
+87
+00:05:03,020 --> 00:05:05,840
+is chain-of-thought prompting.
+
+88
+00:05:05,840 --> 00:05:08,480
+If we know the reasoning process required
+
+89
+00:05:08,480 --> 00:05:11,940
+to derive a complex result or conclusion,
+
+90
+00:05:11,940 --> 00:05:15,260
+it is highly effective to explicitly include it
+
+91
+00:05:15,260 --> 00:05:16,320
+in the prompt.
+
+92
+00:05:16,320 --> 00:05:19,470
+In the pneumonia example mentioned earlier,
+
+93
+00:05:19,470 --> 00:05:23,810
+we can provide the key reasoning steps involved in diagnosis
+
+94
+00:05:23,810 --> 00:05:27,470
+and/or specify the sequence of information
+
+95
+00:05:27,470 --> 00:05:30,860
+we want the LLM's response to follow.
+
+96
+00:05:30,860 --> 00:05:33,080
+In this case, we can also request
+
+97
+00:05:33,080 --> 00:05:38,190
+a detailed response that follows the specified reasoning steps.
+
+98
+00:05:38,190 --> 00:05:40,460
+The chain-of-thought technique, when
+
+99
+00:05:40,460 --> 00:05:43,320
+combined with in-context learning,
+
+100
+00:05:43,320 --> 00:05:46,910
+has proven to be one of the most effective approaches
+
+101
+00:05:46,910 --> 00:05:50,030
+for addressing LLMs' hallucination issues
+
+102
+00:05:50,030 --> 00:05:54,290
+and reducing LLMs' errors in arithmetic operations
+
+103
+00:05:54,290 --> 00:05:56,210
+or reasoning tasks.
+
+104
+00:05:56,210 --> 00:05:59,270
+To do this, we provide examples that
+
+105
+00:05:59,270 --> 00:06:04,080
+include detail, step-by-step execution of operations,
+
+106
+00:06:04,080 --> 00:06:09,110
+or the logical sequence of conclusions being drawn.
+
+107
+00:06:09,110 --> 00:06:12,890
+This chain-of-thought concept can be expanded even further
+
+108
+00:06:12,890 --> 00:06:15,170
+involving the LLM.
+
+109
+00:06:15,170 --> 00:06:18,350
+Provide multiple prompts sequentially,
+
+110
+00:06:18,350 --> 00:06:22,560
+guiding the LLM through a structured reasoning process.
+
+111
+00:06:22,560 --> 00:06:27,690
+Each prompt refines or builds upon the previous response,
+
+112
+00:06:27,690 --> 00:06:31,410
+gradually improving accuracy and coherence.
+
+113
+00:06:31,410 --> 00:06:35,070
+This technique is known as prompt chaining.
+
+114
+00:06:35,070 --> 00:06:38,280
+In the pneumonia example mentioned earlier,
+
+115
+00:06:38,280 --> 00:06:42,680
+we can first ask the LLM to identify relevant symptoms
+
+116
+00:06:42,680 --> 00:06:45,930
+before proceeding with the assessment prompt.
+
+117
+00:06:45,930 --> 00:06:48,890
+Here, for example, the LLM's response
+
+118
+00:06:48,890 --> 00:06:54,380
+may include symptoms such as persistent cough or shortness
+
+119
+00:06:54,380 --> 00:06:59,790
+of breath as indicative signs of pneumonia.
+
+120
+00:06:59,790 --> 00:07:01,920
+Based on this response, we can ask
+
+121
+00:07:01,920 --> 00:07:06,660
+the LLM to assess the likelihood of pneumonia given the presence
+
+122
+00:07:06,660 --> 00:07:09,060
+of some of these symptoms.
+
+123
+00:07:09,060 --> 00:07:12,930
+The prompt-chaining technique can be applied dynamically
+
+124
+00:07:12,930 --> 00:07:15,990
+during user interaction, allowing
+
+125
+00:07:15,990 --> 00:07:19,800
+for adaptive and context-aware responses.
+
+126
+00:07:19,800 --> 00:07:23,880
+In this example, the LLM can generate specific questions
+
+127
+00:07:23,880 --> 00:07:27,150
+for the user, allowing us to gather
+
+128
+00:07:27,150 --> 00:07:33,030
+additional relevant information for a more informed response.
+
+129
+00:07:33,030 --> 00:07:35,920
+Beyond these fundamental prompting techniques,
+
+130
+00:07:35,920 --> 00:07:40,360
+many additional methods enhance prompt engineering services,
+
+131
+00:07:40,360 --> 00:07:44,370
+enabling automation and significantly improving
+
+132
+00:07:44,370 --> 00:07:47,250
+the performance of AI systems.
+
+133
+00:07:47,250 --> 00:07:51,070
+Moreover, during the prompt engineering process,
+
+134
+00:07:51,070 --> 00:07:55,290
+additional AI services, such as semantic search and retrieval
+
+135
+00:07:55,290 --> 00:07:57,450
+or automated reasoning, can be used
+
+136
+00:07:57,450 --> 00:08:00,360
+to gather the necessary information,
+
+137
+00:08:00,360 --> 00:08:04,800
+incorporate domain knowledge, verify LLM responses
+
+138
+00:08:04,800 --> 00:08:10,680
+for obvious errors, and enhance accuracy and reliability.
+
+139
+00:08:10,680 --> 00:08:13,140
+Another technique used in prompt engineering
+
+140
+00:08:13,140 --> 00:08:15,640
+is based on prompt templates.
+
+141
+00:08:15,640 --> 00:08:20,640
+Specifically, well-crafted, high-quality prompt templates
+
+142
+00:08:20,640 --> 00:08:23,790
+are developed for each prompt structure
+
+143
+00:08:23,790 --> 00:08:26,860
+and stored in a database for reuse.
+
+144
+00:08:26,860 --> 00:08:31,750
+Then specific templates can be selected and, if needed,
+
+145
+00:08:31,750 --> 00:08:35,850
+combined and modified accordingly.
+
+146
+00:08:35,850 --> 00:08:39,600
+Finally, based on domain knowledge, context,
+
+147
+00:08:39,600 --> 00:08:42,940
+and relevant user-specific information,
+
+148
+00:08:42,940 --> 00:08:47,850
+templates are customized to generate the appropriate prompt
+
+149
+00:08:47,850 --> 00:08:49,750
+for each specific case.
+
+150
+00:08:49,750 --> 00:08:53,430
+For example, if we decide to apply the chain-of-thought
+
+151
+00:08:53,430 --> 00:08:56,720
+technique, instead of using the simple prompt,
+
+152
+00:08:56,720 --> 00:09:01,250
+"Does the chest X-ray show signs of pneumonia?"
+
+153
+00:09:01,250 --> 00:09:02,780
+we do the following.
+
+154
+00:09:02,780 --> 00:09:05,950
+We find, from the available chain-of-thought prompt
+
+155
+00:09:05,950 --> 00:09:08,950
+templates, a suitable one which is
+
+156
+00:09:08,950 --> 00:09:12,400
+relevant to medical diagnosis based on imaging.
+
+157
+00:09:12,400 --> 00:09:16,900
+Based on the specific scenario, we replace image type
+
+158
+00:09:16,900 --> 00:09:22,910
+with chest X-ray, label with lung opacity, and so on,
+
+159
+00:09:22,910 --> 00:09:25,100
+customizing the template.
+
+160
+00:09:25,100 --> 00:09:29,110
+In this way, we construct a detailed chain-of-thought
+
+161
+00:09:29,110 --> 00:09:29,900
+prompt.
+
+162
+00:09:29,900 --> 00:09:33,730
+These are methodologies that take an even more systematic
+
+163
+00:09:33,730 --> 00:09:38,290
+approach by utilizing optimization algorithms
+
+164
+00:09:38,290 --> 00:09:43,090
+to refine and enhance prompt generation.
+
+165
+00:09:43,090 --> 00:09:46,270
+Using a score function, optimal prompts
+
+166
+00:09:46,270 --> 00:09:49,360
+can be determined using algorithms
+
+167
+00:09:49,360 --> 00:09:53,780
+like reinforcement learning, genetic search, gradient-based,
+
+168
+00:09:53,780 --> 00:09:57,030
+or Bayesian optimization.
+

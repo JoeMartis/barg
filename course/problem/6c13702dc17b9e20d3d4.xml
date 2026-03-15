@@ -1,0 +1,18 @@
+<problem url_name="problem_eabb44cfbec567bacde09426666cb268">
+  <choiceresponse>
+    <label>You want to explain to a clinician how <code>thal_3</code> and <code>cp_0 </code>affect the prediction. Which statements are true?  (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="false">From this importance table alone, you can tell whether <code>thal_3</code> increases or decreases predicted risk.</choice>
+      <choice correct="true">The importance table tells you how useful each feature is to the forest overall, but not how it affects any particular patient.</choice>
+      <choice correct="true">A feature can be highly important even if it is not strongly correlated with the outcome linearly.</choice>
+      <choice correct="false">Feature importance values can be interpreted as the probability the feature is “correct.”</choice>
+      <choice correct="true">To get directionality, you would need a different tool (e.g., partial dependence, SHAP, or examining individual tree paths).</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Random Forest impurity-based importances are <b>global</b> and <b>directionless</b>. They indicate that a feature helps split the data into purer subsets, but do not say whether larger values increase or decrease disease likelihood. Because forests capture nonlinearities and interactions, a feature may be important even without a strong linear correlation. For directionality or patient-specific explanations, you need tools like SHAP, partial dependence plots, or local path-based explanations.</p>
+    </div>
+  </solution>
+</problem>

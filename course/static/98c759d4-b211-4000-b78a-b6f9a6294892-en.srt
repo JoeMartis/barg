@@ -1,0 +1,472 @@
+0
+00:00:00,000 --> 00:00:03,950
+INSTRUCTOR: So the second example I would like to discuss
+
+1
+00:00:03,950 --> 00:00:08,690
+is related to the US criminal justice system.
+
+2
+00:00:08,690 --> 00:00:12,530
+So the United States has the highest incarceration rate
+
+3
+00:00:12,530 --> 00:00:15,830
+in the world, about 0.7% of the population, which
+
+4
+00:00:15,830 --> 00:00:17,220
+is a very significant number.
+
+5
+00:00:17,220 --> 00:00:19,430
+But unfortunately, incarceration rates
+
+6
+00:00:19,430 --> 00:00:25,850
+are not uniform across racial groups, as the graphs indicate.
+
+7
+00:00:25,850 --> 00:00:29,900
+So, a key aspect is recidivism.
+
+8
+00:00:29,900 --> 00:00:32,780
+So recidivism is the idea that people
+
+9
+00:00:32,780 --> 00:00:37,530
+who have been in the jail system and leave the jail system
+
+10
+00:00:37,530 --> 00:00:41,670
+commit crimes again and come back to the jail system.
+
+11
+00:00:41,670 --> 00:00:45,660
+So recidivism prediction instruments, RPI for short,
+
+12
+00:00:45,660 --> 00:00:49,370
+is the assessment of recidivism likelihood
+
+13
+00:00:49,370 --> 00:00:54,290
+are guiding pretrial release and parole decisions.
+
+14
+00:00:54,290 --> 00:00:57,392
+There is a particular organization, Northpointe,
+
+15
+00:00:57,392 --> 00:01:00,710
+it was founded in 1989, to develop software
+
+16
+00:01:00,710 --> 00:01:02,600
+for justice, as they call it.
+
+17
+00:01:02,600 --> 00:01:05,370
+And a particular system called COMPAS--
+
+18
+00:01:05,370 --> 00:01:08,960
+this is the Corrections Offender Management Profiling
+
+19
+00:01:08,960 --> 00:01:12,890
+for Alternative Sanctions, makes the recidivism prediction
+
+20
+00:01:12,890 --> 00:01:17,090
+from about 137 questions.
+
+21
+00:01:17,090 --> 00:01:22,010
+So an organization called ProPublicas, based on this data
+
+22
+00:01:22,010 --> 00:01:26,780
+set, try to assess whether such software systems are biased
+
+23
+00:01:26,780 --> 00:01:27,420
+or not.
+
+24
+00:01:27,420 --> 00:01:35,150
+The particular data set that they used was 7,918 criminal
+
+25
+00:01:35,150 --> 00:01:39,050
+defendants in a particular county in Florida in 2013
+
+26
+00:01:39,050 --> 00:01:46,680
+and 2014, and the recidivism outcomes through 2016.
+
+27
+00:01:46,680 --> 00:01:49,500
+In other words, this decision was taken in 2013-14,
+
+28
+00:01:49,500 --> 00:01:53,600
+and then we observe over the next two or three years whether
+
+29
+00:01:53,600 --> 00:01:55,650
+there was recidivism or not.
+
+30
+00:01:55,650 --> 00:02:01,790
+So the outcome variable is the risk score, low or high,
+
+31
+00:02:01,790 --> 00:02:05,940
+how likely it is the person would exhibit recidivism.
+
+32
+00:02:05,940 --> 00:02:07,940
+The variables, the independent variables,
+
+33
+00:02:07,940 --> 00:02:12,480
+were gender, age, race, as well as criminal history,
+
+34
+00:02:12,480 --> 00:02:16,640
+the date of the offense, the number of prior counts, the type
+
+35
+00:02:16,640 --> 00:02:20,450
+of previous offense, the history of revivalism,
+
+36
+00:02:20,450 --> 00:02:26,000
+the felony history, and how long the person has been in prison.
+
+37
+00:02:26,000 --> 00:02:30,630
+You observe the distribution of the COMPAS scores.
+
+38
+00:02:30,630 --> 00:02:33,140
+You observe that there are skewed to the left.
+
+39
+00:02:33,140 --> 00:02:36,290
+And you observe also that the incidence of recidivism
+
+40
+00:02:36,290 --> 00:02:40,490
+is close to 50%, which is a pretty significant number.
+
+41
+00:02:40,490 --> 00:02:43,880
+And you also observe that there is prevalence of recidivism
+
+42
+00:02:43,880 --> 00:02:45,000
+by race.
+
+43
+00:02:45,000 --> 00:02:48,530
+So you observe, for example, that the percentage
+
+44
+00:02:48,530 --> 00:02:54,320
+of Black people that exhibit recidivism
+
+45
+00:02:54,320 --> 00:02:58,790
+is higher than all others, all other races.
+
+46
+00:02:58,790 --> 00:03:01,240
+And then you also observe, similar to what
+
+47
+00:03:01,240 --> 00:03:03,550
+we have done for the low case, you
+
+48
+00:03:03,550 --> 00:03:06,260
+look at the distribution of covariates by group.
+
+49
+00:03:06,260 --> 00:03:10,100
+You look at the distribution of age, prior counts,
+
+50
+00:03:10,100 --> 00:03:14,260
+as well as the decile score for defendants
+
+51
+00:03:14,260 --> 00:03:19,210
+who have been assigned a high score by race and gender.
+
+52
+00:03:19,210 --> 00:03:23,390
+We observe that these data have, indeed, alpha bias.
+
+53
+00:03:23,390 --> 00:03:28,910
+The alpha for age is 0.29 and the alpha for gender is 0.12.
+
+54
+00:03:28,910 --> 00:03:31,720
+This means, again, that the percentage
+
+55
+00:03:31,720 --> 00:03:34,510
+of people who exhibit the recidivism
+
+56
+00:03:34,510 --> 00:03:39,190
+over the white population minus a corresponding percentage
+
+57
+00:03:39,190 --> 00:03:42,740
+of the Black population, this difference is 29%.
+
+58
+00:03:42,740 --> 00:03:45,100
+In other words, higher percentage of Black people
+
+59
+00:03:45,100 --> 00:03:47,120
+by about 29%.
+
+60
+00:03:47,120 --> 00:03:51,140
+And similarly for gender, although less, it's only 12%,
+
+61
+00:03:51,140 --> 00:03:55,970
+males are more likely than females to exhibit recidivism.
+
+62
+00:03:55,970 --> 00:03:59,890
+When we apply the same method, the mixed-integer optimization
+
+63
+00:03:59,890 --> 00:04:03,100
+and so forth, to flip, we also find
+
+64
+00:04:03,100 --> 00:04:06,010
+an area under the curve of 0.72 is exactly
+
+65
+00:04:06,010 --> 00:04:07,970
+the same methodology as before.
+
+66
+00:04:07,970 --> 00:04:11,590
+You observe the classification tree here with epsilon
+
+67
+00:04:11,590 --> 00:04:13,300
+equals 1%.
+
+68
+00:04:13,300 --> 00:04:16,570
+And we observe that the key variables,
+
+69
+00:04:16,570 --> 00:04:18,850
+of which to go left or right in the tree,
+
+70
+00:04:18,850 --> 00:04:22,540
+is race, age, as well as prior counts.
+
+71
+00:04:22,540 --> 00:04:25,780
+So, similar ideas, in other words,
+
+72
+00:04:25,780 --> 00:04:29,290
+that the logistic regression model identifies criteria
+
+73
+00:04:29,290 --> 00:04:31,840
+based on age and prior counts to select
+
+74
+00:04:31,840 --> 00:04:35,600
+the most qualified dependents among the Black population.
+
+75
+00:04:35,600 --> 00:04:37,270
+In particular, whenever the age is
+
+76
+00:04:37,270 --> 00:04:42,220
+above 36.5 and the prior counts is less than or equal to 3.
+
+77
+00:04:42,220 --> 00:04:46,310
+And these people, Black people, were assigned a negative label,
+
+78
+00:04:46,310 --> 00:04:48,590
+meaning parole was not given.
+
+79
+00:04:48,590 --> 00:04:52,640
+And we flip, this is the case, they now have a positive label.
+
+80
+00:04:52,640 --> 00:04:56,140
+And similarly, the model also identifies
+
+81
+00:04:56,140 --> 00:05:00,560
+criteria for the least qualified defendants
+
+82
+00:05:00,560 --> 00:05:03,470
+among the white subpopulation, and the criteria
+
+83
+00:05:03,470 --> 00:05:07,220
+the model used is that the age is less than 36.5
+
+84
+00:05:07,220 --> 00:05:11,970
+and the prior count is at least 1, or the age is less than 26.5,
+
+85
+00:05:11,970 --> 00:05:13,950
+and the prior counts also are less than 1.
+
+86
+00:05:13,950 --> 00:05:16,010
+These are defendants-- white defendants
+
+87
+00:05:16,010 --> 00:05:18,150
+who are assigned a positive label,
+
+88
+00:05:18,150 --> 00:05:20,640
+and we flip to a negative label.
+
+89
+00:05:20,640 --> 00:05:25,310
+Similarly, the leaf nodes that predict no change involve
+
+90
+00:05:25,310 --> 00:05:30,680
+the most qualified Black population in which we maintain
+
+91
+00:05:30,680 --> 00:05:34,050
+no change, and similarly, the least qualified,
+
+92
+00:05:34,050 --> 00:05:36,590
+we also exhibit no change, and similarly
+
+93
+00:05:36,590 --> 00:05:38,190
+for the white subpopulation.
+
+94
+00:05:38,190 --> 00:05:40,760
+This analysis is analogous to what
+
+95
+00:05:40,760 --> 00:05:43,560
+we have done in the law data set,
+
+96
+00:05:43,560 --> 00:05:47,450
+and it provides insights in which conditions under what
+
+97
+00:05:47,450 --> 00:05:51,320
+scenarios we flip the labels or not.
+
+98
+00:05:51,320 --> 00:05:54,500
+So if you take a moment and look at the key takeaways
+
+99
+00:05:54,500 --> 00:06:00,030
+of the lecture, we have observed that data sets exhibit bias--
+
+100
+00:06:00,030 --> 00:06:03,750
+in this particular case, very significant racial bias on two
+
+101
+00:06:03,750 --> 00:06:04,540
+examples.
+
+102
+00:06:04,540 --> 00:06:09,420
+So problems involving such individual choices
+
+103
+00:06:09,420 --> 00:06:12,820
+can be automated using machine learning algorithms--
+
+104
+00:06:12,820 --> 00:06:14,430
+this is what we have demonstrated--
+
+105
+00:06:14,430 --> 00:06:18,030
+that can alleviate individual biases
+
+106
+00:06:18,030 --> 00:06:22,470
+and enhance diversity without significantly compromising
+
+107
+00:06:22,470 --> 00:06:24,630
+on meritocracy.
+
+108
+00:06:24,630 --> 00:06:28,740
+In practice, the price of diversity can be quantified,
+
+109
+00:06:28,740 --> 00:06:31,800
+and consequently, the demographic parity
+
+110
+00:06:31,800 --> 00:06:34,440
+can be tuned to the level which is
+
+111
+00:06:34,440 --> 00:06:36,990
+appropriate for the problem at hand.
+
+112
+00:06:36,990 --> 00:06:40,800
+So this whole area shows the flexibility
+
+113
+00:06:40,800 --> 00:06:46,120
+that the techniques we have seen throughout universal AI,
+
+114
+00:06:46,120 --> 00:06:49,120
+namely machine learning and optimization,
+
+115
+00:06:49,120 --> 00:06:54,960
+can be flexibly adapted to improve diversity
+
+116
+00:06:54,960 --> 00:07:00,500
+with decreasing meritocracy only very slightly.
+
+117
+00:07:00,500 --> 00:07:01,000
+
+

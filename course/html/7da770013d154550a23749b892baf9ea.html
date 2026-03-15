@@ -1,0 +1,16 @@
+<h4>Summary</h4>
+<p>This lecture showed how fairness-aware machine learning can detect and mitigate systemic bias in high-stakes decisions by formalizing fairness metrics and using optimization to balance diversity and meritocracy.</p>
+<h4>Key Takeaways:</h4>
+<ul>
+<li><strong>Systemic bias in data:</strong> Datasets from human decisions (admissions, lending, parole) embed racial and gender bias, and feedback loops can amplify disparities over time.</li>
+<li><strong>Formal fairness definitions:</strong>
+<ul>
+<li><em>α-bias</em> measures disparity in outcome rates across groups.</li>
+<li><em>ε-demographic parity</em> requires group outcome rates to differ by no more than a small threshold ε.</li>
+</ul>
+</li>
+<li><strong>Optimization-based mitigation:</strong> Mixed-integer optimization jointly trains logistic regression and minimally flips labels to satisfy ε-parity while preserving predictive performance.</li>
+<li><strong>Interpretable fairness rules:</strong> An optimal classification tree explains when flips occur—typically adjusting borderline cases (e.g., most meritorious minority candidates or least meritorious majority candidates).</li>
+<li><strong>Quantifying the trade-off:</strong> The "price of diversity" is measurable—fairness constraints can substantially reduce disparity with only slight impact on meritocracy.</li>
+<li><strong>Real-world validation:</strong> Applied to bar exam outcomes and COMPAS recidivism scores, the framework significantly reduced racial gaps while maintaining model effectiveness.</li>
+</ul>

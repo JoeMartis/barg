@@ -1,0 +1,17 @@
+<problem url_name="problem_0be151d0ed864d0062e2b0ebbdf44020">
+  <multiplechoiceresponse>
+    <label>A university defines a dataset to be α-biased if the difference in admission (positive outcome) rates between Group A and Group B is at least α = 0.15. The university finds that Group A’s admission rate is 70% and Group B’s is 50%. Which statement best describes the α-bias in this dataset?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="true">The dataset shows α-bias because the admission rate difference (0.20) is at least α = 0.15</choice>
+      <choice correct="false">The dataset is unbiased because both groups meet minimum academic requirements</choice>
+      <choice correct="false">The dataset is unbiased if group membership is not explicitly included as a feature in the model.</choice>
+      <choice correct="false">α-bias applies only after predictions are made, not in raw admission data.</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>A dataset is defined to be α‑biased when the difference in positive outcome rates between two groups is at least α. Using this definition and the examples from Lecture 2, the admission rates of 0.70 for Group A and 0.50 for Group B differ by 0.20. Because 0.20≥0.15, the dataset satisfies the criterion for α‑bias. α‑bias is defined only from the dataset’s observed outcome rates, not from model features, academic qualifications, or predictions. It’s a structural property of the data itself.</p>
+    </div>
+  </solution>
+</problem>

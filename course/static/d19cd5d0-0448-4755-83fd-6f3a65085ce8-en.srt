@@ -1,0 +1,268 @@
+0
+00:00:00,000 --> 00:00:03,740
+INSTRUCTOR: To recap, after examining issues related
+
+1
+00:00:03,740 --> 00:00:07,890
+to AI system components in multi-component architectures,
+
+2
+00:00:07,890 --> 00:00:11,120
+let's now describe some key challenges that
+
+3
+00:00:11,120 --> 00:00:14,370
+emerge from the integration of these components.
+
+4
+00:00:14,370 --> 00:00:18,210
+There are major design challenges to address.
+
+5
+00:00:18,210 --> 00:00:20,970
+There are numerous architectural choices.
+
+6
+00:00:20,970 --> 00:00:24,620
+Identifying the optimal design is a complex problem
+
+7
+00:00:24,620 --> 00:00:27,770
+that is expected to be systematically addressed
+
+8
+00:00:27,770 --> 00:00:29,310
+in the coming years.
+
+9
+00:00:29,310 --> 00:00:34,070
+Moreover, while optimization challenges for individual AI
+
+10
+00:00:34,070 --> 00:00:38,390
+models are well understood, optimization and training
+
+11
+00:00:38,390 --> 00:00:42,710
+of a system integrating multiple AI models
+
+12
+00:00:42,710 --> 00:00:45,450
+is a new and complex problem.
+
+13
+00:00:45,450 --> 00:00:48,930
+On the other hand, there are great opportunities.
+
+14
+00:00:48,930 --> 00:00:52,400
+For example, an AI system can enhance efficiency
+
+15
+00:00:52,400 --> 00:00:57,740
+by leveraging multiple smaller, specialized models tailored
+
+16
+00:00:57,740 --> 00:01:00,680
+to specific tasks rather than relying
+
+17
+00:01:00,680 --> 00:01:06,540
+on a single large model that demands significant resources.
+
+18
+00:01:06,540 --> 00:01:11,770
+Finally, new challenges arise in the integration of AI models,
+
+19
+00:01:11,770 --> 00:01:16,650
+particularly as they are resource-demanding and evolve
+
+20
+00:01:16,650 --> 00:01:17,670
+rapidly.
+
+21
+00:01:17,670 --> 00:01:22,320
+For practical deployment, processes such as monitoring
+
+22
+00:01:22,320 --> 00:01:25,590
+and orchestration should be automated,
+
+23
+00:01:25,590 --> 00:01:29,560
+and data pipelines should be carefully defined.
+
+24
+00:01:29,560 --> 00:01:32,730
+Security, reliability, accountability,
+
+25
+00:01:32,730 --> 00:01:35,130
+and interpretability challenges should
+
+26
+00:01:35,130 --> 00:01:39,840
+be addressed, especially when integrating powerful AI
+
+27
+00:01:39,840 --> 00:01:43,800
+systems that automatically retrieve and utilize information
+
+28
+00:01:43,800 --> 00:01:46,110
+from the web.
+
+29
+00:01:46,110 --> 00:01:49,980
+So what is the take-home message of this lecture?
+
+30
+00:01:49,980 --> 00:01:54,820
+First, monolithic AI systems can solve many problems,
+
+31
+00:01:54,820 --> 00:01:59,280
+but the growing demands on AI have made it clear
+
+32
+00:01:59,280 --> 00:02:02,160
+that only a combination of AI models
+
+33
+00:02:02,160 --> 00:02:06,340
+can fully meet modern requirements.
+
+34
+00:02:06,340 --> 00:02:09,639
+This is what many AI systems are doing today
+
+35
+00:02:09,639 --> 00:02:11,690
+to improve their performance.
+
+36
+00:02:11,690 --> 00:02:17,090
+For example, RAG systems combine advanced retrieval with LLMs.
+
+37
+00:02:17,090 --> 00:02:21,650
+Modern commercial LLMs integrate multi-modal capabilities--
+
+38
+00:02:21,650 --> 00:02:25,520
+for example, image analysis-- or symbolic AI--
+
+39
+00:02:25,520 --> 00:02:28,660
+for example, symbolic math engines--
+
+40
+00:02:28,660 --> 00:02:31,390
+to enhance their functionality.
+
+41
+00:02:31,390 --> 00:02:34,420
+There are now many techniques and approaches
+
+42
+00:02:34,420 --> 00:02:38,620
+available to automate the prompting process.
+
+43
+00:02:38,620 --> 00:02:40,820
+Prompts can be very sophisticated,
+
+44
+00:02:40,820 --> 00:02:45,220
+integrating elements from other systems such as search
+
+45
+00:02:45,220 --> 00:02:48,500
+and retrieval, knowledge graphs, and reasoning services.
+
+46
+00:02:48,500 --> 00:02:52,420
+Prompt engineering improves LLM's responses.
+
+47
+00:02:52,420 --> 00:02:56,690
+Many essential features of AI systems depend on reasoning.
+
+48
+00:02:56,690 --> 00:03:02,210
+For example, in domains such as health care, finance, and law,
+
+49
+00:03:02,210 --> 00:03:05,920
+AI systems must ensure explainability.
+
+50
+00:03:05,920 --> 00:03:09,480
+We can leverage the reasoning capabilities of symbolic AI
+
+51
+00:03:09,480 --> 00:03:13,980
+systems or LLMs depending on the specific application
+
+52
+00:03:13,980 --> 00:03:16,170
+requirements.
+
+53
+00:03:16,170 --> 00:03:19,530
+Combining different AI models can
+
+54
+00:03:19,530 --> 00:03:23,250
+tackle more complex problems, but it also
+
+55
+00:03:23,250 --> 00:03:28,200
+introduces new challenges that we have not previously
+
+56
+00:03:28,200 --> 00:03:29,940
+encountered.
+
+57
+00:03:29,940 --> 00:03:35,130
+For example, optimization at the system level rather than
+
+58
+00:03:35,130 --> 00:03:40,240
+the model level demands entirely new approaches.
+
+59
+00:03:40,240 --> 00:03:43,230
+Moreover, security challenges arising
+
+60
+00:03:43,230 --> 00:03:46,500
+from the integration of retrieval engines in LLMs
+
+61
+00:03:46,500 --> 00:03:50,370
+introduce new risks, particularly concerning
+
+62
+00:03:50,370 --> 00:03:52,920
+personal data protection.
+
+63
+00:03:52,920 --> 00:03:56,790
+As we have seen in recent years, the future of AI
+
+64
+00:03:56,790 --> 00:03:59,500
+extends beyond monolithic systems,
+
+65
+00:03:59,500 --> 00:04:04,440
+making it crucial to address these emerging challenges.
+
+66
+00:04:04,440 --> 00:04:06,530
+Thanks for watching.
+

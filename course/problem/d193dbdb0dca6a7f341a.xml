@@ -1,0 +1,17 @@
+<problem url_name="problem_a4719df1a4e1af074cd1a07779881a23">
+  <multiplechoiceresponse>
+    <label>Under ε-demographic parity with ε = 0.01, which condition must hold?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">The average risk score must differ by less than 0.01 across groups</choice>
+      <choice correct="true">The difference in the fraction of individuals labeled “high risk” across groups must be ≤ 0.01</choice>
+      <choice correct="false">The classifier must achieve at least 99% accuracy</choice>
+      <choice correct="false">False positive rates must differ by no more than 1%</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Demographic parity is defined in terms of <i>decision rates</i>, not scores or errors. ε specifies the maximum allowable difference in the probability of receiving a positive outcome across groups. Accuracy and error rates are separate considerations and are not constrained by demographic parity. The constraint applies directly to predicted outcomes.</p>
+    </div>
+  </solution>
+</problem>

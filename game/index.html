@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Ethics Quest - Explainability & Fairness</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+  <!-- Title Screen -->
+  <div id="screen-title" class="screen active">
+    <div class="title-container">
+      <div class="title-icon">&#x1F9E0;</div>
+      <h1>AI Ethics Quest</h1>
+      <p class="subtitle">Explainability & Fairness in Machine Learning</p>
+      <div class="title-description">
+        <p>Navigate through real-world AI scenarios, make critical decisions about model transparency and fairness, and earn your certification as a Responsible AI Practitioner.</p>
+      </div>
+      <div class="title-buttons">
+        <button class="btn btn-primary btn-large" onclick="Game.startAdventure()">Start Adventure</button>
+        <button class="btn btn-secondary" onclick="Game.showScreen('screen-modes')">Choose Game Mode</button>
+      </div>
+      <div class="title-stats" id="returning-stats" style="display:none">
+        <p>Welcome back! Best score: <span id="best-score">0</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Mode Selection -->
+  <div id="screen-modes" class="screen">
+    <div class="modes-container">
+      <h2>Choose Your Path</h2>
+      <div class="mode-grid">
+        <div class="mode-card" onclick="Game.startMode('adventure')">
+          <div class="mode-icon">&#x1F3F0;</div>
+          <h3>Story Adventure</h3>
+          <p>Play as an AI auditor investigating real-world scenarios. Make decisions, uncover bias, and explain AI systems to stakeholders.</p>
+          <span class="mode-tag">Recommended</span>
+        </div>
+        <div class="mode-card" onclick="Game.startMode('quiz-blitz')">
+          <div class="mode-icon">&#x26A1;</div>
+          <h3>Quiz Blitz</h3>
+          <p>Race against the clock! Answer rapid-fire questions on explainability and fairness. Build combos for bonus points.</p>
+          <span class="mode-tag">Fast-paced</span>
+        </div>
+        <div class="mode-card" onclick="Game.startMode('scenario-lab')">
+          <div class="mode-icon">&#x1F52C;</div>
+          <h3>Scenario Lab</h3>
+          <p>Interactive case studies: examine SHAP plots, decision trees, and fairness metrics. Drag-and-drop matching challenges.</p>
+          <span class="mode-tag">Hands-on</span>
+        </div>
+        <div class="mode-card" onclick="Game.startMode('boss-battle')">
+          <div class="mode-icon">&#x1F409;</div>
+          <h3>Boss Battle</h3>
+          <p>Face the ultimate AI ethics challenges. Multi-part scenarios that test deep understanding. Can you defeat the Bias Dragon?</p>
+          <span class="mode-tag">Challenge</span>
+        </div>
+      </div>
+      <button class="btn btn-back" onclick="Game.showScreen('screen-title')">Back</button>
+    </div>
+  </div>
+
+  <!-- Adventure Mode -->
+  <div id="screen-adventure" class="screen">
+    <div class="adventure-container">
+      <div class="adventure-header">
+        <div class="adventure-stats">
+          <div class="stat">
+            <span class="stat-label">Score</span>
+            <span class="stat-value" id="adv-score">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Chapter</span>
+            <span class="stat-value" id="adv-chapter">1</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Trust</span>
+            <div class="trust-bar">
+              <div class="trust-fill" id="adv-trust" style="width:50%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="adventure-scene" id="adventure-scene">
+        <!-- Dynamic content inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Blitz Mode -->
+  <div id="screen-quiz" class="screen">
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <div class="quiz-stats">
+          <div class="stat">
+            <span class="stat-label">Score</span>
+            <span class="stat-value" id="quiz-score">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Combo</span>
+            <span class="stat-value" id="quiz-combo">x1</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Time</span>
+            <span class="stat-value" id="quiz-timer">60</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Question</span>
+            <span class="stat-value" id="quiz-qnum">1/20</span>
+          </div>
+        </div>
+        <div class="combo-bar">
+          <div class="combo-fill" id="combo-fill"></div>
+        </div>
+      </div>
+      <div class="quiz-question" id="quiz-question">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario Lab -->
+  <div id="screen-scenario" class="screen">
+    <div class="scenario-container">
+      <div class="scenario-header">
+        <div class="quiz-stats">
+          <div class="stat">
+            <span class="stat-label">Score</span>
+            <span class="stat-value" id="scenario-score">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Scenario</span>
+            <span class="stat-value" id="scenario-num">1/5</span>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-content" id="scenario-content">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Boss Battle -->
+  <div id="screen-boss" class="screen">
+    <div class="boss-container">
+      <div class="boss-header">
+        <div class="boss-info">
+          <h2 id="boss-name">The Bias Dragon</h2>
+          <div class="boss-health-bar">
+            <div class="boss-health-fill" id="boss-health" style="width:100%"></div>
+          </div>
+          <span class="boss-hp-text" id="boss-hp-text">HP: 100/100</span>
+        </div>
+        <div class="player-info">
+          <h3>Your Knowledge</h3>
+          <div class="player-health-bar">
+            <div class="player-health-fill" id="player-health" style="width:100%"></div>
+          </div>
+          <span class="player-hp-text" id="player-hp-text">HP: 100/100</span>
+        </div>
+      </div>
+      <div class="boss-battle-area" id="boss-battle-area">
+        <!-- Dynamic content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Screen -->
+  <div id="screen-results" class="screen">
+    <div class="results-container">
+      <div class="results-icon" id="results-icon">&#x1F3C6;</div>
+      <h2 id="results-title">Quest Complete!</h2>
+      <div class="results-stats" id="results-stats">
+        <!-- Dynamic stats -->
+      </div>
+      <div class="results-badges" id="results-badges">
+        <!-- Earned badges -->
+      </div>
+      <div class="results-review" id="results-review">
+        <!-- Review of missed questions -->
+      </div>
+      <div class="results-buttons">
+        <button class="btn btn-primary" onclick="Game.showScreen('screen-modes')">Play Again</button>
+        <button class="btn btn-secondary" onclick="Game.showScreen('screen-title')">Main Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback Toast -->
+  <div id="feedback-toast" class="feedback-toast hidden">
+    <div class="feedback-icon" id="feedback-icon"></div>
+    <div class="feedback-text" id="feedback-text"></div>
+  </div>
+</div>
+
+<script src="gamedata.js"></script>
+<script src="game.js"></script>
+<script src="lti.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<problem url_name="problem_f2b5ba483f9012fc89ee111914e675b4">
+  <multiplechoiceresponse>
+    <label>For the patient shown, the SHAP output indicates that:<ul><li><code>cp_0</code> has a <b>large positive</b> SHAP value</li><li><code>thal_3 </code> and <code>oldpeak</code> have <b>negative</b> SHAP values</li></ul> Which interpretation is <b>most consistent</b> with this local explanation?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="true">For this patient, the presence of <code>cp_0</code> is one of the main reasons the model leans toward a higher-risk prediction, even though other features push in the opposite direction.</choice>
+      <choice correct="false">For this patient, <code>cp_0</code> is more important than <code>thal_3</code> and <code>oldpeak</code> in general, so it dominates the model’s reasoning overall.</choice>
+      <choice correct="false">Because <code>thal_3</code> and <code>oldpeak</code> push risk down, the model would predict low risk if either one of them were absent.</choice>
+      <choice correct="false">Since <code>cp_0</code> increases risk here, it would have the same effect for most patients with similar age and cholesterol.</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>A local SHAP explanation describes how individual features influenced the model’s prediction for a <i>specific patient</i>. A positive SHAP value means the feature pushes the prediction upward (toward higher risk). A negative SHAP value means the feature pushes the prediction downward (toward lower risk). In this case, <code>cp_0 </code>pushed the prediction toward higher risk, while other features pushed in the opposite direction. The explanation does not imply that one feature dominates all others in general, that removing a single feature would reverse the prediction, or that the same pattern necessarily applies to other patients. The key idea is that the model’s reasoning reflects a balance of influences for this particular individual.</p>
+    </div>
+  </solution>
+</problem>

@@ -1,0 +1,11 @@
+<video url_name="cffafbbd93594c0eb4cf363ccdbb14d4" sub="" transcripts="{&quot;en&quot;: &quot;c2079d78-f4b4-4cae-a63e-ac886b86ce14-en.srt&quot;}" display_name="L2.1 Fairness &amp; Bias: Demographic Parity " download_track="true" download_video="true" edx_video_id="c2079d78-f4b4-4cae-a63e-ac886b86ce14" end_time="00:00:00" html5_sources="[&quot;https://d3tsb3m56iwvoq.cloudfront.net/transcoded/c2079d78f4b44caea63eac886b86ce14/video__index.m3u8&quot;]" start_time="00:00:00" track="" youtube_id_1_0="">
+  <source src="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/c2079d78f4b44caea63eac886b86ce14/video__index.m3u8"/>
+  <video_asset client_video_id="M14_L4_S1.mp4" duration="629.375" image="">
+    <encoded_video profile="hls" url="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/c2079d78f4b44caea63eac886b86ce14/video__index.m3u8" file_size="0" bitrate="0"/>
+    <encoded_video profile="desktop_mp4" url="https://d3tsb3m56iwvoq.cloudfront.net/transcoded/c2079d78f4b44caea63eac886b86ce14/video_custom.mp4" file_size="0" bitrate="0"/>
+    <transcripts>
+      <transcript language_code="en" file_format="srt" provider="Custom"/>
+    </transcripts>
+  </video_asset>
+  <transcript language="en" src="c2079d78-f4b4-4cae-a63e-ac886b86ce14-en.srt"/>
+</video>

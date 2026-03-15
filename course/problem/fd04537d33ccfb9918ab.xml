@@ -1,0 +1,17 @@
+<problem url_name="problem_db16d5b54dff43ad37e3161f418f5fa9">
+  <multiplechoiceresponse>
+    <label>How does the structure of the audit tree support Lecture 2’s claim that fairness is improved at a small cost to meritocracy?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">The tree shows that flips are distributed evenly across all feature values</choice>
+      <choice correct="false">The tree demonstrates that the optimized model achieves the highest possible accuracy</choice>
+      <choice correct="true">The tree reveals that flips are limited to specific subgroups rather than applied broadly</choice>
+      <choice correct="false">The tree indicates that protected attributes dominate all decision rules</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Fairness is achieved through targeted adjustments rather than sweeping changes to outcomes. When the audit tree shows flips concentrated in specific regions of the feature space, it indicates that only a small subset of borderline cases were altered. This preserves the original merit-based structure for most individuals while correcting disparities. As a result, demographic parity is improved with only a limited impact on meritocracy.</p>
+    </div>
+  </solution>
+</problem>
