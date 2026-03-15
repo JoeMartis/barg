@@ -46,6 +46,19 @@ const Game = {
   ],
 
   init() {
+    // Preview mode: override GAME_DATA from editor
+    if (new URLSearchParams(window.location.search).get('preview') === '1') {
+      try {
+        const preview = JSON.parse(localStorage.getItem('aiq-preview-data'));
+        if (preview) {
+          Object.assign(GAME_DATA, preview);
+          document.body.insertAdjacentHTML('afterbegin',
+            '<div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:var(--accent-orange);color:#000;text-align:center;padding:4px;font-weight:700;font-size:0.85rem">PREVIEW MODE — content from editor</div>');
+          document.body.style.paddingTop = '28px';
+        }
+      } catch (e) { /* ignore */ }
+    }
+
     // Load persistent state
     this.state.xp = parseInt(localStorage.getItem('aiq-xp') || '0', 10) || 0;
     this.state.level = this.calcLevel(this.state.xp);

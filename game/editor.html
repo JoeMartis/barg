@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Ethics Quest - Content Editor</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="editor.css">
+</head>
+<body>
+
+<div id="editor-app">
+  <!-- Toolbar -->
+  <div class="editor-toolbar">
+    <div class="toolbar-left">
+      <h1 class="toolbar-title">Content Editor</h1>
+      <span class="autosave-indicator" id="autosave-indicator"></span>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn btn-secondary btn-sm" onclick="Editor.importJSON()">Import JSON</button>
+      <button class="btn btn-primary btn-sm" onclick="Editor.exportJSON()">Export JSON</button>
+      <a href="index.html" class="btn btn-back btn-sm">Back to Game</a>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="editor-layout">
+    <!-- Sidebar -->
+    <div class="editor-sidebar" id="editor-sidebar">
+      <div class="sidebar-search">
+        <input type="text" id="sidebar-search" placeholder="Search content..." oninput="Editor.filterSidebar(this.value)">
+      </div>
+      <div class="sidebar-sections" id="sidebar-sections"></div>
+    </div>
+
+    <!-- Main Panel -->
+    <div class="editor-main" id="editor-main">
+      <div class="editor-empty">
+        <div class="empty-icon">&#x270F;&#xFE0F;</div>
+        <h2>Select an item to edit</h2>
+        <p>Use the sidebar to navigate adventure chapters, quiz questions, scenarios, and boss battles.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="editor-modal" id="editor-modal" style="display:none">
+    <div class="modal-content">
+      <h3 id="modal-title">Confirm Delete</h3>
+      <p id="modal-message">Are you sure?</p>
+      <div class="modal-buttons">
+        <button class="btn btn-secondary btn-sm" onclick="Editor.closeModal()">Cancel</button>
+        <button class="btn btn-danger btn-sm" id="modal-confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HTML Preview Modal -->
+  <div class="editor-modal" id="preview-modal" style="display:none">
+    <div class="modal-content modal-wide">
+      <h3>HTML Preview</h3>
+      <div class="preview-frame" id="preview-frame"></div>
+      <div class="modal-buttons">
+        <button class="btn btn-secondary btn-sm" onclick="Editor.closePreviewModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="editor-toast" id="editor-toast"></div>
+
+  <!-- Hidden file input for import -->
+  <input type="file" id="import-input" accept=".json" style="display:none" onchange="Editor.handleImport(this.files[0])">
+</div>
+
+<script src="gamedata.js"></script>
+<script src="editor.js"></script>
+</body>
+</html>
