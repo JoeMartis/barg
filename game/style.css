@@ -2054,3 +2054,9 @@ body {
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
 }
+
+/* Preserve functional indicators in reduce-motion */
+.reduce-motion .tree-node-active {
+  outline: 3px solid var(--accent-cyan);
+  outline-offset: 2px;
+}

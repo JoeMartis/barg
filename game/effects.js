@@ -25,11 +25,12 @@ const Effects = {
   // Spawn particle burst from an element's position
   burst(element, color, count) {
     if (!this.canvas || this.reducedMotion) return;
+    count = count || 20;
     const rect = element.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
 
-    for (let i = 0; i < (count || 20); i++) {
+    for (let i = 0; i < count; i++) {
       const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
       const speed = 2 + Math.random() * 5;
       this.particles.push({
@@ -49,8 +50,9 @@ const Effects = {
   // Star burst for level-ups and big achievements
   starBurst(x, y, count) {
     if (!this.canvas || this.reducedMotion) return;
+    count = count || 30;
     const colors = ['#ffd700', '#ff9100', '#ffeb3b', '#ffffff'];
-    for (let i = 0; i < (count || 30); i++) {
+    for (let i = 0; i < count; i++) {
       const angle = (Math.PI * 2 * i) / count;
       const speed = 3 + Math.random() * 6;
       this.particles.push({

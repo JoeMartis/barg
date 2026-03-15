@@ -149,6 +149,7 @@ const Game = {
     if (this.state.freezeTimeout) clearTimeout(this.state.freezeTimeout);
     this.state.freezeTimeout = null;
     if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
+    if (this._bossDefeatTimeout) { clearTimeout(this._bossDefeatTimeout); this._bossDefeatTimeout = null; }
     if (this.toastTimeout) { clearTimeout(this.toastTimeout); this.toastTimeout = null; }
     this.state.totalSessions++;
     localStorage.setItem('aiq-sessions', this.state.totalSessions);
@@ -246,6 +247,15 @@ const Game = {
     } else if (this.state.mode === 'quiz-blitz') {
       const q = this.state.quizQuestions[this.state.quizQuestionIndex];
       explanation = q.explanation;
+    } else if (this.state.mode === 'boss-battle') {
+      const bosses = this._shuffledBosses || GAME_DATA.bosses;
+      const attack = bosses[this.state.bossIndex].attacks[this.state.bossAttackIndex];
+      explanation = attack.explanation;
+    } else if (this.state.mode === 'scenario-lab') {
+      const scenario = GAME_DATA.scenarios[this.state.scenarioIndex];
+      if (scenario.questions && scenario.questions[this.state.scenarioQIndex]) {
+        explanation = scenario.questions[this.state.scenarioQIndex].explanation;
+      }
     }
     if (explanation) {
       const hint = explanation.split('.').slice(0, 1).join('.') + '.';
@@ -1168,6 +1178,8 @@ const Game = {
 
     // Pause quiz timer during rapid-tap to avoid double-timer race
     if (this.state.quizTimer) clearInterval(this.state.quizTimer);
+    // Cancel any pending time-freeze resume to prevent duplicate timers
+    if (this.state.freezeTimeout) { clearTimeout(this.state.freezeTimeout); this.state.freezeTimeout = null; }
 
     // Start tap timer
     this.tapState.tapTimer = setInterval(() => {
@@ -1202,8 +1214,6 @@ const Game = {
     if (this.state.answering) return; // Prevent double-fire from race
     if (this.state.mode !== 'quiz-blitz') return; // Guard against mode change
     if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
-    // Resume quiz timer
-    this.startQuizTimer();
     this.state.answering = true;
     this.state.total++;
 
@@ -1241,7 +1251,7 @@ const Game = {
     });
 
     document.getElementById('quiz-score').textContent = this.state.score;
-    this.state.autoAdvanceTimeout = setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2500);
+    this.state.autoAdvanceTimeout = setTimeout(() => { this.state.quizQuestionIndex++; this.startQuizTimer(); this.renderQuizQuestion(); }, 2500);
   },
 
   answerQuiz(idx) {
@@ -1631,7 +1641,8 @@ const Game = {
     Effects.starBurst(window.innerWidth / 2, window.innerHeight / 3, 40);
     Effects.screenFlash('rgba(255,215,0,0.3)');
 
-    setTimeout(() => {
+    this._bossDefeatTimeout = setTimeout(() => {
+      this._bossDefeatTimeout = null;
       this.state.bossIndex++;
       this.state.bossAttackIndex = 0;
       this.state.bossHP = 100;
@@ -1733,13 +1744,17 @@ const Game = {
 
   updateBossHP() {
     const hp = Math.max(0, this.state.bossHP);
-    document.getElementById('boss-health').style.width = `${hp}%`;
+    const el = document.getElementById('boss-health');
+    if (!el) return;
+    el.style.width = `${hp}%`;
     document.getElementById('boss-hp-text').textContent = `HP: ${Math.round(hp)}/100`;
   },
 
   updatePlayerHP() {
     const hp = Math.max(0, this.state.playerHP);
-    document.getElementById('player-health').style.width = `${hp}%`;
+    const el = document.getElementById('player-health');
+    if (!el) return;
+    el.style.width = `${hp}%`;
     document.getElementById('player-hp-text').textContent = `HP: ${hp}/100`;
   },
 
