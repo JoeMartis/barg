@@ -54,6 +54,16 @@ body {
   justify-content: center;
 }
 
+/* Game-play screens: don't vertically center so buttons stay reachable */
+#screen-adventure.active,
+#screen-quiz.active,
+#screen-scenario.active,
+#screen-boss.active {
+  align-items: flex-start;
+  padding-top: 40px;
+  padding-bottom: 60px; /* space for fixed XP bar */
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -386,6 +396,8 @@ body {
   border-radius: var(--radius);
   padding: 32px;
   animation: slideUp 0.4s ease;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
 }
 
 .scene-narrative {
@@ -454,6 +466,10 @@ body {
 .scene-continue {
   margin-top: 16px;
   text-align: right;
+  position: sticky;
+  bottom: 0;
+  padding: 12px 0 4px;
+  background: linear-gradient(to bottom, transparent, var(--bg-card) 30%);
 }
 
 /* === Quiz Blitz === */
@@ -472,6 +488,8 @@ body {
   border-radius: var(--radius);
   padding: 28px;
   animation: slideUp 0.3s ease;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
 }
 
 .quiz-question .question-category {
@@ -517,6 +535,8 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
 }
 
 .scenario-visual {
@@ -684,6 +704,8 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
 }
 
 .boss-attack {
