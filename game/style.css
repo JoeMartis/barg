@@ -396,8 +396,6 @@ body {
   border-radius: var(--radius);
   padding: 32px;
   animation: slideUp 0.4s ease;
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
 }
 
 .scene-narrative {
@@ -466,10 +464,6 @@ body {
 .scene-continue {
   margin-top: 16px;
   text-align: right;
-  position: sticky;
-  bottom: 0;
-  padding: 12px 0 4px;
-  background: linear-gradient(to bottom, transparent, var(--bg-card) 30%);
 }
 
 /* === Quiz Blitz === */
@@ -488,8 +482,6 @@ body {
   border-radius: var(--radius);
   padding: 28px;
   animation: slideUp 0.3s ease;
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
 }
 
 .quiz-question .question-category {
@@ -535,8 +527,6 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
 }
 
 .scenario-visual {
@@ -704,8 +694,6 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
 }
 
 .boss-attack {
