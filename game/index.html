@@ -23,6 +23,13 @@
         <button class="btn btn-secondary" onclick="Game.showScreen('screen-modes')">Choose Game Mode</button>
         <button class="btn btn-back" onclick="Game.showScreen('screen-help')">How to Play</button>
       </div>
+      <div class="title-settings">
+        <label class="toggle-label" for="reduce-motion-toggle">
+          <input type="checkbox" id="reduce-motion-toggle" onchange="Game.toggleReduceMotion(this.checked)">
+          <span class="toggle-switch"></span>
+          Reduce motion
+        </label>
+      </div>
       <div class="title-stats" id="returning-stats" style="display:none">
         <p>Welcome back! Best score: <span id="best-score">0</span></p>
       </div>
@@ -213,7 +220,7 @@
 
       <div class="help-section">
         <h3><span class="help-icon">&#x1F409;</span> Boss Battle</h3>
-        <p>Face two bosses: <strong>The Bias Dragon</strong> and <strong>The Black Box Sphinx</strong>. Each boss attacks with themed questions. Answer correctly to deal damage; answer wrong and you take a hit.</p>
+        <p>Face two bosses: <strong>The Bias Dragon</strong> and <strong>The Black Box Sphinx</strong>. The order you face them and the attacks they use are randomized each time. Answer correctly to deal damage; answer wrong and you take a hit.</p>
         <p>Some attacks match a boss's <strong>weakness</strong> &mdash; correct answers on these deal <strong>1.5x critical damage!</strong></p>
       </div>
 
@@ -233,6 +240,12 @@
           </li>
         </ul>
         <p>Score 80%+ to earn bonus power-ups at the end of each session. Score 90%+ for extra rewards!</p>
+      </div>
+
+      <div class="help-section">
+        <h3><span class="help-icon">&#x2699;</span> Accessibility</h3>
+        <p>Use the <strong>Reduce motion</strong> toggle on the main menu to disable all visual effects including screen shake, particle bursts, screen flashes, and CSS animations. Your preference is saved between sessions.</p>
+        <p>Answer choices and boss encounters are <strong>randomized</strong> each playthrough, so replaying builds deeper understanding rather than pattern memorization.</p>
       </div>
 
       <div class="help-section">
