@@ -152,6 +152,12 @@ const Game = {
     if (this._bossDefeatTimeout) { clearTimeout(this._bossDefeatTimeout); this._bossDefeatTimeout = null; }
     if (this._playerDeathTimeout) { clearTimeout(this._playerDeathTimeout); this._playerDeathTimeout = null; }
     if (this.toastTimeout) { clearTimeout(this.toastTimeout); this.toastTimeout = null; }
+    this._advCorrectIdx = null;
+    this._quizCorrectIdx = null;
+    this._bossCorrectIdx = null;
+    this._scenarioCorrectIdx = null;
+    this._scaleCorrectIdx = null;
+    this._shuffledBosses = null;
     this.state.totalSessions++;
     localStorage.setItem('aiq-sessions', this.state.totalSessions);
   },
@@ -190,6 +196,8 @@ const Game = {
       const hasChoices = document.querySelectorAll('.scene-choices .btn-choice:not(.disabled)').length > 0;
       if (!hasChoices) return;
     }
+    // Time freeze only works when quiz timer is active
+    if (type === 'timeFreeze' && !this.state.quizTimer) return;
 
     this.state.powerups[type]--;
     localStorage.setItem('aiq-powerups', JSON.stringify(this.state.powerups));
@@ -1389,11 +1397,16 @@ const Game = {
         <div class="scale-challenge">
           <p><strong>Challenge:</strong> ${this.escapeHtml(scenario.challenge)}</p>
           <div class="scale-choices" id="scale-choices">
-            ${scenario.choices.map((c, i) =>
-              `<button class="btn-choice" onclick="Game.answerScale(${i})">
-                <span class="choice-letter">${['A','B','C','D'][i]}</span>${this.escapeHtml(c)}
-              </button>`
-            ).join('')}
+            ${(() => {
+              const indices = scenario.choices.map((_, i) => i);
+              this.shuffleArray(indices);
+              this._scaleCorrectIdx = indices.indexOf(scenario.correct);
+              return indices.map((origIdx, i) =>
+                `<button class="btn-choice" onclick="Game.answerScale(${i})">
+                  <span class="choice-letter">${['A','B','C','D'][i]}</span>${this.escapeHtml(scenario.choices[origIdx])}
+                </button>`
+              ).join('');
+            })()}
           </div>
         </div>
       </div>
@@ -1428,11 +1441,12 @@ const Game = {
     this.state.total++;
 
     const scenario = GAME_DATA.scenarios[this.state.scenarioIndex];
-    const isCorrect = idx === scenario.correct;
+    const correctIdx = this._scaleCorrectIdx != null ? this._scaleCorrectIdx : scenario.correct;
+    const isCorrect = idx === correctIdx;
     const buttons = document.querySelectorAll('#scale-choices .btn-choice');
     buttons.forEach((b, i) => {
       b.classList.add('disabled');
-      if (i === scenario.correct) b.classList.add('correct');
+      if (i === correctIdx) b.classList.add('correct');
       if (i === idx && !isCorrect) b.classList.add('incorrect');
     });
 
