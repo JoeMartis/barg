@@ -58,8 +58,13 @@ const LTI = {
         console.warn('[LTI] Rejected postMessage from untrusted origin:', event.origin);
         return;
       }
+      if (!this.trustedOrigin && window.parent !== window) {
+        // No referrer available - only accept if we're in an iframe context
+        // and lock to the first origin we receive from
+        console.warn('[LTI] No trusted origin set. Accepting first postMessage origin:', event.origin);
+      }
       if (event.data && event.data.type === 'lti-config') {
-        this.trustedOrigin = this.trustedOrigin || event.origin;
+        if (!this.trustedOrigin) this.trustedOrigin = event.origin;
         this.config = event.data.config;
       }
     });

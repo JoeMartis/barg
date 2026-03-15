@@ -242,10 +242,11 @@ const Game = {
     if (this.state.quizTimer) {
       clearInterval(this.state.quizTimer);
       const timerEl = document.getElementById('quiz-timer');
+      if (!timerEl) return;
       timerEl.classList.add('timer-frozen');
       this.showToast('combo', 'Time frozen for 10s!');
       setTimeout(() => {
-        timerEl.classList.remove('timer-frozen');
+        if (timerEl) timerEl.classList.remove('timer-frozen');
         this.startQuizTimer();
       }, 10000);
     }
@@ -455,7 +456,8 @@ const Game = {
         const container = document.querySelector('.tree-trace-container');
         const feedback = document.createElement('div');
         feedback.className = 'scene-feedback correct';
-        feedback.innerHTML = `<strong>Perfect trace!</strong><div class="explanation">${this.escapeHtml(node.type === 'leaf' ? `The patient reaches: ${node.prediction}. ${this.treeState.nodes[expectedIdx].explanation || ''}` : '')}</div>`;
+        const lastNode = this.treeState.nodes[idx];
+        feedback.innerHTML = `<strong>Perfect trace!</strong><div class="explanation">${this.escapeHtml(lastNode.type === 'leaf' ? `The patient reaches: ${lastNode.prediction}. ${lastNode.explanation || ''}` : '')}</div>`;
         container.appendChild(feedback);
         const cont = document.createElement('div');
         cont.className = 'scene-continue';
@@ -897,6 +899,7 @@ const Game = {
     this.state.quizTimer = setInterval(() => {
       this.state.quizTimeLeft--;
       const timerEl = document.getElementById('quiz-timer');
+      if (!timerEl) { clearInterval(this.state.quizTimer); return; }
       timerEl.textContent = this.state.quizTimeLeft;
       if (this.state.quizTimeLeft <= 10) {
         timerEl.classList.add('timer-urgent');
@@ -949,7 +952,7 @@ const Game = {
     ).join('');
 
     document.getElementById('quiz-question').innerHTML = `
-      <span class="question-category">${q.category}</span>
+      <span class="question-category">${this.escapeHtml(q.category)}</span>
       <div class="question-text">${this.escapeHtml(q.question)}</div>
       <div id="quiz-powerups"></div>
       <div class="scene-choices" id="quiz-choices">${choicesHTML}</div>
@@ -960,10 +963,10 @@ const Game = {
   // === INTERACTIVE QUIZ: Slider ===
   renderSliderQuestion(q) {
     document.getElementById('quiz-question').innerHTML = `
-      <span class="question-category">${q.category}</span>
+      <span class="question-category">${this.escapeHtml(q.category)}</span>
       <div class="question-text">${this.escapeHtml(q.question)}</div>
       <div class="slider-container">
-        <div class="slider-formula" id="slider-formula">${q.displayFormula || ''}</div>
+        <div class="slider-formula" id="slider-formula">${this.escapeHtml(q.displayFormula || '')}</div>
         <input type="range" class="slider-input" id="quiz-slider"
                min="${q.min}" max="${q.max}" step="${q.step || 0.01}"
                value="${(q.min + q.max) / 2}"
@@ -1020,7 +1023,7 @@ const Game = {
     this.orderState = { items: shuffled, correctOrder: q.correctOrder };
 
     document.getElementById('quiz-question').innerHTML = `
-      <span class="question-category">${q.category}</span>
+      <span class="question-category">${this.escapeHtml(q.category)}</span>
       <div class="question-text">${this.escapeHtml(q.question)}</div>
       <div class="order-container" id="order-container">
         ${shuffled.map((item, i) =>
@@ -1110,7 +1113,7 @@ const Game = {
     this.tapState = { items: q.items, tapped: new Set(), tapTimer: null, timeLeft: q.timeLimit || 8 };
 
     document.getElementById('quiz-question').innerHTML = `
-      <span class="question-category">${q.category}</span>
+      <span class="question-category">${this.escapeHtml(q.category)}</span>
       <div class="question-text">${this.escapeHtml(q.question)}</div>
       <div class="tap-timer">Time: <span id="tap-timer">${this.tapState.timeLeft}</span>s</div>
       <div class="tap-arena" id="tap-arena">
@@ -1156,6 +1159,8 @@ const Game = {
   },
 
   finishRapidTap() {
+    if (this.state.answering) return; // Prevent double-fire from race
+    if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
     this.state.answering = true;
     this.state.total++;
 
@@ -1526,9 +1531,9 @@ const Game = {
 
     // Boss idle animation intensity based on HP
     const bossArea = document.getElementById('boss-battle-area');
+    bossArea.classList.remove('boss-desperate', 'boss-angry');
     if (this.state.bossHP <= 25) bossArea.classList.add('boss-desperate');
     else if (this.state.bossHP <= 50) bossArea.classList.add('boss-angry');
-    else { bossArea.classList.remove('boss-desperate', 'boss-angry'); }
 
     let choicesHTML = attack.choices.map((c, i) =>
       `<button class="btn-choice" onclick="Game.answerBoss(${i})">
@@ -1655,15 +1660,13 @@ const Game = {
   },
 
   nextBossAttack() {
-    // If boss HP is depleted, skip remaining attacks and trigger defeat
+    // If boss HP is depleted, skip remaining attacks
     if (this.state.bossHP <= 0) {
-      const boss = GAME_DATA.bosses[this.state.bossIndex];
-      this.state.badges.push(this.state.bossIndex === 0 ? 'dragonSlayer' : 'sphinxSolver');
-      this.awardXP(100);
-      this.showBossDefeat(boss);
-      return;
+      this.state.bossAttackIndex = GAME_DATA.bosses[this.state.bossIndex].attacks.length;
+    } else {
+      this.state.bossAttackIndex++;
     }
-    this.state.bossAttackIndex++;
+    // renderBossBattle handles defeat detection at line 1514
     this.renderBossBattle();
   },
 
