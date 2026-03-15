@@ -1,0 +1,17 @@
+<problem url_name="problem_610164ca68f2ef4d4a66039e744d7351">
+  <multiplechoiceresponse>
+    <label>In the Grad-CAM overlay for the <code>harbor</code> class, the highlighted regions concentrate over the water and along the curved shoreline where boats are visible, with weaker activation over inland city areas. Which conclusion is best supported by this visualization?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="true">The model associates the <code>harbor</code> class primarily with maritime regions (water, shoreline, boats) rather than inland urban structures.</choice>
+      <choice correct="false">The model likely relies on both water and city features equally, but Grad-CAM underrepresents some important regions due to its low spatial resolution.</choice>
+      <choice correct="false">The highlighted regions suggest the model is focusing on the most visually salient parts of the image, not necessarily the most class-relevant ones.</choice>
+      <choice correct="false">The model’s attention pattern indicates that shoreline curvature alone is sufficient for predicting the <code>harbor</code> class.</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>The Grad-CAM overlay shows concentrated activation over water and the adjacent shoreline where maritime activity is visible, which aligns closely with how a harbor is visually defined. While Grad-CAM is coarse and does not capture fine-grained details, the consistent emphasis on water-based regions suggests that these areas provide the strongest evidence for the <code>harbor</code> prediction in this image. The visualization does not support the idea that all regions contribute equally or that a single geometric cue alone determines the class.</p>
+    </div>
+  </solution>
+</problem>

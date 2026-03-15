@@ -1,0 +1,328 @@
+0
+00:00:00,000 --> 00:00:01,125
+INSTRUCTOR: Hello, everyone.
+
+1
+00:00:01,125 --> 00:00:02,640
+Welcome to today's recitation.
+
+2
+00:00:02,640 --> 00:00:07,550
+Today, we are going to talk about specific concepts
+
+3
+00:00:07,550 --> 00:00:11,000
+that you saw in one of this module's lecture,
+
+4
+00:00:11,000 --> 00:00:15,020
+and more specifically prompt engineering and retrieval
+
+5
+00:00:15,020 --> 00:00:16,640
+augmented generation.
+
+6
+00:00:16,640 --> 00:00:20,370
+This module has covered a wide range of topics,
+
+7
+00:00:20,370 --> 00:00:23,960
+but today we chose to talk about these specific ones,
+
+8
+00:00:23,960 --> 00:00:28,970
+because we think they are also more relevant for everyday
+
+9
+00:00:28,970 --> 00:00:31,460
+and real life practice.
+
+10
+00:00:31,460 --> 00:00:33,590
+So in this recitation, we are going
+
+11
+00:00:33,590 --> 00:00:37,190
+to explore how to interact with large language models
+
+12
+00:00:37,190 --> 00:00:42,120
+more effectively and in a more skeptical way.
+
+13
+00:00:42,120 --> 00:00:46,910
+We are going to do that through prompt engineering and retrieval
+
+14
+00:00:46,910 --> 00:00:48,450
+augmented generation.
+
+15
+00:00:48,450 --> 00:00:51,560
+We don't want to rely on a specific model
+
+16
+00:00:51,560 --> 00:00:54,660
+and assume that this model knows everything.
+
+17
+00:00:54,660 --> 00:00:58,980
+We want to critically approach the outputs of LLMs,
+
+18
+00:00:58,980 --> 00:01:03,950
+and we want to investigate how structured and smart prompts
+
+19
+00:01:03,950 --> 00:01:07,010
+and also external context can potentially
+
+20
+00:01:07,010 --> 00:01:09,620
+improve model responses.
+
+21
+00:01:09,620 --> 00:01:12,700
+So we are going to go over different types
+
+22
+00:01:12,700 --> 00:01:17,060
+of prompt structures and their impact on model performance.
+
+23
+00:01:17,060 --> 00:01:21,310
+We are going to investigate how smaller open source
+
+24
+00:01:21,310 --> 00:01:24,400
+LLMs or large language models compare
+
+25
+00:01:24,400 --> 00:01:27,860
+to ChatGPT in different prompting scenarios.
+
+26
+00:01:27,860 --> 00:01:33,580
+We are going to briefly go over the design and use of RAG,
+
+27
+00:01:33,580 --> 00:01:36,820
+or retrieval augmented generation pipelines,
+
+28
+00:01:36,820 --> 00:01:40,190
+to improve factual accuracy and reasoning.
+
+29
+00:01:40,190 --> 00:01:43,760
+So we hope that by the end of this recitation,
+
+30
+00:01:43,760 --> 00:01:47,020
+you are going to have a better understanding of how
+
+31
+00:01:47,020 --> 00:01:53,230
+to thoughtfully and critically approach the outputs of LLMs
+
+32
+00:01:53,230 --> 00:01:58,000
+and how to use specific prompt design and information
+
+33
+00:01:58,000 --> 00:02:03,160
+retrieval to have more reliable and controllable outputs.
+
+34
+00:02:03,160 --> 00:02:06,280
+First of all, we need to install some packages that are not
+
+35
+00:02:06,280 --> 00:02:10,120
+already available in Google Colab, the ones
+
+36
+00:02:10,120 --> 00:02:11,950
+that you can see here.
+
+37
+00:02:11,950 --> 00:02:15,340
+And we are noting that one of the models
+
+38
+00:02:15,340 --> 00:02:17,690
+that we are going to use today, LLaMA,
+
+39
+00:02:17,690 --> 00:02:19,760
+although it's publicly available,
+
+40
+00:02:19,760 --> 00:02:26,190
+it requires an access request from Hugging Face, where we
+
+41
+00:02:26,190 --> 00:02:28,000
+generally load our models from.
+
+42
+00:02:28,000 --> 00:02:34,170
+So what this means is that in order to be used,
+
+43
+00:02:34,170 --> 00:02:36,600
+we need to submit a form to Hugging Face
+
+44
+00:02:36,600 --> 00:02:39,990
+and then get access to it.
+
+45
+00:02:39,990 --> 00:02:45,270
+Of course, I have already done that, otherwise I wouldn't
+
+46
+00:02:45,270 --> 00:02:46,720
+be able to run the code.
+
+47
+00:02:46,720 --> 00:02:51,540
+But for any user, for any learner that is willing,
+
+48
+00:02:51,540 --> 00:02:55,800
+that wants to actually try this themselves, here
+
+49
+00:02:55,800 --> 00:02:58,380
+there are detailed instructions about how
+
+50
+00:02:58,380 --> 00:03:02,320
+to access Llama on Hugging Face in a step by step fashion.
+
+51
+00:03:02,320 --> 00:03:04,440
+Very briefly, first of all, you need
+
+52
+00:03:04,440 --> 00:03:06,720
+to create a Hugging Face account,
+
+53
+00:03:06,720 --> 00:03:11,200
+and this is the link to do that.
+
+54
+00:03:11,200 --> 00:03:15,540
+Then for some of the models on Hugging Face,
+
+55
+00:03:15,540 --> 00:03:17,890
+and specifically for the model we're going to use,
+
+56
+00:03:17,890 --> 00:03:23,010
+which is this LLaMA 3 model, it's called Meta LLaMA 38b
+
+57
+00:03:23,010 --> 00:03:29,080
+instruct, you will need to request access from Meta.
+
+58
+00:03:29,080 --> 00:03:30,870
+So you need to click on this expand
+
+59
+00:03:30,870 --> 00:03:32,710
+to review and access button.
+
+60
+00:03:32,710 --> 00:03:34,980
+There is a form that you will need
+
+61
+00:03:34,980 --> 00:03:39,040
+to fill with some of your personal information,
+
+62
+00:03:39,040 --> 00:03:41,740
+and then you will need to wait for approval.
+
+63
+00:03:41,740 --> 00:03:44,790
+It usually doesn't take long.
+
+64
+00:03:44,790 --> 00:03:48,850
+When you get an email that confirms that you are approved
+
+65
+00:03:48,850 --> 00:03:52,470
+to use this specific model, you will be actually
+
+66
+00:03:52,470 --> 00:03:54,660
+able to access the files.
+
+67
+00:03:54,660 --> 00:03:59,400
+In case you want to load these files in Google Colab,
+
+68
+00:03:59,400 --> 00:04:03,000
+like we're doing here, you will need to basically authenticate
+
+69
+00:04:03,000 --> 00:04:04,450
+through Google Colab.
+
+70
+00:04:04,450 --> 00:04:07,380
+So this is why you need to get a Hugging Face access
+
+71
+00:04:07,380 --> 00:04:11,440
+token in order to load the models programmatically,
+
+72
+00:04:11,440 --> 00:04:17,010
+and you can generate one token by visiting this link here.
+
+73
+00:04:17,010 --> 00:04:20,040
+As I mentioned, in order for me to be
+
+74
+00:04:20,040 --> 00:04:26,680
+able to use this model here, I actually had to run these lines.
+
+75
+00:04:26,680 --> 00:04:29,580
+And when you run this cell, you will
+
+76
+00:04:29,580 --> 00:04:36,300
+get a login prompt that asks you to basically input
+
+77
+00:04:36,300 --> 00:04:37,390
+your password.
+
+78
+00:04:37,390 --> 00:04:41,380
+And then after this is finished, you're all good,
+
+79
+00:04:41,380 --> 00:04:43,770
+you're authenticated, and you can actually
+
+80
+00:04:43,770 --> 00:04:47,500
+load the weights of the LLaMA model that you want.
+
+81
+00:04:47,500 --> 00:04:48,000
+
+

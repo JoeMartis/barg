@@ -1,0 +1,712 @@
+0
+00:00:00,000 --> 00:00:00,790
+
+
+1
+00:00:00,790 --> 00:00:04,040
+INSTRUCTOR: Now for the third and last section
+
+2
+00:00:04,040 --> 00:00:06,440
+of the recitation, we're going to take
+
+3
+00:00:06,440 --> 00:00:11,080
+a brief look at how language interpretability looks like.
+
+4
+00:00:11,080 --> 00:00:15,280
+So we will take a look at attention heatmaps
+
+5
+00:00:15,280 --> 00:00:17,100
+and lime for text.
+
+6
+00:00:17,100 --> 00:00:21,760
+We're going to use the DistilBERT model.
+
+7
+00:00:21,760 --> 00:00:24,420
+This is a BERT type of model.
+
+8
+00:00:24,420 --> 00:00:30,240
+It's small and which we did on purpose for educational reasons
+
+9
+00:00:30,240 --> 00:00:32,479
+here.
+
+10
+00:00:32,479 --> 00:00:35,420
+And we are going to take this input sentence.
+
+11
+00:00:35,420 --> 00:00:37,220
+I absolutely loved the cinematography,
+
+12
+00:00:37,220 --> 00:00:38,840
+but the plot was terrible.
+
+13
+00:00:38,840 --> 00:00:41,180
+We are going to tokenize this sentence.
+
+14
+00:00:41,180 --> 00:00:43,120
+So basically, break this sentence
+
+15
+00:00:43,120 --> 00:00:50,120
+into smaller words or subwords that
+
+16
+00:00:50,120 --> 00:00:56,160
+maps these parts in certain IDs that are readable by the model.
+
+17
+00:00:56,160 --> 00:01:01,720
+We pass the inputs through the model we have already loaded,
+
+18
+00:01:01,720 --> 00:01:05,500
+and in the output, we get probabilities
+
+19
+00:01:05,500 --> 00:01:09,840
+about the sentiment that we are predicting.
+
+20
+00:01:09,840 --> 00:01:12,980
+So basically, after loading the model,
+
+21
+00:01:12,980 --> 00:01:15,500
+we want to see-- we will run an example
+
+22
+00:01:15,500 --> 00:01:16,960
+sentence through the model.
+
+23
+00:01:16,960 --> 00:01:19,540
+And we want to see if it's classified
+
+24
+00:01:19,540 --> 00:01:23,380
+as a positive or a negative sentiment.
+
+25
+00:01:23,380 --> 00:01:26,080
+The sentence is, I absolutely loved the cinematography,
+
+26
+00:01:26,080 --> 00:01:27,860
+but the plot was terrible.
+
+27
+00:01:27,860 --> 00:01:30,560
+So we take the sentence.
+
+28
+00:01:30,560 --> 00:01:32,900
+We pass it through our tokenizer, which basically
+
+29
+00:01:32,900 --> 00:01:35,820
+breaks the sentence into smaller subwords
+
+30
+00:01:35,820 --> 00:01:39,620
+and maps them to some IDs that are readable by our model
+
+31
+00:01:39,620 --> 00:01:41,300
+that we have already loaded.
+
+32
+00:01:41,300 --> 00:01:43,560
+And then at the output of this model,
+
+33
+00:01:43,560 --> 00:01:49,660
+we get the probabilities of it being a positive
+
+34
+00:01:49,660 --> 00:01:53,740
+or a negative sentiment.
+
+35
+00:01:53,740 --> 00:01:56,520
+As we can see, the model is pretty confident,
+
+36
+00:01:56,520 --> 00:01:59,200
+and we're going to see where it is exactly confident.
+
+37
+00:01:59,200 --> 00:02:04,290
+But for now, we are going to visualize these attention
+
+38
+00:02:04,290 --> 00:02:09,050
+maps that basically shows what?
+
+39
+00:02:09,050 --> 00:02:12,690
+They show for each anchor word, which
+
+40
+00:02:12,690 --> 00:02:18,270
+corresponds to the rows here, which of the other words,
+
+41
+00:02:18,270 --> 00:02:20,210
+are the most important.
+
+42
+00:02:20,210 --> 00:02:25,010
+For example, let's take this word here, was.
+
+43
+00:02:25,010 --> 00:02:27,810
+This word, if we take it horizontally,
+
+44
+00:02:27,810 --> 00:02:33,130
+has the highest attention weight in the word but.
+
+45
+00:02:33,130 --> 00:02:41,330
+So it looks like the model cares a lot.
+
+46
+00:02:41,330 --> 00:02:46,410
+It looks like the word was, its representation is affected
+
+47
+00:02:46,410 --> 00:02:50,330
+inside the model a lot by the word
+
+48
+00:02:50,330 --> 00:02:56,330
+but, which makes sense because but is what introduces
+
+49
+00:02:56,330 --> 00:02:58,030
+the change in the tone.
+
+50
+00:02:58,030 --> 00:03:04,250
+The first part is more positive and the second is more negative.
+
+51
+00:03:04,250 --> 00:03:07,070
+And in general, all the words of the second sentence
+
+52
+00:03:07,070 --> 00:03:10,230
+seem to attend to the word but a lot.
+
+53
+00:03:10,230 --> 00:03:14,670
+For the first part of the sentence, most of the words
+
+54
+00:03:14,670 --> 00:03:17,530
+seem to attend to the word love.
+
+55
+00:03:17,530 --> 00:03:24,970
+So cinematography, it looks like the most important again
+
+56
+00:03:24,970 --> 00:03:28,690
+is the word love, which makes sense because what did we love?
+
+57
+00:03:28,690 --> 00:03:30,550
+We loved the cinematography.
+
+58
+00:03:30,550 --> 00:03:32,710
+So that's how we can read the heatmap.
+
+59
+00:03:32,710 --> 00:03:39,290
+The higher the value, the higher the weight
+
+60
+00:03:39,290 --> 00:03:44,390
+the anchor word the row gives to a certain other word.
+
+61
+00:03:44,390 --> 00:03:47,390
+The last column is very bright because--
+
+62
+00:03:47,390 --> 00:03:49,310
+and this is the separator token.
+
+63
+00:03:49,310 --> 00:03:53,190
+This is not as intuitive and not good
+
+64
+00:03:53,190 --> 00:03:55,050
+for our educational purposes.
+
+65
+00:03:55,050 --> 00:03:59,170
+But this is how attention works inside the model.
+
+66
+00:03:59,170 --> 00:04:03,190
+We can still do visualize the left part of the table
+
+67
+00:04:03,190 --> 00:04:10,910
+and try to get an idea of which parts, which combinations,
+
+68
+00:04:10,910 --> 00:04:18,670
+which pairs of words seemed to be kind of connected.
+
+69
+00:04:18,670 --> 00:04:20,769
+Was, for example, was connected to but.
+
+70
+00:04:20,769 --> 00:04:24,530
+As we said, terrible, also connected to but, et cetera.
+
+71
+00:04:24,530 --> 00:04:28,290
+And also, we can visualize this in different layers
+
+72
+00:04:28,290 --> 00:04:29,830
+in different parts of the network.
+
+73
+00:04:29,830 --> 00:04:32,930
+Here, we visualized a heat map that's around--
+
+74
+00:04:32,930 --> 00:04:33,870
+it's internal.
+
+75
+00:04:33,870 --> 00:04:37,210
+It's around the middle layer.
+
+76
+00:04:37,210 --> 00:04:40,530
+And finally, for lime, we already
+
+77
+00:04:40,530 --> 00:04:43,370
+explained how lime works for images.
+
+78
+00:04:43,370 --> 00:04:45,610
+For text, we are more or less trying
+
+79
+00:04:45,610 --> 00:04:47,770
+to answer the same question, which
+
+80
+00:04:47,770 --> 00:04:50,130
+is which words change the prediction if we
+
+81
+00:04:50,130 --> 00:04:52,130
+remove or change them.
+
+82
+00:04:52,130 --> 00:04:55,270
+So we create many perturbed version of the sentence
+
+83
+00:04:55,270 --> 00:05:01,010
+like previously we created many perturbed version of the image.
+
+84
+00:05:01,010 --> 00:05:04,170
+So words are randomly removed or masked.
+
+85
+00:05:04,170 --> 00:05:07,720
+And then we run the model on these modified sentences,
+
+86
+00:05:07,720 --> 00:05:11,440
+and we check how the prediction probability changes.
+
+87
+00:05:11,440 --> 00:05:15,680
+Afterwards, we fit a simple surrogate model
+
+88
+00:05:15,680 --> 00:05:18,080
+like linear regression.
+
+89
+00:05:18,080 --> 00:05:21,740
+The input is which words were kept or removed
+
+90
+00:05:21,740 --> 00:05:25,060
+as in the images which parts of the image were kept and removed.
+
+91
+00:05:25,060 --> 00:05:26,960
+And the output, what we're trying to learn,
+
+92
+00:05:26,960 --> 00:05:30,640
+is how the prediction changed when these words were removed.
+
+93
+00:05:30,640 --> 00:05:32,160
+And the coefficients, for example
+
+94
+00:05:32,160 --> 00:05:34,920
+of this linear regression model tell us
+
+95
+00:05:34,920 --> 00:05:41,040
+which words push the prediction positive or negative.
+
+96
+00:05:41,040 --> 00:05:43,840
+And then we're going to display this.
+
+97
+00:05:43,840 --> 00:05:47,240
+So basically, we are going to say
+
+98
+00:05:47,240 --> 00:05:49,820
+that positive words are shown in orange
+
+99
+00:05:49,820 --> 00:05:52,240
+and negative words are shown in blue.
+
+100
+00:05:52,240 --> 00:05:54,880
+By positive words, we mean that these words seem
+
+101
+00:05:54,880 --> 00:06:00,840
+to be the ones pushing towards a positive classification
+
+102
+00:06:00,840 --> 00:06:02,560
+and negative were the ones pushing
+
+103
+00:06:02,560 --> 00:06:05,040
+towards a negative classification.
+
+104
+00:06:05,040 --> 00:06:08,420
+So we initialize our explainer.
+
+105
+00:06:08,420 --> 00:06:11,220
+The class names are negative on the left and positive
+
+106
+00:06:11,220 --> 00:06:14,860
+on the right, which, as we remember,
+
+107
+00:06:14,860 --> 00:06:16,960
+the first number was extremely high.
+
+108
+00:06:16,960 --> 00:06:20,860
+So the model predicted that this is
+
+109
+00:06:20,860 --> 00:06:24,825
+negative with high confidence.
+
+110
+00:06:24,825 --> 00:06:27,200
+We don't care about how good the prediction is right now.
+
+111
+00:06:27,200 --> 00:06:34,620
+We just want to see how each word influenced the prediction
+
+112
+00:06:34,620 --> 00:06:36,060
+probability, basically.
+
+113
+00:06:36,060 --> 00:06:39,660
+So what does this plot show us?
+
+114
+00:06:39,660 --> 00:06:43,860
+Terrible and but were the words that
+
+115
+00:06:43,860 --> 00:06:46,900
+had the biggest negative contribution,
+
+116
+00:06:46,900 --> 00:06:49,220
+and the words loved and absolutely
+
+117
+00:06:49,220 --> 00:06:53,460
+were the words with the highest positive contribution, which
+
+118
+00:06:53,460 --> 00:06:54,460
+makes sense.
+
+119
+00:06:54,460 --> 00:06:57,540
+So I know it's a bit confusing with the negative and positive
+
+120
+00:06:57,540 --> 00:07:01,160
+parts, but if we think about it, what does this mean?
+
+121
+00:07:01,160 --> 00:07:05,740
+It means that when we removed the terrible word probably,
+
+122
+00:07:05,740 --> 00:07:09,060
+we got a much more positive signal, which
+
+123
+00:07:09,060 --> 00:07:12,840
+means that the terrible word, when it existed in the sentence,
+
+124
+00:07:12,840 --> 00:07:16,040
+was driving the prediction towards the negative part
+
+125
+00:07:16,040 --> 00:07:17,200
+more strongly.
+
+126
+00:07:17,200 --> 00:07:23,320
+That's why we draw the conclusion
+
+127
+00:07:23,320 --> 00:07:25,840
+that terrible was one of the words that contributed
+
+128
+00:07:25,840 --> 00:07:28,480
+to the negative prediction.
+
+129
+00:07:28,480 --> 00:07:30,920
+And here, you can see again the full sentence
+
+130
+00:07:30,920 --> 00:07:35,120
+with the highlighted words in terms of how positive
+
+131
+00:07:35,120 --> 00:07:36,180
+and how negative.
+
+132
+00:07:36,180 --> 00:07:40,960
+So a darker color means this word was the most important
+
+133
+00:07:40,960 --> 00:07:43,640
+in terms of the negative, and this--
+
+134
+00:07:43,640 --> 00:07:47,520
+loved was the word that was most important compared to--
+
+135
+00:07:47,520 --> 00:07:49,660
+towards positive, which makes sense.
+
+136
+00:07:49,660 --> 00:07:53,070
+
+
+137
+00:07:53,070 --> 00:07:57,820
+OK, so this is all for today's recitation.
+
+138
+00:07:57,820 --> 00:08:01,480
+Some key takeaways-- different data types
+
+139
+00:08:01,480 --> 00:08:04,380
+need different interpretability tools.
+
+140
+00:08:04,380 --> 00:08:06,120
+So for tabular data, we took a look
+
+141
+00:08:06,120 --> 00:08:09,160
+at coefficients of the logistic regression model.
+
+142
+00:08:09,160 --> 00:08:12,840
+We took a look at decision trees,
+
+143
+00:08:12,840 --> 00:08:14,980
+which are highly interpretable.
+
+144
+00:08:14,980 --> 00:08:18,500
+But we didn't-- yeah, for decision trees that are
+
+145
+00:08:18,500 --> 00:08:22,300
+interpretable and also random forests and XGBoost models that
+
+146
+00:08:22,300 --> 00:08:25,300
+are not that interpretable, but we took a look at the feature
+
+147
+00:08:25,300 --> 00:08:28,900
+importances and the sub values.
+
+148
+00:08:28,900 --> 00:08:33,980
+Images-- for images, we explored the saliency maps, lime scores,
+
+149
+00:08:33,980 --> 00:08:36,220
+and Grad-CAM.
+
+150
+00:08:36,220 --> 00:08:40,100
+And for text, we explored attention maps and lime scores.
+
+151
+00:08:40,100 --> 00:08:43,440
+Linear and tree models are easy to interpret--
+
+152
+00:08:43,440 --> 00:08:46,020
+logistic regression through the coefficients, decision
+
+153
+00:08:46,020 --> 00:08:48,380
+trees, human readable rules.
+
+154
+00:08:48,380 --> 00:08:50,920
+And then samples, they have better accuracy,
+
+155
+00:08:50,920 --> 00:08:54,660
+but we need sub values for full explanations.
+
+156
+00:08:54,660 --> 00:09:00,020
+Sub provides reads global and local insights as we discussed.
+
+157
+00:09:00,020 --> 00:09:03,100
+Image methods provide different levels of detail.
+
+158
+00:09:03,100 --> 00:09:06,180
+Saliency maps give us the pixel sensitivity.
+
+159
+00:09:06,180 --> 00:09:10,740
+Lime gives us important regions, and Grad-CAM through
+
+160
+00:09:10,740 --> 00:09:13,650
+the importance--
+
+161
+00:09:13,650 --> 00:09:16,850
+grad-cam, through exploring the gradients
+
+162
+00:09:16,850 --> 00:09:20,090
+and the last convolutional layers,
+
+163
+00:09:20,090 --> 00:09:25,450
+it emphasizes where the model actually looks.
+
+164
+00:09:25,450 --> 00:09:28,410
+The language explanations show relationships
+
+165
+00:09:28,410 --> 00:09:31,250
+between words, word to word interactions,
+
+166
+00:09:31,250 --> 00:09:36,530
+and, through the lime scores, influence of each word
+
+167
+00:09:36,530 --> 00:09:38,830
+on the final prediction.
+
+168
+00:09:38,830 --> 00:09:41,810
+
+
+169
+00:09:41,810 --> 00:09:44,950
+And yeah, as a general conclusion,
+
+170
+00:09:44,950 --> 00:09:46,730
+we should say that interpretability
+
+171
+00:09:46,730 --> 00:09:50,330
+is essential for debugging reasons, for us understanding
+
+172
+00:09:50,330 --> 00:09:55,210
+how the models work, and most importantly, for trust
+
+173
+00:09:55,210 --> 00:10:00,570
+and transparency when they are employed by practitioners.
+
+174
+00:10:00,570 --> 00:10:09,330
+And this is actually a big step towards transparent and fair AI.
+
+175
+00:10:09,330 --> 00:10:11,530
+Thank you for watching, and good luck
+
+176
+00:10:11,530 --> 00:10:13,500
+with the rest of the module.
+
+177
+00:10:13,500 --> 00:10:14,000
+
+

@@ -1,0 +1,17 @@
+<problem url_name="problem_25541f1edadfe6a8948fdfd75ba5c1c3">
+  <multiplechoiceresponse>
+    <label>Several Grad-CAM overlays (e.g., for <code>coast</code>, <code>harbor</code>, and <code>village</code>) highlight overlapping regions of the image, particularly near the water and shoreline. Which interpretation best explains this observation?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">The model is confused and unable to distinguish between these classes.</choice>
+      <choice correct="true">These classes share common visual features, which the model reuses while still weighting them differently for each label.</choice>
+      <choice correct="false">Grad-CAM always highlights the most visually salient region of the image, regardless of class.</choice>
+      <choice correct="false">The model ignores class labels once the image is passed through the network.</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Many scene categories share visual components, such as water, coastline, or nearby buildings. Grad-CAM reveals that the model reuses these shared visual features while combining them differently depending on the class being evaluated. Overlap in highlighted regions does not imply confusion. Instead, it shows that these classes share common visual structures, such as water, shoreline, or nearby buildings. The model reuses these shared cues but weights them differently depending on which class you ask it to explain.</p>
+    </div>
+  </solution>
+</problem>

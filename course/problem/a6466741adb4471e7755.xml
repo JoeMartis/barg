@@ -1,0 +1,18 @@
+<problem url_name="problem_1de69baae197c812720e336a77455fb0">
+  <choiceresponse>
+    <label>You notice that several features (e.g., <code>ca_0, cp_2, ca_2</code>) have large absolute coefficients. Which statements are true? (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">These features strongly influence the model’s predictions across the dataset.</choice>
+      <choice correct="false">A patient with a positive high-magnitude feature is guaranteed to have heart disease.</choice>
+      <choice correct="true">Large coefficients indicate that small changes in these indicators can noticeably affect predictions.</choice>
+      <choice correct="true">The model may still predict low risk for a patient with a large positive coefficient if other features counteract it.</choice>
+      <choice correct="false">Coefficient magnitude directly measures causal importance.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Large absolute coefficients indicate that the model relies heavily on those features when forming predictions. However, predictions depend on <b>the sum of all active contributions</b>, so strong positive effects can be offset by negative ones. Logistic regression coefficients do not imply certainty or causality.</p>
+    </div>
+  </solution>
+</problem>

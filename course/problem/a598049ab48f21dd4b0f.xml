@@ -1,0 +1,17 @@
+<problem url_name="problem_b8b8760f9b08a6ceafbd45671ea25a74">
+  <choiceresponse>
+    <label>Which high-level conclusions are supported when comparing interpretability across images, tabular data, and text? (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">Interpretability methods must be adapted to the data modality.</choice>
+      <choice correct="false">A single explanation framework works equally well for all model types and inputs.</choice>
+      <choice correct="true">Many interpretability challenges (local vs global, causality vs correlation) recur across modalities.</choice>
+      <choice correct="true">Explanations are most useful when tied to a specific decision or question.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Interpretability tools must match the structure of the data, meaning that across images, tabular data, and text the form of explanation must change; Grad‑CAM uses spatial heatmaps for images, SHAP provides feature attributions for tabular inputs, and LIME highlights word‑level contributions for text. However, despite these surface differences, the <i>core interpretability challenges </i>remain the same: distinguishing local from global explanations, avoiding causal overinterpretation, and understanding that explanations describe model behavior rather than reality. Finally, the examples show that explanations are most informative when they answer a specific question, such as why a particular image was labeled “harbor” or why a specific message was flagged as spam, rather than when used as abstract summaries.</p>
+    </div>
+  </solution>
+</problem>

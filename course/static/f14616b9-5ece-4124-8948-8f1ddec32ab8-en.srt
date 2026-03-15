@@ -1,0 +1,832 @@
+0
+00:00:00,000 --> 00:00:02,340
+INSTRUCTOR: For the second part of this recitation,
+
+1
+00:00:02,340 --> 00:00:06,740
+we are going to focus on Retrieval-Augmented Generation,
+
+2
+00:00:06,740 --> 00:00:08,880
+which is a technique that combines
+
+3
+00:00:08,880 --> 00:00:11,880
+the power of Large Language Models with access
+
+4
+00:00:11,880 --> 00:00:13,720
+to real-world information.
+
+5
+00:00:13,720 --> 00:00:17,160
+The idea is that we don't want to only rely
+
+6
+00:00:17,160 --> 00:00:21,700
+on what the model has learned during training only,
+
+7
+00:00:21,700 --> 00:00:26,960
+but we also want to give access to the model
+
+8
+00:00:26,960 --> 00:00:29,920
+to a database or a document collection
+
+9
+00:00:29,920 --> 00:00:32,600
+to find relevant information that
+
+10
+00:00:32,600 --> 00:00:37,480
+can be used to generate a more accurate and grounded response.
+
+11
+00:00:37,480 --> 00:00:41,280
+This is especially useful for answering questions
+
+12
+00:00:41,280 --> 00:00:45,680
+in topics that require up-to-date facts,
+
+13
+00:00:45,680 --> 00:00:48,860
+domain-specific knowledge, or detailed context.
+
+14
+00:00:48,860 --> 00:00:51,200
+And they can be generally more niche.
+
+15
+00:00:51,200 --> 00:00:53,560
+This is because, of course, online content
+
+16
+00:00:53,560 --> 00:01:00,200
+does not cover every topic and every subject in much detail.
+
+17
+00:01:00,200 --> 00:01:03,080
+RAG retrieves the real document first
+
+18
+00:01:03,080 --> 00:01:08,240
+and focuses on the relevant information for the task
+
+19
+00:01:08,240 --> 00:01:10,760
+that we want to solve for the specific prompt
+
+20
+00:01:10,760 --> 00:01:13,720
+that we want to focus.
+
+21
+00:01:13,720 --> 00:01:18,240
+And then it generates answers based on them.
+
+22
+00:01:18,240 --> 00:01:22,640
+This helps reduce hallucinations and make the model's output
+
+23
+00:01:22,640 --> 00:01:24,760
+more reliable.
+
+24
+00:01:24,760 --> 00:01:30,680
+Before we move on to the code, I am
+
+25
+00:01:30,680 --> 00:01:37,040
+going to explain what the task that we want to do actually is.
+
+26
+00:01:37,040 --> 00:01:43,540
+The idea is that we have a patient with some symptoms.
+
+27
+00:01:43,540 --> 00:01:47,740
+And we want to ask our small LLMs,
+
+28
+00:01:47,740 --> 00:01:51,480
+Llama and OpenChat to make a suggested
+
+29
+00:01:51,480 --> 00:01:54,640
+diagnosis for this patient.
+
+30
+00:01:54,640 --> 00:02:02,130
+Now, we can do that and ask what they think the patient has,
+
+31
+00:02:02,130 --> 00:02:05,810
+which is relevant to what we did earlier.
+
+32
+00:02:05,810 --> 00:02:11,930
+Or we can also use some information
+
+33
+00:02:11,930 --> 00:02:17,490
+that we know is relevant in order to help the models provide
+
+34
+00:02:17,490 --> 00:02:22,290
+a better output.
+
+35
+00:02:22,290 --> 00:02:29,930
+So the idea is that we have a medical document,
+
+36
+00:02:29,930 --> 00:02:32,210
+which is called "Rare Conditions,"
+
+37
+00:02:32,210 --> 00:02:36,090
+we have loaded in the File sections here.
+
+38
+00:02:36,090 --> 00:02:42,150
+And this file is very big and its many pages long.
+
+39
+00:02:42,150 --> 00:02:46,170
+And it contains information about different rare cardiac
+
+40
+00:02:46,170 --> 00:02:47,230
+conditions.
+
+41
+00:02:47,230 --> 00:02:53,290
+And by information, I mean symptoms, diagnostic criteria,
+
+42
+00:02:53,290 --> 00:02:58,370
+treatment, et cetera, but it's very big.
+
+43
+00:02:58,370 --> 00:03:06,370
+The task that we want to solve is to diagnose this 34-year-old
+
+44
+00:03:06,370 --> 00:03:10,930
+woman who has sudden chest pain after recent childbirth and no
+
+45
+00:03:10,930 --> 00:03:13,170
+prior cardiac history.
+
+46
+00:03:13,170 --> 00:03:16,150
+Of course, we have made this prompt.
+
+47
+00:03:16,150 --> 00:03:22,690
+And we know that the condition that we have in mind
+
+48
+00:03:22,690 --> 00:03:27,050
+is spontaneous coronary artery dissection, which
+
+49
+00:03:27,050 --> 00:03:29,930
+is a very specific and rare condition that
+
+50
+00:03:29,930 --> 00:03:37,810
+is related to some complications after giving birth.
+
+51
+00:03:37,810 --> 00:03:42,050
+The important thing to note is that this condition is rare.
+
+52
+00:03:42,050 --> 00:03:45,930
+And there is a high chance that our LLMs will not
+
+53
+00:03:45,930 --> 00:03:50,290
+have been trained on many data regarding this condition.
+
+54
+00:03:50,290 --> 00:03:53,730
+But our Rare Conditions file contains information
+
+55
+00:03:53,730 --> 00:03:55,600
+about multiple rare conditions.
+
+56
+00:03:55,600 --> 00:03:59,820
+So we want to use, to leverage, the information in this file
+
+57
+00:03:59,820 --> 00:04:07,260
+to guide the diagnosis generation.
+
+58
+00:04:07,260 --> 00:04:09,800
+As I mentioned earlier, this file is very big.
+
+59
+00:04:09,800 --> 00:04:12,100
+So it contains information about many conditions
+
+60
+00:04:12,100 --> 00:04:18,779
+that might not be relevant for this specific patient case.
+
+61
+00:04:18,779 --> 00:04:21,579
+In order to solve this problem, the first part
+
+62
+00:04:21,579 --> 00:04:23,660
+of retrieval-augmented generation
+
+63
+00:04:23,660 --> 00:04:28,180
+is to use the information that is available
+
+64
+00:04:28,180 --> 00:04:33,580
+and to only detect the relevant parts of it.
+
+65
+00:04:33,580 --> 00:04:35,000
+How do we do that?
+
+66
+00:04:35,000 --> 00:04:39,660
+We do that using a model, which is in the family of sentence
+
+67
+00:04:39,660 --> 00:04:41,020
+transformers.
+
+68
+00:04:41,020 --> 00:04:50,180
+And this model will allow us to actually find
+
+69
+00:04:50,180 --> 00:04:55,380
+the most relevant parts to the query that we have in hand.
+
+70
+00:04:55,380 --> 00:05:00,780
+First, we are going to split the big text file of rare conditions
+
+71
+00:05:00,780 --> 00:05:02,860
+into smaller chunks.
+
+72
+00:05:02,860 --> 00:05:07,940
+And after we do that, we use the sentence transformer model,
+
+73
+00:05:07,940 --> 00:05:11,900
+the SBERT model to encode these chunks
+
+74
+00:05:11,900 --> 00:05:14,540
+and convert them to embeddings.
+
+75
+00:05:14,540 --> 00:05:19,340
+So after performing this, we have the big file split
+
+76
+00:05:19,340 --> 00:05:23,660
+into chunks, and we have a single embedding for each chunk.
+
+77
+00:05:23,660 --> 00:05:28,140
+Then we have our query, which refers to the patient case.
+
+78
+00:05:28,140 --> 00:05:32,340
+And we also pass this query through the same model
+
+79
+00:05:32,340 --> 00:05:35,860
+to get an embedding that summarizes
+
+80
+00:05:35,860 --> 00:05:38,220
+the information of the patient.
+
+81
+00:05:38,220 --> 00:05:40,700
+So now we have one query embedding
+
+82
+00:05:40,700 --> 00:05:45,140
+that corresponds to the patient, and multiple chunk embeddings
+
+83
+00:05:45,140 --> 00:05:48,260
+that correspond to the different chunks in which we have
+
+84
+00:05:48,260 --> 00:05:52,070
+split the original big text file with the rare cardiac
+
+85
+00:05:52,070 --> 00:05:53,950
+conditions.
+
+86
+00:05:53,950 --> 00:05:57,190
+Now, in order to find the most relevant information
+
+87
+00:05:57,190 --> 00:06:01,630
+for the task in hand, we want to find which of these chunk
+
+88
+00:06:01,630 --> 00:06:05,990
+embeddings are more similar to our query embedding,
+
+89
+00:06:05,990 --> 00:06:09,710
+because if these embeddings are more similar in the embedding
+
+90
+00:06:09,710 --> 00:06:14,830
+space, this means that the information that they encode,
+
+91
+00:06:14,830 --> 00:06:17,950
+the raw text that they encode is also going to be
+
+92
+00:06:17,950 --> 00:06:21,390
+more relevant and more similar.
+
+93
+00:06:21,390 --> 00:06:24,750
+So we calculate the cosine similarity
+
+94
+00:06:24,750 --> 00:06:27,750
+scores between the query embedding
+
+95
+00:06:27,750 --> 00:06:30,430
+and all of the chunk embeddings.
+
+96
+00:06:30,430 --> 00:06:34,050
+So we then keep the top-k.
+
+97
+00:06:34,050 --> 00:06:36,590
+In our case, we have selected the top five
+
+98
+00:06:36,590 --> 00:06:41,310
+chunks that are more similar according to the embedding
+
+99
+00:06:41,310 --> 00:06:44,350
+distances.
+
+100
+00:06:44,350 --> 00:06:50,550
+And we basically only retrieve the relevant chunks
+
+101
+00:06:50,550 --> 00:06:52,350
+that we can view here.
+
+102
+00:06:52,350 --> 00:06:55,710
+So you can see, we have five different chunks--
+
+103
+00:06:55,710 --> 00:06:58,550
+1, 2, 3, 4, 5.
+
+104
+00:06:58,550 --> 00:07:02,510
+And something that is good is that the first two actually
+
+105
+00:07:02,510 --> 00:07:06,910
+refer to the SCAD diagnosis that we had in mind
+
+106
+00:07:06,910 --> 00:07:09,670
+when we created this patient case.
+
+107
+00:07:09,670 --> 00:07:13,510
+So the SBERT was actually capable
+
+108
+00:07:13,510 --> 00:07:16,990
+of isolating the parts that seemed
+
+109
+00:07:16,990 --> 00:07:23,350
+more similar, more relevant, to this description of the patient.
+
+110
+00:07:23,350 --> 00:07:27,090
+The second, third, and fifth, of course,
+
+111
+00:07:27,090 --> 00:07:29,210
+they're related to cardiac conditions.
+
+112
+00:07:29,210 --> 00:07:35,350
+The whole file that we had was about cardiac conditions.
+
+113
+00:07:35,350 --> 00:07:38,848
+But they are not related to the specific condition.
+
+114
+00:07:38,848 --> 00:07:39,890
+It doesn't matter though.
+
+115
+00:07:39,890 --> 00:07:43,150
+This is the whole, whole text that we're going to use.
+
+116
+00:07:43,150 --> 00:07:47,030
+And we're going to include this in our prompt
+
+117
+00:07:47,030 --> 00:07:49,170
+when prompting Llama and OpenChat.
+
+118
+00:07:49,170 --> 00:07:51,710
+And we hope that they are going to use this information
+
+119
+00:07:51,710 --> 00:07:54,750
+to guide their diagnosis.
+
+120
+00:07:54,750 --> 00:07:58,990
+So here is the full prompt.
+
+121
+00:07:58,990 --> 00:08:01,210
+We are doing role instruction here.
+
+122
+00:08:01,210 --> 00:08:03,670
+So basically, we're telling the model
+
+123
+00:08:03,670 --> 00:08:07,510
+that it should respond as a clinical assistant.
+
+124
+00:08:07,510 --> 00:08:10,110
+We actually point out that we wanted
+
+125
+00:08:10,110 --> 00:08:12,430
+to focus on the specific patient case
+
+126
+00:08:12,430 --> 00:08:14,530
+and the retrieved medical information,
+
+127
+00:08:14,530 --> 00:08:18,550
+and give us an answer about the most likely diagnosis.
+
+128
+00:08:18,550 --> 00:08:21,330
+We also include this sentence-- and this is important,
+
+129
+00:08:21,330 --> 00:08:24,270
+we're going to discuss it in a few minutes--
+
+130
+00:08:24,270 --> 00:08:27,910
+that we only want the model to ground its responses
+
+131
+00:08:27,910 --> 00:08:31,170
+on the provided information regarding the patient case.
+
+132
+00:08:31,170 --> 00:08:34,510
+We don't want it to imagine any other information
+
+133
+00:08:34,510 --> 00:08:38,030
+that we haven't given to it.
+
+134
+00:08:38,030 --> 00:08:39,630
+So when we run our model--
+
+135
+00:08:39,630 --> 00:08:42,530
+and this is the prompt.
+
+136
+00:08:42,530 --> 00:08:49,280
+Here is where the Llama gave its output.
+
+137
+00:08:49,280 --> 00:08:52,060
+So we can see that based on the patient case,
+
+138
+00:08:52,060 --> 00:08:54,840
+the most likely diagnosis is actually
+
+139
+00:08:54,840 --> 00:08:57,960
+spontaneous coronary artery dissection, which
+
+140
+00:08:57,960 --> 00:08:59,920
+is the ground truth, which is what
+
+141
+00:08:59,920 --> 00:09:02,240
+we wanted the model to output.
+
+142
+00:09:02,240 --> 00:09:05,680
+And this is justified by the patient symptoms,
+
+143
+00:09:05,680 --> 00:09:08,600
+such as sudden chest pain after recent childbirth
+
+144
+00:09:08,600 --> 00:09:12,200
+and no prior cardiac history.
+
+145
+00:09:12,200 --> 00:09:21,000
+These are compliant with the SCAD condition, et cetera.
+
+146
+00:09:21,000 --> 00:09:27,160
+And there's a fully grounded explanation on that.
+
+147
+00:09:27,160 --> 00:09:31,640
+OpenChat did the same thing.
+
+148
+00:09:31,640 --> 00:09:33,260
+Based on the provided patient case,
+
+149
+00:09:33,260 --> 00:09:36,280
+the most likely diagnosis is spontaneous coronary artery
+
+150
+00:09:36,280 --> 00:09:38,440
+dissection.
+
+151
+00:09:38,440 --> 00:09:42,760
+And it describes SCAD patients often
+
+152
+00:09:42,760 --> 00:09:46,960
+do not fit the typical profile for coronary disease
+
+153
+00:09:46,960 --> 00:09:49,560
+and the symptoms.
+
+154
+00:09:49,560 --> 00:09:56,680
+And it explains why it doesn't think
+
+155
+00:09:56,680 --> 00:09:59,800
+that restrictive cardiomyopathy, which is another condition,
+
+156
+00:09:59,800 --> 00:10:02,200
+is the case here, et cetera.
+
+157
+00:10:02,200 --> 00:10:05,180
+So using the medical context that is provided,
+
+158
+00:10:05,180 --> 00:10:09,940
+both of the models were able to find the right diagnosis.
+
+159
+00:10:09,940 --> 00:10:12,240
+And I repeat, the whole pipeline involved
+
+160
+00:10:12,240 --> 00:10:16,320
+first finding the relevant chunks, the relevant information
+
+161
+00:10:16,320 --> 00:10:19,920
+from a document that contained a lot of information
+
+162
+00:10:19,920 --> 00:10:21,960
+about cardiac conditions, and then
+
+163
+00:10:21,960 --> 00:10:25,280
+using these in the prompt we gave to the large language
+
+164
+00:10:25,280 --> 00:10:33,480
+models to help them to guide their generation.
+
+165
+00:10:33,480 --> 00:10:36,740
+OK, now, that's a good thing, of course.
+
+166
+00:10:36,740 --> 00:10:39,780
+But what would have happened without the provided context,
+
+167
+00:10:39,780 --> 00:10:42,040
+without giving them any information
+
+168
+00:10:42,040 --> 00:10:44,490
+about this rare disease and just asking
+
+169
+00:10:44,490 --> 00:10:50,130
+them to make a diagnosis based on only
+
+170
+00:10:50,130 --> 00:10:52,690
+the description of the patient.
+
+171
+00:10:52,690 --> 00:10:58,490
+Llama actually diagnosed the patient
+
+172
+00:10:58,490 --> 00:11:07,230
+with acute coronary syndrome, which the symptoms are similar,
+
+173
+00:11:07,230 --> 00:11:11,610
+but it is not accurate, because acute coronary syndrome
+
+174
+00:11:11,610 --> 00:11:14,930
+is usually caused by some plaque that
+
+175
+00:11:14,930 --> 00:11:20,170
+is accumulated on the vessels.
+
+176
+00:11:20,170 --> 00:11:25,610
+And this is not the case with this specific patient.
+
+177
+00:11:25,610 --> 00:11:30,770
+Similarly, OpenChat gave the same diagnosis.
+
+178
+00:11:30,770 --> 00:11:37,530
+And it also gives a more detailed reasoning
+
+179
+00:11:37,530 --> 00:11:43,490
+about what ACS is, when it happens, et cetera.
+
+180
+00:11:43,490 --> 00:11:46,170
+
+
+181
+00:11:46,170 --> 00:11:50,170
+But we know this is not the specific diagnosis
+
+182
+00:11:50,170 --> 00:11:58,090
+that we wanted the models to actually give.
+
+183
+00:11:58,090 --> 00:12:00,890
+So in this case, we show how important
+
+184
+00:12:00,890 --> 00:12:05,170
+it is to actually provide relevant information
+
+185
+00:12:05,170 --> 00:12:10,570
+in the form of this context, to guide the diagnosis
+
+186
+00:12:10,570 --> 00:12:16,450
+and to get more accurate text generation.
+
+187
+00:12:16,450 --> 00:12:21,450
+The thing that I want to point out before wrapping up is that
+
+188
+00:12:21,450 --> 00:12:24,330
+we included the sentence, "please only stick
+
+189
+00:12:24,330 --> 00:12:26,670
+on the provided information regarding the patient case,
+
+190
+00:12:26,670 --> 00:12:30,090
+and don't make any further assumptions about the patient"
+
+191
+00:12:30,090 --> 00:12:31,210
+in the prompt.
+
+192
+00:12:31,210 --> 00:12:36,190
+So even with the context and the retrieved medical information,
+
+193
+00:12:36,190 --> 00:12:38,890
+if we do not include this sentence,
+
+194
+00:12:38,890 --> 00:12:45,600
+the models are more prone to some form of hallucination.
+
+195
+00:12:45,600 --> 00:12:49,820
+So when we remove this sentence, although both of them
+
+196
+00:12:49,820 --> 00:12:52,540
+again made the right diagnosis, you
+
+197
+00:12:52,540 --> 00:12:58,260
+can see here that, for example, Llama
+
+198
+00:12:58,260 --> 00:13:02,420
+wrote that the fact that her arteries are clean of plaque,
+
+199
+00:13:02,420 --> 00:13:05,700
+this, although we know it's not the case,
+
+200
+00:13:05,700 --> 00:13:13,540
+it's not explicitly mentioned in the prompt that we gave.
+
+201
+00:13:13,540 --> 00:13:19,260
+So although, yeah, we suspect it is the case because we know
+
+202
+00:13:19,260 --> 00:13:25,380
+that this woman did not have a prior cardiac history, since it
+
+203
+00:13:25,380 --> 00:13:27,980
+is not explicitly mentioned, the model
+
+204
+00:13:27,980 --> 00:13:32,540
+should not use it as an argument for its reasoning
+
+205
+00:13:32,540 --> 00:13:34,380
+for its diagnosis.
+
+206
+00:13:34,380 --> 00:13:38,660
+So we need, even in these cases, to be very careful with how
+
+207
+00:13:38,660 --> 00:13:40,990
+we structure our prompt.
+

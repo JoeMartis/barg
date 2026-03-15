@@ -1,0 +1,17 @@
+<problem url_name="problem_ff34bff05b64cdca6cf1afdd76e5c7e8">
+  <multiplechoiceresponse>
+    <label>A student claims that because the audit tree splits on race, the fairness-aware model is “explicitly discriminatory.” According to the lecture, why is this interpretation incorrect?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">The audit tree may overfit the flipped labels and therefore cannot be trusted</choice>
+      <choice correct="false">Protected attributes are only allowed in post-processing, not during modeling</choice>
+      <choice correct="true">The tree explains where flips occurred; it does not make the original predictions</choice>
+      <choice correct="false">Any model that uses race for interpretability automatically violates fairness</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>The lecture clearly distinguishes between <i>decision-making </i>and <i>explanation</i>. The fairness-aware optimization determines which labels to flip, while the audit tree is trained afterward to explain patterns in those flips. Splitting on race in the audit tree does not mean the model uses race to make predictions; it simply highlights where fairness corrections were applied. Interpretability tools may reference protected attributes without implying discriminatory decision rules.</p>
+    </div>
+  </solution>
+</problem>

@@ -1,0 +1,17 @@
+<problem url_name="problem_785a3fbdad645754cd050520e5da7442">
+  <multiplechoiceresponse>
+    <label>In Lecture 2, label flips are often described as occurring <b>near the decision boundary</b>, meaning among individuals whose predicted outcomes or scores are close to the cutoff between positive and negative decisions. How would this typically appear in the audit tree?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">Splits on variables with the largest overall variance in the dataset</choice>
+      <choice correct="true">Splits on variables such as test scores, prior counts, or age at values close to decision thresholds</choice>
+      <choice correct="false">Splits that mirror the original classifier’s top-level structure exactly</choice>
+      <choice correct="false">Early splits on protected attributes, followed by random refinement</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Fairness interventions target borderline cases, where small changes can flip decisions with minimal impact on meritocracy. In an audit tree, this manifests as splits on performance-related variables (e.g., GPA, LSAT, age, prior counts) at values close to decision cutoffs. Large-variance features or exact replication of the original classifier are not expected, because the audit tree is explaining<i> where flips occurred</i>, not how predictions were originally made. The structure therefore reflects targeted, threshold-adjacent adjustments rather than broad or arbitrary patterns.</p>
+    </div>
+  </solution>
+</problem>

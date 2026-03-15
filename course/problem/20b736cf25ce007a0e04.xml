@@ -1,0 +1,17 @@
+<problem url_name="problem_fe3115c100ffd9dc7c528bad54a2d91e">
+  <multiplechoiceresponse>
+    <label>When comparing the Grad-CAM overlays for <code>islet</code> and <code>harbor</code>, the highlighted regions differ noticeably. Which interpretation is most consistent with the Grad-CAM visualizations?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="true">The model emphasizes isolated land masses surrounded by water for <code>islet</code>, while focusing more on coastal infrastructure and shoreline regions for <code>harbor</code>.</choice>
+      <choice correct="false">The model highlights the same image regions for both classes, suggesting it cannot distinguish between them.</choice>
+      <choice correct="false">The model attends primarily to the center of the image regardless of the class being evaluated.</choice>
+      <choice correct="false">Grad-CAM highlights arbitrary regions that are unrelated to the scene label.</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Grad-CAM highlights the regions that most strongly support a given class score. When the overlays for islet and harbor light up different regions, it means the model is relying on different visual cues for each category. For <code>islet</code>, the model focuses on compact land areas surrounded by water, reflecting the defining visual characteristics of an islet. For <code>harbor</code>, the attention shifts toward broader shoreline regions and man-made coastal structures. The difference in highlighted areas across these two overlays shows that the model is using distinct spatial cues to differentiate between related but semantically different scene categories.</p>
+    </div>
+  </solution>
+</problem>

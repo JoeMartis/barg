@@ -1,0 +1,20 @@
+<problem url_name="problem_6907b33a348bde297c4c20a39698acb9">
+  <multiplechoiceresponse>
+    <label><p>A policymaker reviews the COMPAS analysis from Lecture 2 and says:</p>
+<p>“To satisfy ε-demographic parity, we adjusted the system so that a small number of defendants had their final risk labels changed, while keeping the underlying risk model largely intact.”</p>
+<p>Which interpretation best matches the approach used in the lecture?</p>
+</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">The model was retrained after removing race-related features</choice>
+      <choice correct="false">Random noise was added to risk scores until group rates aligned</choice>
+      <choice correct="true">Outcome labels were selectively changed as part of an optimization problem</choice>
+      <choice correct="false">Defendants near the risk threshold were excluded from the dataset</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>The optimization framework enforces ε-demographic parity by selectively flipping a limited number of outcomes while fitting the classifier. This approach directly constrains group-level decision rates rather than altering features, injecting randomness, or removing data. By making targeted changes, the method improves fairness while preserving most of the original predictive structure. The scenario reflects this controlled, optimization-driven adjustment.</p>
+    </div>
+  </solution>
+</problem>

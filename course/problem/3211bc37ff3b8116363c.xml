@@ -1,0 +1,17 @@
+<problem url_name="problem_651fecd318bcda947be3db6537d75c50">
+  <multiplechoiceresponse>
+    <label>Why does Lecture 2 describe ε-demographic parity as allowing a <i>tunable</i> trade-off?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">Because ε sets a tolerance on how much individual risk scores may be adjusted</choice>
+      <choice correct="false">Because ε determines how strongly protected attributes influence predictions</choice>
+      <choice correct="true">Because smaller ε enforces stricter parity at potentially higher cost to meritocracy</choice>
+      <choice correct="false">Because ε directly controls the model’s overall classification accuracy</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>ε acts as a policy lever that controls how strictly the model must equalize positive prediction rates across groups. Smaller ε values impose stricter parity, often requiring more outcome flips and thus potentially reducing merit-based distinctions. Larger ε relaxes the fairness constraint, preserving more of the original predictions. This makes ε a tunable parameter for explicitly balancing fairness and performance.</p>
+    </div>
+  </solution>
+</problem>

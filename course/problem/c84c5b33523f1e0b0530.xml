@@ -1,0 +1,17 @@
+<problem url_name="problem_e14bcb39359380944cba83d25775a4b8">
+  <choiceresponse>
+    <label>Two patients differ only in the following indicators:<ul><li>Patient G: <code>ca_0 = 1, cp_2 = 1</code></li><li>Patient H: <code>ca_2 = 1, cp_0 = 1</code></li></ul>Which statements are true according to the model? (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">Patient G receives higher predicted risk than Patient H.</choice>
+      <choice correct="false">Patient H receives higher predicted risk than Patient G.</choice>
+      <choice correct="true">The final prediction depends on the relative magnitudes of the coefficients involved.</choice>
+      <choice correct="true">This comparison requires assuming all other features are equal.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Patient G activates two indicators (ca_0 and cp_2) that both contribute positively to the model’s predicted log-odds of heart disease, while Patient H activates indicators (ca_2 and cp_0) that contribute negatively. Because logistic regression combines feature effects additively, the model effectively sums these contributions to form its prediction. As a result, Patient G receives a higher predicted risk. This comparison is meaningful only under the assumption that all other features are identical, and the exact difference in predicted risk depends on the relative magnitudes of the coefficients involved.</p>
+    </div>
+  </solution>
+</problem>

@@ -1,0 +1,678 @@
+{
+    "021b093f-1193-4e09-88a5-568cf331b277-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "021b093f-1193-4e09-88a5-568cf331b277-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "621a7dd21084e17e189144c436e13a17",
+        "displayname": "021b093f-1193-4e09-88a5-568cf331b277-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@021b093f-1193-4e09-88a5-568cf331b277-en.srt",
+        "import_path": "021b093f-1193-4e09-88a5-568cf331b277-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "07f16829-66f6-4b47-b175-3aacc0fd2c74-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "07f16829-66f6-4b47-b175-3aacc0fd2c74-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "65fa0f8b8b0345ab5e4fbad5e6f011e4",
+        "displayname": "07f16829-66f6-4b47-b175-3aacc0fd2c74-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@07f16829-66f6-4b47-b175-3aacc0fd2c74-en.srt",
+        "import_path": "07f16829-66f6-4b47-b175-3aacc0fd2c74-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "133f3bf5-4486-44e6-9cfe-86a574c2bd65-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "133f3bf5-4486-44e6-9cfe-86a574c2bd65-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "eefc8bda84d3aec319b2863ba318992d",
+        "displayname": "133f3bf5-4486-44e6-9cfe-86a574c2bd65-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@133f3bf5-4486-44e6-9cfe-86a574c2bd65-en.srt",
+        "import_path": "133f3bf5-4486-44e6-9cfe-86a574c2bd65-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "33925411-e424-41d7-962b-b3fe235111bd-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "33925411-e424-41d7-962b-b3fe235111bd-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "74dbed038db8ca50561c3afa0fbefbd7",
+        "displayname": "33925411-e424-41d7-962b-b3fe235111bd-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@33925411-e424-41d7-962b-b3fe235111bd-en.srt",
+        "import_path": "33925411-e424-41d7-962b-b3fe235111bd-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "4d7604fa-e545-4ef1-a2cf-e6061987f2fb-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "4d7604fa-e545-4ef1-a2cf-e6061987f2fb-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "2a6ae18ec510f48f65441ec940172db9",
+        "displayname": "4d7604fa-e545-4ef1-a2cf-e6061987f2fb-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@4d7604fa-e545-4ef1-a2cf-e6061987f2fb-en.srt",
+        "import_path": "4d7604fa-e545-4ef1-a2cf-e6061987f2fb-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "525e14da-98a8-47b7-9557-fa5cc8842f4b-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "525e14da-98a8-47b7-9557-fa5cc8842f4b-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "342d8c81ccab3dfe1da249dd1f685c04",
+        "displayname": "525e14da-98a8-47b7-9557-fa5cc8842f4b-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@525e14da-98a8-47b7-9557-fa5cc8842f4b-en.srt",
+        "import_path": "525e14da-98a8-47b7-9557-fa5cc8842f4b-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "5a534ad6-cd3f-403a-86d8-2c1a1cd03438-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "5a534ad6-cd3f-403a-86d8-2c1a1cd03438-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "11509cbee99bdcb22c9362c7dca05b8c",
+        "displayname": "5a534ad6-cd3f-403a-86d8-2c1a1cd03438-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@5a534ad6-cd3f-403a-86d8-2c1a1cd03438-en.srt",
+        "import_path": "5a534ad6-cd3f-403a-86d8-2c1a1cd03438-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "5bb4d36a-7713-410a-a1da-b36729d47528-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "5bb4d36a-7713-410a-a1da-b36729d47528-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "550d646d4572e76953e710f6db7fd943",
+        "displayname": "5bb4d36a-7713-410a-a1da-b36729d47528-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@5bb4d36a-7713-410a-a1da-b36729d47528-en.srt",
+        "import_path": "5bb4d36a-7713-410a-a1da-b36729d47528-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "7cd67780-322b-497c-a58a-f3397804a6d0-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "7cd67780-322b-497c-a58a-f3397804a6d0-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "de1301a8dc7838cab7db51257429299b",
+        "displayname": "7cd67780-322b-497c-a58a-f3397804a6d0-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@7cd67780-322b-497c-a58a-f3397804a6d0-en.srt",
+        "import_path": "7cd67780-322b-497c-a58a-f3397804a6d0-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "7e6468c6-9d6c-442e-a9ff-a676601c637d-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "7e6468c6-9d6c-442e-a9ff-a676601c637d-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "6f4f34052f26ea38adf0301c8249011e",
+        "displayname": "7e6468c6-9d6c-442e-a9ff-a676601c637d-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@7e6468c6-9d6c-442e-a9ff-a676601c637d-en.srt",
+        "import_path": "7e6468c6-9d6c-442e-a9ff-a676601c637d-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "836eeee4-4fbb-4110-b18a-498da65c917a-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "836eeee4-4fbb-4110-b18a-498da65c917a-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "55143e499d420d0b29efe122a04b76e8",
+        "displayname": "836eeee4-4fbb-4110-b18a-498da65c917a-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@836eeee4-4fbb-4110-b18a-498da65c917a-en.srt",
+        "import_path": "836eeee4-4fbb-4110-b18a-498da65c917a-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "86f794cb-b180-4ac3-9ac7-9aa33aa5b16e-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "86f794cb-b180-4ac3-9ac7-9aa33aa5b16e-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "7c8de19a9aab9ee3312a7145527b6bb8",
+        "displayname": "86f794cb-b180-4ac3-9ac7-9aa33aa5b16e-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@86f794cb-b180-4ac3-9ac7-9aa33aa5b16e-en.srt",
+        "import_path": "86f794cb-b180-4ac3-9ac7-9aa33aa5b16e-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "98c759d4-b211-4000-b78a-b6f9a6294892-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "98c759d4-b211-4000-b78a-b6f9a6294892-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "dad0e20bf84a88448d67794a1a63329c",
+        "displayname": "98c759d4-b211-4000-b78a-b6f9a6294892-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@98c759d4-b211-4000-b78a-b6f9a6294892-en.srt",
+        "import_path": "98c759d4-b211-4000-b78a-b6f9a6294892-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "9a133e63-d45f-4ebe-8f96-b27f30bc9c6d-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "9a133e63-d45f-4ebe-8f96-b27f30bc9c6d-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "71bba61d3283e9ddbe5b0f863596284a",
+        "displayname": "9a133e63-d45f-4ebe-8f96-b27f30bc9c6d-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@9a133e63-d45f-4ebe-8f96-b27f30bc9c6d-en.srt",
+        "import_path": "9a133e63-d45f-4ebe-8f96-b27f30bc9c6d-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "9f0a3d8a-0b3f-4872-9c18-803932f5e5e7-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "9f0a3d8a-0b3f-4872-9c18-803932f5e5e7-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "5db8a8b4a7306e03f80e29b8aa908eac",
+        "displayname": "9f0a3d8a-0b3f-4872-9c18-803932f5e5e7-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@9f0a3d8a-0b3f-4872-9c18-803932f5e5e7-en.srt",
+        "import_path": "9f0a3d8a-0b3f-4872-9c18-803932f5e5e7-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "M15_L1_Explainable-AI_S1_FNL.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "M15_L1_Explainable-AI_S1_FNL.pdf",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "5134fddb3aee31093d6c51d54860703b",
+        "displayname": "M15_L1_Explainable-AI_S1_FNL.pdf",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@M15_L1_Explainable-AI_S1_FNL.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "M15_L1_Explainable-AI_S2_FNL.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "M15_L1_Explainable-AI_S2_FNL.pdf",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "d584ae2fc1a43afd0d0f6e5740816203",
+        "displayname": "M15_L1_Explainable-AI_S2_FNL.pdf",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@M15_L1_Explainable-AI_S2_FNL.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "M15_L1_Explainable-AI_S3_FNL.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "M15_L1_Explainable-AI_S3_FNL.pdf",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "fec5e9fb4e0212e207e7a8d8c7928433",
+        "displayname": "M15_L1_Explainable-AI_S3_FNL.pdf",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@M15_L1_Explainable-AI_S3_FNL.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "M15_L1_Explainable-AI_S4_FNL.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "M15_L1_Explainable-AI_S4_FNL.pdf",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "9956b6467638f2512fafe83f407adfb3",
+        "displayname": "M15_L1_Explainable-AI_S4_FNL.pdf",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@M15_L1_Explainable-AI_S4_FNL.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "M15_L1_Explainable-AI_S5_FNL.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "M15_L1_Explainable-AI_S5_FNL.pdf",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "3599faff7f4b24ab3ca6daf4d2f25e1e",
+        "displayname": "M15_L1_Explainable-AI_S5_FNL.pdf",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@M15_L1_Explainable-AI_S5_FNL.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "M15_L4_Fairness_and_Bias_in_Machine_Learning_S1_FNL.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "M15_L4_Fairness_and_Bias_in_Machine_Learning_S1_FNL.pdf",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "b5837bcd7c3dbd6f6d0c0cff6fb849b3",
+        "displayname": "M15_L4_Fairness and Bias in Machine Learning_S1_FNL.pdf",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@M15_L4_Fairness_and_Bias_in_Machine_Learning_S1_FNL.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "M15_L4_Fairness_and_Bias_in_Machine_Learning_S2_FNL.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "M15_L4_Fairness_and_Bias_in_Machine_Learning_S2_FNL.pdf",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "b6aae702107312dbaa1317b6d8fb2f02",
+        "displayname": "M15_L4_Fairness and Bias in Machine Learning_S2_FNL.pdf",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@M15_L4_Fairness_and_Bias_in_Machine_Learning_S2_FNL.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "M15_L4_Fairness_and_Bias_in_Machine_Learning_S3_FNL.pdf": {
+        "contentType": "application/pdf",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "M15_L4_Fairness_and_Bias_in_Machine_Learning_S3_FNL.pdf",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "ccafa636c822d584fa729bdde2573c38",
+        "displayname": "M15_L4_Fairness and Bias in Machine Learning_S3_FNL.pdf",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@M15_L4_Fairness_and_Bias_in_Machine_Learning_S3_FNL.pdf",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "asktim.png": {
+        "contentType": "image/png",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "asktim.png",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "60a2968d8172c43018e8c099e1645860",
+        "displayname": "asktim.png",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@asktim.png",
+        "import_path": "asktim.png",
+        "locked": false,
+        "thumbnail_location": [
+            "c4x",
+            "UAI_SOURCE",
+            "UAI.15",
+            "thumbnail",
+            "asktim-png.jpg",
+            null
+        ]
+    },
+    "bcb805a5-3382-461b-a56c-232e536f7618-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "bcb805a5-3382-461b-a56c-232e536f7618-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "c56627ee2611533ae807eeb2f9af31c1",
+        "displayname": "bcb805a5-3382-461b-a56c-232e536f7618-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@bcb805a5-3382-461b-a56c-232e536f7618-en.srt",
+        "import_path": "bcb805a5-3382-461b-a56c-232e536f7618-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "c0d73b76-dc3c-410c-89f1-e307c5cfe1d4-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "c0d73b76-dc3c-410c-89f1-e307c5cfe1d4-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "0fc2d0b944a3b86cf24678dba37e4b20",
+        "displayname": "c0d73b76-dc3c-410c-89f1-e307c5cfe1d4-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@c0d73b76-dc3c-410c-89f1-e307c5cfe1d4-en.srt",
+        "import_path": "c0d73b76-dc3c-410c-89f1-e307c5cfe1d4-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "c2079d78-f4b4-4cae-a63e-ac886b86ce14-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "c2079d78-f4b4-4cae-a63e-ac886b86ce14-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "30e94b7d1daa9e8d012751efa7dd29ef",
+        "displayname": "c2079d78-f4b4-4cae-a63e-ac886b86ce14-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@c2079d78-f4b4-4cae-a63e-ac886b86ce14-en.srt",
+        "import_path": "c2079d78-f4b4-4cae-a63e-ac886b86ce14-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "c2b1737e-b8de-4df1-9d11-80d680f38963-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "c2b1737e-b8de-4df1-9d11-80d680f38963-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "427745e295c656672fb3b7c56f46db74",
+        "displayname": "c2b1737e-b8de-4df1-9d11-80d680f38963-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@c2b1737e-b8de-4df1-9d11-80d680f38963-en.srt",
+        "import_path": "c2b1737e-b8de-4df1-9d11-80d680f38963-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "d19cd5d0-0448-4755-83fd-6f3a65085ce8-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "d19cd5d0-0448-4755-83fd-6f3a65085ce8-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "50c6b886b193b145419066fabe70fa8e",
+        "displayname": "d19cd5d0-0448-4755-83fd-6f3a65085ce8-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@d19cd5d0-0448-4755-83fd-6f3a65085ce8-en.srt",
+        "import_path": "d19cd5d0-0448-4755-83fd-6f3a65085ce8-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "dad6222d-eaaa-4557-9b43-d40b568ab970-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "dad6222d-eaaa-4557-9b43-d40b568ab970-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "217d50c3ee36f7ea353a92e2cb8c15cd",
+        "displayname": "dad6222d-eaaa-4557-9b43-d40b568ab970-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@dad6222d-eaaa-4557-9b43-d40b568ab970-en.srt",
+        "import_path": "dad6222d-eaaa-4557-9b43-d40b568ab970-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "dt_mod15.png": {
+        "contentType": "image/png",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "dt_mod15.png",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "e3fc86ff279b369b0673f79b98af5752",
+        "displayname": "dt_mod15.png",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@dt_mod15.png",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": [
+            "c4x",
+            "UAI_SOURCE",
+            "UAI.15",
+            "thumbnail",
+            "dt_mod15-png.jpg",
+            null
+        ]
+    },
+    "f14616b9-5ece-4124-8948-8f1ddec32ab8-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "f14616b9-5ece-4124-8948-8f1ddec32ab8-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "48d5478d6cbb18e005ac24ac829d7ac2",
+        "displayname": "f14616b9-5ece-4124-8948-8f1ddec32ab8-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@f14616b9-5ece-4124-8948-8f1ddec32ab8-en.srt",
+        "import_path": "f14616b9-5ece-4124-8948-8f1ddec32ab8-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "f71df2a7-c9d8-4312-8223-09ba86413f27-en.srt": {
+        "contentType": "application/octet-stream",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "f71df2a7-c9d8-4312-8223-09ba86413f27-en.srt",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "71bfc9decc83619bb744699fa6a959eb",
+        "displayname": "f71df2a7-c9d8-4312-8223-09ba86413f27-en.srt",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@f71df2a7-c9d8-4312-8223-09ba86413f27-en.srt",
+        "import_path": "f71df2a7-c9d8-4312-8223-09ba86413f27-en.srt",
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "filemenu.png": {
+        "contentType": "image/png",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "filemenu.png",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "9edd11949d8058b96200e697de86c9e5",
+        "displayname": "filemenu.png",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@filemenu.png",
+        "import_path": "filemenu.png",
+        "locked": false,
+        "thumbnail_location": [
+            "c4x",
+            "UAI_SOURCE",
+            "UAI.15",
+            "thumbnail",
+            "filemenu-png.jpg",
+            null
+        ]
+    },
+    "heart.csv": {
+        "contentType": "text/csv",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "heart.csv",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "f8376ac9db4d25345aead44787474f27",
+        "displayname": "heart.csv",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@heart.csv",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": null
+    },
+    "shap_mod15.png": {
+        "contentType": "image/png",
+        "content_son": {
+            "category": "asset",
+            "course": "UAI.15",
+            "name": "shap_mod15.png",
+            "org": "UAI_SOURCE",
+            "revision": null,
+            "run": "1T2026",
+            "tag": "c4x"
+        },
+        "custom_md5": "b99a676ad33a47f832b4918d135300c5",
+        "displayname": "shap_mod15.png",
+        "filename": "asset-v1:UAI_SOURCE+UAI.15+1T2026+type@asset+block@shap_mod15.png",
+        "import_path": null,
+        "locked": false,
+        "thumbnail_location": [
+            "c4x",
+            "UAI_SOURCE",
+            "UAI.15",
+            "thumbnail",
+            "shap_mod15-png.jpg",
+            null
+        ]
+    }
+}

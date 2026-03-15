@@ -1,0 +1,18 @@
+<problem url_name="problem_17dca98ea20b4cd1484f1f78543ff1be">
+  <choiceresponse>
+    <label>Check the Lime explainer output for the fourth sentence: <i>“Delivery update: we couldn’t complete delivery. Confirm your address to avoid a return. Ref: 49281.”</i> This sentence resembles common spam messages, yet is classified as ham. Why? (Select all that apply.)</label>
+    <checkboxgroup>
+      <choice correct="true">LIME shows <i>“update”</i> and reference-style formatting contributing toward ham.</choice>
+      <choice correct="false">The model ignores phrases like <i>“confirm your address”.</i></choice>
+      <choice correct="true">The presence of a reference number shifts the prediction toward legitimate communication.</choice>
+      <choice correct="false">The model has learned that delivery-related messages are always ham.</choice>
+      <choice correct="true">LIME highlights both spam-like and ham-like signals, with ham dominating.</choice>
+    </checkboxgroup>
+  </choiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>The LIME explanation indicates that this sentence contains <b>mixed signals.</b> Phrases like <i>“confirm your address”</i> resemble common spam language and do contribute toward the spam class. However, LIME also highlights<i> “update”,</i> the neutral delivery framing, and the inclusion of a structured reference number (<i>“Ref: 49281”</i>) as supporting the ham class. These elements are characteristic of legitimate transactional notifications. The final classification reflects how the model <b>weighs these competing cues</b>, with the legitimacy-related features outweighing the spam-like ones for this specific message.</p>
+    </div>
+  </solution>
+</problem>

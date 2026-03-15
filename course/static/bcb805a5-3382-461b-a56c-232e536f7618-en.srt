@@ -1,0 +1,732 @@
+0
+00:00:00,000 --> 00:00:02,240
+INSTRUCTOR: Let's now examine how reasoning
+
+1
+00:00:02,240 --> 00:00:07,260
+is handled by both LLMs and symbolic AI reasoners.
+
+2
+00:00:07,260 --> 00:00:10,370
+We will compare the answer of ChatGPT
+
+3
+00:00:10,370 --> 00:00:14,030
+with the answer of basic automated reasoning
+
+4
+00:00:14,030 --> 00:00:16,400
+system for knowledge graphs.
+
+5
+00:00:16,400 --> 00:00:20,900
+Let's assume that both systems have only the example sentence
+
+6
+00:00:20,900 --> 00:00:22,800
+stored in their memory.
+
+7
+00:00:22,800 --> 00:00:26,220
+We will ask whether, based on this data,
+
+8
+00:00:26,220 --> 00:00:30,290
+it can be determined that La La Land is a love story.
+
+9
+00:00:30,290 --> 00:00:33,540
+For humans, this is straightforward,
+
+10
+00:00:33,540 --> 00:00:37,250
+as they understand that every romantic film, including
+
+11
+00:00:37,250 --> 00:00:41,670
+romantic musical films like La La Land, is a love story.
+
+12
+00:00:41,670 --> 00:00:44,090
+For a symbolic AI system to restrict
+
+13
+00:00:44,090 --> 00:00:46,130
+to the information of the sentence
+
+14
+00:00:46,130 --> 00:00:50,480
+is straightforward, as we can explicitly provide only
+
+15
+00:00:50,480 --> 00:00:52,460
+this knowledge as the input.
+
+16
+00:00:52,460 --> 00:00:56,010
+In an LLM, this process is more challenging,
+
+17
+00:00:56,010 --> 00:00:58,850
+if not extremely difficult.
+
+18
+00:00:58,850 --> 00:01:01,980
+First, we do not need to provide any input,
+
+19
+00:01:01,980 --> 00:01:03,890
+as the information from this text
+
+20
+00:01:03,890 --> 00:01:07,170
+is already encoded in the weights of the neural network.
+
+21
+00:01:07,170 --> 00:01:10,370
+It is reasonable to assume that the model has
+
+22
+00:01:10,370 --> 00:01:12,900
+been trained on Wikipedia data.
+
+23
+00:01:12,900 --> 00:01:15,680
+Also, the meaning of this information
+
+24
+00:01:15,680 --> 00:01:20,600
+is likely present in many publicly available texts that
+
+25
+00:01:20,600 --> 00:01:22,860
+were part of its training data.
+
+26
+00:01:22,860 --> 00:01:25,700
+However, it is difficult to ensure
+
+27
+00:01:25,700 --> 00:01:30,210
+that it knows only the elements of this sentence,
+
+28
+00:01:30,210 --> 00:01:35,460
+as LLMs inherently rely on vast amounts of pretrained data
+
+29
+00:01:35,460 --> 00:01:38,060
+beyond the given input.
+
+30
+00:01:38,060 --> 00:01:42,660
+To ensure the model relies only on this knowledge,
+
+31
+00:01:42,660 --> 00:01:46,280
+we use prompting, combining in-context learning
+
+32
+00:01:46,280 --> 00:01:48,360
+and role-playing techniques.
+
+33
+00:01:48,360 --> 00:01:52,590
+We contextualize the question within a game scenario,
+
+34
+00:01:52,590 --> 00:01:55,910
+explicitly instructing the model to only use
+
+35
+00:01:55,910 --> 00:01:58,860
+the given information to generate its response.
+
+36
+00:01:58,860 --> 00:02:02,020
+And then ask, is La La Land a love story?
+
+37
+00:02:02,020 --> 00:02:04,900
+The answer of ChatGPT is correct.
+
+38
+00:02:04,900 --> 00:02:07,960
+It is, "Based on the given information,
+
+39
+00:02:07,960 --> 00:02:13,710
+I can reasonably conclude that La La Land is a love story."
+
+40
+00:02:13,710 --> 00:02:17,830
+With a symbolic AI reasoning, the process is different.
+
+41
+00:02:17,830 --> 00:02:21,630
+We give only the statements included in the sentence
+
+42
+00:02:21,630 --> 00:02:23,890
+and some relevant rules.
+
+43
+00:02:23,890 --> 00:02:27,570
+And we directly input the question,
+
+44
+00:02:27,570 --> 00:02:29,710
+"Is La La Land a love story?"
+
+45
+00:02:29,710 --> 00:02:31,420
+And the response is correct--
+
+46
+00:02:31,420 --> 00:02:32,760
+yes.
+
+47
+00:02:32,760 --> 00:02:35,040
+Let's try to examine how reasoning
+
+48
+00:02:35,040 --> 00:02:37,380
+is performed in each system.
+
+49
+00:02:37,380 --> 00:02:40,620
+In the case of ChatGPT, its output
+
+50
+00:02:40,620 --> 00:02:44,500
+includes the reasoning process used to reach the conclusion.
+
+51
+00:02:44,500 --> 00:02:49,200
+It is clear that it recognizes the meaning of the sentence.
+
+52
+00:02:49,200 --> 00:02:53,340
+Moreover, it more or less follows the suggested game
+
+53
+00:02:53,340 --> 00:02:57,120
+scenario, as it restricts itself to using
+
+54
+00:02:57,120 --> 00:03:00,850
+only the information contained in the given sentence.
+
+55
+00:03:00,850 --> 00:03:04,060
+Finally, in the third step of reasoning,
+
+56
+00:03:04,060 --> 00:03:07,990
+ChatGPT appears to use additional domain knowledge,
+
+57
+00:03:07,990 --> 00:03:12,840
+specifically the information "a love story is a narrative
+
+58
+00:03:12,840 --> 00:03:14,760
+centered around romance."
+
+59
+00:03:14,760 --> 00:03:18,990
+That is relevant to the rule "romantic films are love
+
+60
+00:03:18,990 --> 00:03:23,250
+stories" that we provided to the symbolic AI reasoner.
+
+61
+00:03:23,250 --> 00:03:26,100
+On the other hand, the reasoning process of symbolic AI
+
+62
+00:03:26,100 --> 00:03:31,180
+is transparent, as it follows strict logical steps.
+
+63
+00:03:31,180 --> 00:03:36,370
+Initially, the fact "La La Land is a romantic musical film"
+
+64
+00:03:36,370 --> 00:03:40,110
+and the rule "romantic musical films are romantic films"
+
+65
+00:03:40,110 --> 00:03:43,660
+are combined to infer La La Land is a romantic film.
+
+66
+00:03:43,660 --> 00:03:48,600
+And this fact, combined with the rule "romantic films are love
+
+67
+00:03:48,600 --> 00:03:52,380
+stories," gives the conclusion La La Land is a love story.
+
+68
+00:03:52,380 --> 00:03:55,590
+That is the answer to the question.
+
+69
+00:03:55,590 --> 00:03:58,110
+So we understand that the symbolic AI reasoning
+
+70
+00:03:58,110 --> 00:04:02,160
+follows a transparent, rigorous algorithmic process, which
+
+71
+00:04:02,160 --> 00:04:02,800
+is good.
+
+72
+00:04:02,800 --> 00:04:06,420
+On the other hand, we must carefully select and provide
+
+73
+00:04:06,420 --> 00:04:09,750
+the symbolic AI reasoner with the relevant knowledge
+
+74
+00:04:09,750 --> 00:04:11,380
+in a formal language.
+
+75
+00:04:11,380 --> 00:04:12,910
+This is challenging.
+
+76
+00:04:12,910 --> 00:04:16,350
+With ChatGPT, the knowledge is already there,
+
+77
+00:04:16,350 --> 00:04:18,070
+encoded in the weights.
+
+78
+00:04:18,070 --> 00:04:20,890
+We don't have to give anything, which is good.
+
+79
+00:04:20,890 --> 00:04:23,400
+On the other hand, inside the system,
+
+80
+00:04:23,400 --> 00:04:27,150
+reasoning does not follow the step presented by ChatGPT.
+
+81
+00:04:27,150 --> 00:04:31,110
+The correct answer is based on complex statistical
+
+82
+00:04:31,110 --> 00:04:36,300
+associations, making the text of the answer to more likely follow
+
+83
+00:04:36,300 --> 00:04:37,620
+the prompt.
+
+84
+00:04:37,620 --> 00:04:41,350
+As a result, in more challenging reasoning problems,
+
+85
+00:04:41,350 --> 00:04:45,210
+we may encounter, by LLM reasoning, errors
+
+86
+00:04:45,210 --> 00:04:48,780
+that are difficult to trace.
+
+87
+00:04:48,780 --> 00:04:50,970
+Let's analyze a reasoning problem
+
+88
+00:04:50,970 --> 00:04:53,970
+where such issues arise to understand
+
+89
+00:04:53,970 --> 00:04:57,730
+that while LLM reasoning is easy to use,
+
+90
+00:04:57,730 --> 00:05:01,440
+it can sometimes be unreliable.
+
+91
+00:05:01,440 --> 00:05:04,460
+My company has two debtors--
+
+92
+00:05:04,460 --> 00:05:08,240
+Company A and Company B. We know that Company A
+
+93
+00:05:08,240 --> 00:05:10,580
+is a bankrupt company.
+
+94
+00:05:10,580 --> 00:05:13,890
+We don't know the bankrupt status of Company B.
+
+95
+00:05:13,890 --> 00:05:19,370
+Also, we know that Company B is the only debtor of Company A
+
+96
+00:05:19,370 --> 00:05:24,290
+and that Company B has only one debtor, Company C, that
+
+97
+00:05:24,290 --> 00:05:26,160
+is not a bankrupt company.
+
+98
+00:05:26,160 --> 00:05:30,500
+The question is, if my company has a debtor that
+
+99
+00:05:30,500 --> 00:05:35,930
+is a bankrupt company and this company has a debtor that is not
+
+100
+00:05:35,930 --> 00:05:40,130
+a bankrupt company, this becomes particularly relevant
+
+101
+00:05:40,130 --> 00:05:42,560
+if, for example, we need to determine
+
+102
+00:05:42,560 --> 00:05:46,820
+whether our company has a recourse to recover funds
+
+103
+00:05:46,820 --> 00:05:49,740
+from its bankrupt debtors.
+
+104
+00:05:49,740 --> 00:05:52,580
+The specific reasoning problem is difficult
+
+105
+00:05:52,580 --> 00:05:56,360
+because of the unknown status of company B.
+
+106
+00:05:56,360 --> 00:06:01,740
+The trick is that company B may be a bankrupt company or not.
+
+107
+00:06:01,740 --> 00:06:05,210
+If company B is not a bankrupt company,
+
+108
+00:06:05,210 --> 00:06:07,630
+then my company has a debtor that
+
+109
+00:06:07,630 --> 00:06:10,690
+is a bankrupt company, Company A, which
+
+110
+00:06:10,690 --> 00:06:16,630
+in turn has a debtor that is not a bankrupt company, Company B.
+
+111
+00:06:16,630 --> 00:06:19,880
+If company B is a bankrupt company,
+
+112
+00:06:19,880 --> 00:06:24,290
+then my company still has a debtor that is bankrupt--
+
+113
+00:06:24,290 --> 00:06:26,110
+Company B this time--
+
+114
+00:06:26,110 --> 00:06:30,230
+which in turn has a debtor which is not bankrupt,
+
+115
+00:06:30,230 --> 00:06:36,100
+Company C. So in all cases, the answer to my question is yes.
+
+116
+00:06:36,100 --> 00:06:39,550
+Let's examine how ChatGPT responds to this reasoning
+
+117
+00:06:39,550 --> 00:06:40,520
+problem.
+
+118
+00:06:40,520 --> 00:06:43,960
+First of all, it presents the problem statement
+
+119
+00:06:43,960 --> 00:06:45,410
+in a formal manner.
+
+120
+00:06:45,410 --> 00:06:48,460
+This description is a sound and complete description
+
+121
+00:06:48,460 --> 00:06:49,720
+of the problem.
+
+122
+00:06:49,720 --> 00:06:53,230
+Then it presents a step-by-step analysis
+
+123
+00:06:53,230 --> 00:06:56,930
+that seems like a goal-oriented reasoning strategy.
+
+124
+00:06:56,930 --> 00:07:00,290
+It seems rather intuitive and clear,
+
+125
+00:07:00,290 --> 00:07:03,270
+although it does not infer some new knowledge.
+
+126
+00:07:03,270 --> 00:07:05,270
+Then comes the answer part.
+
+127
+00:07:05,270 --> 00:07:08,110
+The first bullet captures the case
+
+128
+00:07:08,110 --> 00:07:13,430
+that Company B is not bankrupt, concluding that in this case,
+
+129
+00:07:13,430 --> 00:07:14,450
+the answer is yes.
+
+130
+00:07:14,450 --> 00:07:15,440
+This is right.
+
+131
+00:07:15,440 --> 00:07:20,150
+The second bullet captures the case that Company B is bankrupt.
+
+132
+00:07:20,150 --> 00:07:24,160
+And in this case, it notices that Company A does not
+
+133
+00:07:24,160 --> 00:07:25,610
+meet the criteria.
+
+134
+00:07:25,610 --> 00:07:29,200
+True but misses the fact that now Company B
+
+135
+00:07:29,200 --> 00:07:31,120
+meets the criteria.
+
+136
+00:07:31,120 --> 00:07:33,950
+As a result, the answer of ChatGPT is wrong,
+
+137
+00:07:33,950 --> 00:07:37,240
+connecting the positive answer with the bankrupt status
+
+138
+00:07:37,240 --> 00:07:39,940
+of Company B. This is a problem that
+
+139
+00:07:39,940 --> 00:07:43,690
+requires to be solved a challenging reasoning technique
+
+140
+00:07:43,690 --> 00:07:46,640
+known as conditional reasoning.
+
+141
+00:07:46,640 --> 00:07:49,900
+Unfortunately, many practical problems
+
+142
+00:07:49,900 --> 00:07:53,230
+involve conditional reasoning, as they often
+
+143
+00:07:53,230 --> 00:07:57,280
+contain unknown facts that require us to assume
+
+144
+00:07:57,280 --> 00:08:00,190
+whether they are true or not.
+
+145
+00:08:00,190 --> 00:08:02,800
+Let's now examine whether a symbolic AI
+
+146
+00:08:02,800 --> 00:08:06,080
+reasoner can effectively handle this problem.
+
+147
+00:08:06,080 --> 00:08:09,980
+The first step is to formally represent the knowledge.
+
+148
+00:08:09,980 --> 00:08:14,410
+The second step is to formally represent the question.
+
+149
+00:08:14,410 --> 00:08:16,880
+If we represent the knowledge as a knowledge graph,
+
+150
+00:08:16,880 --> 00:08:20,860
+the goal is to determine whether the available data allows
+
+151
+00:08:20,860 --> 00:08:23,890
+us to infer the existence of the hasDebtor
+
+152
+00:08:23,890 --> 00:08:28,600
+edge between my company and another node classified
+
+153
+00:08:28,600 --> 00:08:32,919
+as bankrupt with a nonbankrupt debtor.
+
+154
+00:08:32,919 --> 00:08:36,520
+Sophisticated automated reasoning algorithms
+
+155
+00:08:36,520 --> 00:08:39,289
+can effectively handle this problem.
+
+156
+00:08:39,289 --> 00:08:42,010
+They distinguish between two cases
+
+157
+00:08:42,010 --> 00:08:44,690
+to systematically evaluate it.
+
+158
+00:08:44,690 --> 00:08:47,060
+Let's examine this more closely.
+
+159
+00:08:47,060 --> 00:08:51,520
+In the first case, Company B is connected to the BankruptCompany
+
+160
+00:08:51,520 --> 00:08:54,580
+node, identifying that the desired
+
+161
+00:08:54,580 --> 00:08:58,900
+path exists within the knowledge graph in this case.
+
+162
+00:08:58,900 --> 00:09:01,330
+With this inference, it has concluded
+
+163
+00:09:01,330 --> 00:09:04,250
+that the answer to this question is yes
+
+164
+00:09:04,250 --> 00:09:07,520
+when Company B is bankrupt.
+
+165
+00:09:07,520 --> 00:09:09,890
+In the second case, Company B is connected
+
+166
+00:09:09,890 --> 00:09:12,420
+to the nonbankrupt company node.
+
+167
+00:09:12,420 --> 00:09:16,020
+And again, the desired path exists in the knowledge graph,
+
+168
+00:09:16,020 --> 00:09:18,740
+although this time it is different.
+
+169
+00:09:18,740 --> 00:09:22,470
+With this inference, it has concluded that in this case,
+
+170
+00:09:22,470 --> 00:09:24,810
+the answer to the question is also yes.
+
+171
+00:09:24,810 --> 00:09:26,940
+So in any case, the answer is yes.
+
+172
+00:09:26,940 --> 00:09:31,850
+Therefore, we see that symbolic AI reasoning can effectively
+
+173
+00:09:31,850 --> 00:09:33,390
+handle this case.
+
+174
+00:09:33,390 --> 00:09:36,050
+Indeed, automated reasoning algorithms
+
+175
+00:09:36,050 --> 00:09:39,440
+can effectively handle a wide range of reasoning problems,
+
+176
+00:09:39,440 --> 00:09:41,370
+under one condition.
+
+177
+00:09:41,370 --> 00:09:45,290
+The facts and rules describing the domain and the problem
+
+178
+00:09:45,290 --> 00:09:49,410
+should be formally and precisely formulated.
+
+179
+00:09:49,410 --> 00:09:52,530
+This is a challenging task in itself,
+
+180
+00:09:52,530 --> 00:09:57,650
+which must be undertaken only if guarantees related to reasoning
+
+181
+00:09:57,650 --> 00:10:01,350
+is a requirement of the specific AI application.
+
+182
+00:10:01,350 --> 00:10:05,740
+So we need to use symbolic AI reasoners.
+

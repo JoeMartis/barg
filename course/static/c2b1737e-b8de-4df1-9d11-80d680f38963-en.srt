@@ -1,0 +1,840 @@
+0
+00:00:00,000 --> 00:00:00,740
+
+
+1
+00:00:00,740 --> 00:00:04,500
+INSTRUCTOR: Turning our attention to post-hoc interpretation,
+
+2
+00:00:04,500 --> 00:00:08,100
+particularly to global explanation methods,
+
+3
+00:00:08,100 --> 00:00:11,030
+let's explore one of the most interesting methods,
+
+4
+00:00:11,030 --> 00:00:15,260
+the interpretable surrogate models.
+
+5
+00:00:15,260 --> 00:00:20,000
+A global explanation helps us understand the general decision
+
+6
+00:00:20,000 --> 00:00:24,350
+rules the model follows, how different features influence
+
+7
+00:00:24,350 --> 00:00:29,670
+predictions, whether the model exhibits systematic biases
+
+8
+00:00:29,670 --> 00:00:33,420
+or relies too heavily on specific features.
+
+9
+00:00:33,420 --> 00:00:36,740
+For example, consider a classification model
+
+10
+00:00:36,740 --> 00:00:40,140
+where we analyze how it makes predictions.
+
+11
+00:00:40,140 --> 00:00:43,040
+A global explanation might reveal
+
+12
+00:00:43,040 --> 00:00:48,590
+I classify instances as category X when feature A is high
+
+13
+00:00:48,590 --> 00:00:51,200
+and feature B is low.
+
+14
+00:00:51,200 --> 00:00:57,030
+However, when feature A is moderate but feature C is high,
+
+15
+00:00:57,030 --> 00:01:00,740
+I classify instances as category Y.
+
+16
+00:01:00,740 --> 00:01:03,440
+This tells us the general decision
+
+17
+00:01:03,440 --> 00:01:08,990
+structure the model follows, making it easier to verbalize
+
+18
+00:01:08,990 --> 00:01:11,330
+and therefore validate.
+
+19
+00:01:11,330 --> 00:01:14,360
+Another aspect of global explanations
+
+20
+00:01:14,360 --> 00:01:19,230
+is identifying which features drive the model's decisions.
+
+21
+00:01:19,230 --> 00:01:22,430
+For instance, overall, my predictions
+
+22
+00:01:22,430 --> 00:01:25,590
+are most influenced by feature A,
+
+23
+00:01:25,590 --> 00:01:29,810
+feature B, and feature C. Feature A contributes
+
+24
+00:01:29,810 --> 00:01:36,480
+to 40% of the decisions, feature B to 30%, and feature C to 20%.
+
+25
+00:01:36,480 --> 00:01:39,060
+Other features have minimal impact.
+
+26
+00:01:39,060 --> 00:01:43,860
+This insight allows us to detect potential biases.
+
+27
+00:01:43,860 --> 00:01:48,930
+If the model disproportionately relies on a specific feature,
+
+28
+00:01:48,930 --> 00:01:53,840
+it might indicate bias or overfitting.
+
+29
+00:01:53,840 --> 00:01:57,800
+A widely used technique for globally explaining complex AI
+
+30
+00:01:57,800 --> 00:02:00,930
+models is mimicking the black box model
+
+31
+00:02:00,930 --> 00:02:04,770
+using an interpretable surrogate model.
+
+32
+00:02:04,770 --> 00:02:08,340
+Deep neural networks and other black box models
+
+33
+00:02:08,340 --> 00:02:11,530
+often make highly accurate predictions.
+
+34
+00:02:11,530 --> 00:02:14,670
+But their internal decision-making process
+
+35
+00:02:14,670 --> 00:02:16,650
+is opaque.
+
+36
+00:02:16,650 --> 00:02:20,380
+To make these models more interpretable,
+
+37
+00:02:20,380 --> 00:02:22,920
+we can approximate their behavior
+
+38
+00:02:22,920 --> 00:02:26,860
+with a simpler, interpretable surrogate model,
+
+39
+00:02:26,860 --> 00:02:29,280
+such as a decision tree.
+
+40
+00:02:29,280 --> 00:02:30,700
+How does this work?
+
+41
+00:02:30,700 --> 00:02:35,550
+First, we train a complex model, such as a deep neural network,
+
+42
+00:02:35,550 --> 00:02:37,500
+on the original data set.
+
+43
+00:02:37,500 --> 00:02:39,840
+We then use the trained black box
+
+44
+00:02:39,840 --> 00:02:45,660
+model to predict outputs for a large set of instances.
+
+45
+00:02:45,660 --> 00:02:49,180
+Instead of using the original data set labels,
+
+46
+00:02:49,180 --> 00:02:53,650
+we train an interpretable model, such as a decision tree,
+
+47
+00:02:53,650 --> 00:02:58,710
+to mimic the black box model's predictions.
+
+48
+00:02:58,710 --> 00:03:02,770
+Since decision trees are intrinsically interpretable,
+
+49
+00:03:02,770 --> 00:03:06,730
+we can extract decision rules, feature-important scores,
+
+50
+00:03:06,730 --> 00:03:10,380
+and decision paths to approximate the black box
+
+51
+00:03:10,380 --> 00:03:12,990
+model's behavior.
+
+52
+00:03:12,990 --> 00:03:16,650
+Now let's explore how we can leverage surrogate models
+
+53
+00:03:16,650 --> 00:03:19,680
+for local interpretation.
+
+54
+00:03:19,680 --> 00:03:22,320
+Local interpretation aims to explain
+
+55
+00:03:22,320 --> 00:03:26,130
+why a specific instance was given a particular transaction
+
+56
+00:03:26,130 --> 00:03:27,820
+by an AI model.
+
+57
+00:03:27,820 --> 00:03:31,020
+Unlike global explanations, which
+
+58
+00:03:31,020 --> 00:03:34,180
+describe the overall behavior of a model,
+
+59
+00:03:34,180 --> 00:03:37,440
+local explanations answer the question,
+
+60
+00:03:37,440 --> 00:03:40,770
+why did the model make this specific prediction
+
+61
+00:03:40,770 --> 00:03:42,910
+for this particular input?
+
+62
+00:03:42,910 --> 00:03:45,910
+By analyzing individual decisions,
+
+63
+00:03:45,910 --> 00:03:51,000
+we can understand what features influenced the outcome.
+
+64
+00:03:51,000 --> 00:03:53,250
+Imagine a machine learning model is used
+
+65
+00:03:53,250 --> 00:03:55,790
+to evaluate loan applications.
+
+66
+00:03:55,790 --> 00:03:58,720
+A local explanation might provide insights
+
+67
+00:03:58,720 --> 00:04:01,930
+like the loan was rejected mainly
+
+68
+00:04:01,930 --> 00:04:04,900
+because of the applicant's low credit score
+
+69
+00:04:04,900 --> 00:04:09,010
+and high debt-to-income ratio.
+
+70
+00:04:09,010 --> 00:04:13,930
+The part-time employment status also negatively impacted
+
+71
+00:04:13,930 --> 00:04:15,700
+the decision.
+
+72
+00:04:15,700 --> 00:04:18,970
+This breakdown highlights the most important
+
+73
+00:04:18,970 --> 00:04:22,180
+contributing factors, making it easier
+
+74
+00:04:22,180 --> 00:04:25,180
+for the applicant and financial regulators
+
+75
+00:04:25,180 --> 00:04:27,520
+to understand the decision.
+
+76
+00:04:27,520 --> 00:04:30,340
+One very interesting and widely used
+
+77
+00:04:30,340 --> 00:04:36,070
+method for extracting post-hoc local explanations is LIME.
+
+78
+00:04:36,070 --> 00:04:39,520
+The acronym comes for local interpretable model
+
+79
+00:04:39,520 --> 00:04:41,770
+agnostic explanations.
+
+80
+00:04:41,770 --> 00:04:45,400
+LIME follows a four-step methodology.
+
+81
+00:04:45,400 --> 00:04:49,780
+First, we generate multiple slightly modified versions
+
+82
+00:04:49,780 --> 00:04:54,160
+of the original instance by introducing small changes
+
+83
+00:04:54,160 --> 00:04:59,050
+to its features, then each perturbed instance
+
+84
+00:04:59,050 --> 00:05:02,500
+is passed through the black box models
+
+85
+00:05:02,500 --> 00:05:07,510
+to record the changes in its output.
+
+86
+00:05:07,510 --> 00:05:10,900
+Once we do this, using the perturbed samples
+
+87
+00:05:10,900 --> 00:05:16,610
+and their predictions, we fit a simple interpretable model,
+
+88
+00:05:16,610 --> 00:05:20,980
+for example, a linear regression or a small decision tree.
+
+89
+00:05:20,980 --> 00:05:24,100
+And finally, we extract explanations
+
+90
+00:05:24,100 --> 00:05:26,780
+for the operation of the surrogate model,
+
+91
+00:05:26,780 --> 00:05:31,240
+hoping that this allows us to explain why the black box
+
+92
+00:05:31,240 --> 00:05:36,010
+model made its decision for this instance.
+
+93
+00:05:36,010 --> 00:05:39,430
+Considering the example of the deep neural network classifier
+
+94
+00:05:39,430 --> 00:05:43,270
+that recognizes tigers, we can use deep neural network
+
+95
+00:05:43,270 --> 00:05:47,080
+inference to generate perturbed instances
+
+96
+00:05:47,080 --> 00:05:50,600
+and use them to record the prediction changes.
+
+97
+00:05:50,600 --> 00:05:55,400
+Then we can find surrogate models by fitting interpretable
+
+98
+00:05:55,400 --> 00:05:57,740
+models like decision trees.
+
+99
+00:05:57,740 --> 00:06:01,640
+Using the important features-- for instance, large, golden,
+
+100
+00:06:01,640 --> 00:06:06,000
+yellow, or amber-colored eyes with round pupils,
+
+101
+00:06:06,000 --> 00:06:11,340
+small rounded ears, bold black stripes on an orange coat,
+
+102
+00:06:11,340 --> 00:06:15,260
+muscular body, long and striped tail--
+
+103
+00:06:15,260 --> 00:06:18,671
+we can extract explanations like instance
+
+104
+00:06:18,671 --> 00:06:22,220
+A was classified as a tiger because it
+
+105
+00:06:22,220 --> 00:06:27,930
+has bold black stripes on an orange coat, a muscular body,
+
+106
+00:06:27,930 --> 00:06:32,190
+a long and striped tail, small rounded ears,
+
+107
+00:06:32,190 --> 00:06:36,950
+large golden yellow or amber-colored eyes with round
+
+108
+00:06:36,950 --> 00:06:40,190
+pupils that involve these features.
+
+109
+00:06:40,190 --> 00:06:43,770
+Now let's discuss counterfactual explanations,
+
+110
+00:06:43,770 --> 00:06:46,280
+a powerful technique for understanding
+
+111
+00:06:46,280 --> 00:06:52,340
+AI decisions by exploring what could have been different.
+
+112
+00:06:52,340 --> 00:06:55,290
+What are counterfactual explanations?
+
+113
+00:06:55,290 --> 00:06:59,660
+Rather than explaining why an AI model made
+
+114
+00:06:59,660 --> 00:07:02,660
+the specific decision, counterfactuals
+
+115
+00:07:02,660 --> 00:07:06,350
+explai what minimal changes to the input
+
+116
+00:07:06,350 --> 00:07:09,920
+would have led to a different outcome.
+
+117
+00:07:09,920 --> 00:07:14,010
+Instead of answering, Why was my loan rejected?
+
+118
+00:07:14,010 --> 00:07:16,580
+a counterfactual explanation answers,
+
+119
+00:07:16,580 --> 00:07:22,340
+What would need to change for my loan to be approved?
+
+120
+00:07:22,340 --> 00:07:26,550
+Suppose an AI model rejects a loan application.
+
+121
+00:07:26,550 --> 00:07:28,580
+A counterfactual explanation might
+
+122
+00:07:28,580 --> 00:07:32,180
+say, if your credit score and your income
+
+123
+00:07:32,180 --> 00:07:35,700
+increased a bit, giving some numbers,
+
+124
+00:07:35,700 --> 00:07:38,130
+your loan would be approved.
+
+125
+00:07:38,130 --> 00:07:41,480
+This explanation provides actionable insight
+
+126
+00:07:41,480 --> 00:07:44,810
+into what the applicant can do to improve
+
+127
+00:07:44,810 --> 00:07:47,570
+their chances of approval.
+
+128
+00:07:47,570 --> 00:07:51,340
+Counterfactuals also apply to computer vision models.
+
+129
+00:07:51,340 --> 00:07:54,960
+Suppose an AI system classifies a domestic cat
+
+130
+00:07:54,960 --> 00:07:58,300
+as a tiger because of its background.
+
+131
+00:07:58,300 --> 00:08:00,150
+A counterfactual explanation might
+
+132
+00:08:00,150 --> 00:08:03,730
+say, if the same cat were in a living room,
+
+133
+00:08:03,730 --> 00:08:08,830
+the model would classify it as a domestic cat instead of a tiger.
+
+134
+00:08:08,830 --> 00:08:12,300
+This means that changing the background
+
+135
+00:08:12,300 --> 00:08:15,130
+alters the classification outcome.
+
+136
+00:08:15,130 --> 00:08:17,850
+In this case, counterfactuals explain
+
+137
+00:08:17,850 --> 00:08:21,490
+how context influences model decisions,
+
+138
+00:08:21,490 --> 00:08:26,520
+helping us detect possible biases in AI predictions.
+
+139
+00:08:26,520 --> 00:08:29,260
+To generate counterfactual explanations,
+
+140
+00:08:29,260 --> 00:08:31,990
+we can use several methodologies.
+
+141
+00:08:31,990 --> 00:08:36,270
+For example, there are optimization-based approaches.
+
+142
+00:08:36,270 --> 00:08:39,600
+The goal is to find the smallest possible change
+
+143
+00:08:39,600 --> 00:08:41,909
+in input features that would result
+
+144
+00:08:41,909 --> 00:08:43,900
+in a different prediction.
+
+145
+00:08:43,900 --> 00:08:48,270
+This is often done by solving an optimization problem where
+
+146
+00:08:48,270 --> 00:08:52,510
+we minimize the changes required to flip the model's decision.
+
+147
+00:08:52,510 --> 00:08:56,280
+For instance, instead of suggesting a major salary
+
+148
+00:08:56,280 --> 00:09:00,870
+increase, the model identifies that a 5,000 increase in income
+
+149
+00:09:00,870 --> 00:09:05,310
+and a 50 point increase in credit score are sufficient
+
+150
+00:09:05,310 --> 00:09:07,350
+for loan approval.
+
+151
+00:09:07,350 --> 00:09:11,400
+These methods ensure counterfactuals remain realistic
+
+152
+00:09:11,400 --> 00:09:14,700
+and minimally disruptive.
+
+153
+00:09:14,700 --> 00:09:17,760
+Another approach is to extract prototypes.
+
+154
+00:09:17,760 --> 00:09:21,310
+Instead of modifying the original instance,
+
+155
+00:09:21,310 --> 00:09:25,500
+this method finds a real-world example
+
+156
+00:09:25,500 --> 00:09:31,200
+from a different class that is similar to the given instance.
+
+157
+00:09:31,200 --> 00:09:36,900
+Generative models, such as GANs or variational autoencoders,
+
+158
+00:09:36,900 --> 00:09:40,920
+can be used to generate realistic counterfactual
+
+159
+00:09:40,920 --> 00:09:42,160
+instances.
+
+160
+00:09:42,160 --> 00:09:46,990
+For example, if a patient is diagnosed with a disease,
+
+161
+00:09:46,990 --> 00:09:49,720
+the system could find a similar patient
+
+162
+00:09:49,720 --> 00:09:54,910
+who was classified as healthy, highlighting the key differences
+
+163
+00:09:54,910 --> 00:09:57,470
+in their medical profiles.
+
+164
+00:09:57,470 --> 00:10:00,340
+This method helps answer, What does
+
+165
+00:10:00,340 --> 00:10:04,490
+a real example from the desired class look like?
+
+166
+00:10:04,490 --> 00:10:08,770
+making counterfactuals more interpretable.
+
+167
+00:10:08,770 --> 00:10:12,610
+So what is the take-home message of this lecture?
+
+168
+00:10:12,610 --> 00:10:16,180
+First of all, AI is very useful, but there
+
+169
+00:10:16,180 --> 00:10:20,060
+are many considerations to be taken into account.
+
+170
+00:10:20,060 --> 00:10:23,380
+In particular, potential risks that
+
+171
+00:10:23,380 --> 00:10:27,940
+may be material or immaterial, stemming from biased decision
+
+172
+00:10:27,940 --> 00:10:32,620
+making, unfair treatment, security vulnerability, and AI
+
+173
+00:10:32,620 --> 00:10:36,610
+system malfunction, among others.
+
+174
+00:10:36,610 --> 00:10:39,400
+The lack of transparency in AI models
+
+175
+00:10:39,400 --> 00:10:42,170
+contributes to algorithmic aversion,
+
+176
+00:10:42,170 --> 00:10:46,930
+where users are reluctant to trust automated decisions.
+
+177
+00:10:46,930 --> 00:10:51,740
+Without clear explanations, AI remains a black box,
+
+178
+00:10:51,740 --> 00:10:55,570
+making it harder for users to trust AI and adopt it
+
+179
+00:10:55,570 --> 00:10:56,950
+in practice.
+
+180
+00:10:56,950 --> 00:11:00,650
+Explanations are key to AI transparency.
+
+181
+00:11:00,650 --> 00:11:06,340
+To build trustworthy AI, we need transparent and interpretable
+
+182
+00:11:06,340 --> 00:11:07,220
+systems.
+
+183
+00:11:07,220 --> 00:11:10,270
+This means that we need to extract explanations that
+
+184
+00:11:10,270 --> 00:11:12,890
+describe the AI model predictions,
+
+185
+00:11:12,890 --> 00:11:16,490
+but also the data collection, pre-processing,
+
+186
+00:11:16,490 --> 00:11:19,000
+and training processes.
+
+187
+00:11:19,000 --> 00:11:21,790
+To trust the AI system, users should
+
+188
+00:11:21,790 --> 00:11:26,440
+be able to understand how a specific instance was classified
+
+189
+00:11:26,440 --> 00:11:30,370
+and what factors influenced the outcome.
+
+190
+00:11:30,370 --> 00:11:33,160
+On the other hand, providing explanations
+
+191
+00:11:33,160 --> 00:11:34,970
+is not an easy task.
+
+192
+00:11:34,970 --> 00:11:37,640
+While the need for explainability is clear,
+
+193
+00:11:37,640 --> 00:11:40,390
+implementing effective explanations
+
+194
+00:11:40,390 --> 00:11:43,520
+remains a major challenge.
+
+195
+00:11:43,520 --> 00:11:47,390
+Context is crucial to understand explanations terminology,
+
+196
+00:11:47,390 --> 00:11:50,790
+and the form of explanation is important.
+
+197
+00:11:50,790 --> 00:11:55,850
+Different applications require different types of explanations.
+
+198
+00:11:55,850 --> 00:12:00,770
+For example, a doctor may need a description of the detailed AI
+
+199
+00:12:00,770 --> 00:12:05,510
+reasoning in medical terms, while a loan applicant may
+
+200
+00:12:05,510 --> 00:12:09,560
+need a simple and intuitive justification
+
+201
+00:12:09,560 --> 00:12:12,020
+for the rejection of an application
+
+202
+00:12:12,020 --> 00:12:17,360
+or the factors that should be changed for getting acceptance.
+
+203
+00:12:17,360 --> 00:12:19,850
+And finally, it is very challenging
+
+204
+00:12:19,850 --> 00:12:22,940
+to develop interpretable machine learning models
+
+205
+00:12:22,940 --> 00:12:28,670
+with high accuracy as it is to successfully post-hoc interpret
+
+206
+00:12:28,670 --> 00:12:33,740
+black box AI models like deep neural networks.
+
+207
+00:12:33,740 --> 00:12:36,260
+By addressing these challenges, we
+
+208
+00:12:36,260 --> 00:12:41,550
+can build trust moving forward to a more human-centered AI.
+
+209
+00:12:41,550 --> 00:12:44,350
+Thank you for your attention.
+

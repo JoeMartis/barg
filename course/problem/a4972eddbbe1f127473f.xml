@@ -1,0 +1,17 @@
+<problem url_name="problem_ed2868ef667cdd698a82a9a750578700">
+  <multiplechoiceresponse>
+    <label>A city wants to justify its predictive policing system by noting that it does not explicitly use race or neighborhood as input features. Based on Lecture 2, why is this reasoning flawed?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">Because the model must include protected attributes to be fair</choice>
+      <choice correct="false">Because fairness only depends on demographic parity</choice>
+      <choice correct="true">Because correlated variables and feedback loops can still amplify bias</choice>
+      <choice correct="false">Because arrest data is always unbiased</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>Even if race or neighborhood labels are removed, the system can still reproduce and intensify disparities because other features often correlate with those protected characteristics. Additionally, when model-driven decisions predictions influence where police are sent, the resulting arrests feed back into the data and reinforce the same patterns. As a result, fairness cannot be guaranteed simply by excluding sensitive attributes.</p>
+    </div>
+  </solution>
+</problem>

@@ -1,0 +1,17 @@
+<problem url_name="problem_67a43f5f74da4332276893b1887cd36e">
+  <multiplechoiceresponse>
+    <label>A parole dataset is defined to be α-biased if the difference in parole-granted rates between Group X and Group Y is at least α = 0.12.&amp;nbsp;The dataset shows parole is granted to 35% of Group X and 20% of Group Y. Which statement best matches the lecture?</label>
+    <choicegroup type="MultipleChoice" shuffle="true">
+      <choice correct="false">The dataset is not α-biased because parole decisions are individualized.</choice>
+      <choice correct="false">The dataset becomes unbiased if group membership is excluded from the model.</choice>
+      <choice correct="true">The dataset is α-biased because the difference (0.15) is at least α = 0.12.</choice>
+      <choice correct="false">α-bias applies only after deployment due to feedback loops.</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+  <solution>
+    <div class="detailed-solution">
+      <p>Explanation</p>
+      <p>A dataset is defined to be α‑biased when the difference in positive outcome rates between two groups is at least α. α-bias is about the dataset’s outcome-rate gap across groups. The difference is 0.35 − 0.20 = 0.15. Since 0.15 ≥ 0.12, the dataset is α-biased by the provided definition. Feedback loops can amplify bias over time, but they are not required for α-bias to exist—α-bias can already be present in the historical data used for training.</p>
+    </div>
+  </solution>
+</problem>
