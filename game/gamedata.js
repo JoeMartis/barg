@@ -77,6 +77,42 @@ const GAME_DATA = {
           explanation: "The SHAP summary plot shows aggregated values across all patients. It reveals global patterns but cannot explain any specific patient's prediction. You'd need a local SHAP explanation for that individual patient.",
           trustDelta: 10,
           category: "Explainability"
+        },
+        // INTERACTIVE: Decision Tree Tracing
+        {
+          type: "tree-trace",
+          narrative: `<p>Dr. Patel pulls up the shallow decision tree visualization. <em>"Can you trace the path for this patient and tell me what the model predicts?"</em></p>
+            <p>Click each node in the correct order to follow the patient's path through the tree!</p>`,
+          patientValues: { thal_2: 0.3, oldpeak: 0.21, cp_0: 0.6 },
+          treeNodes: [
+            { label: "thal_2 \u2264 0.5?", condition: "Root split", depth: 0 },
+            { label: "oldpeak \u2264 0.25?", condition: "Left branch", depth: 1 },
+            { label: "age \u2264 0.019?", condition: "Right branch", depth: 1 },
+            { label: "cp_0 \u2264 0.5?", condition: "Check chest pain", depth: 2 },
+            { label: "No Disease", type: "leaf", prediction: "No Disease", depth: 3, explanation: "The patient follows: thal_2 YES \u2192 oldpeak YES \u2192 cp_0 NO \u2192 No Disease. Features not on the path (like age) don't affect this prediction." }
+          ],
+          correctPath: [0, 1, 3, 4],
+          trustDelta: 15,
+          category: "Explainability"
+        },
+        // INTERACTIVE: SHAP Force Plot Builder
+        {
+          type: "shap-build",
+          narrative: `<p>Now Dr. Patel asks you to build a local SHAP explanation for Patient #47. <em>"Drag each feature onto the force plot to see how individual features push the prediction up or down."</em></p>`,
+          basePrediction: 0.45,
+          targetPrediction: 0.72,
+          features: [
+            { name: "cp_0", shapValue: 0.18 },
+            { name: "ca_0", shapValue: 0.14 },
+            { name: "chol", shapValue: 0.08 },
+            { name: "thalach", shapValue: 0.05 },
+            { name: "age", shapValue: -0.06 },
+            { name: "oldpeak", shapValue: -0.06 },
+            { name: "thal_3", shapValue: -0.06 }
+          ],
+          explanation: "Each SHAP value shows how much a feature pushes the prediction up (positive) or down (negative) from the base rate. cp_0 and ca_0 push toward disease, while thal_3 and oldpeak push away. The final prediction is the sum of all contributions.",
+          trustDelta: 15,
+          category: "Explainability"
         }
       ]
     },
@@ -171,6 +207,17 @@ const GAME_DATA = {
           correct: 1,
           explanation: "LIME concentrates weight on action-oriented tokens like 'voucher', 'reply YES', and 'STOP'. The dollar amount isn't highlighted, meaning the model responds more to response instructions than the incentive size.",
           trustDelta: 10,
+          category: "Explainability"
+        },
+        // INTERACTIVE: LIME Word Highlighter
+        {
+          type: "lime-highlight",
+          narrative: `<p>The team gives you a new message to analyze: <em>"Your account has been compromised. Click here immediately to verify your identity and restore access."</em></p>
+            <p>LIME has identified which words push this message toward SPAM. <strong>Click the words you think LIME highlights as spam indicators!</strong></p>`,
+          words: ["Your", "account", "has", "been", "compromised.", "Click", "here", "immediately", "to", "verify", "your", "identity", "and", "restore", "access."],
+          highlightIndices: [4, 5, 6, 7, 9, 13, 14],
+          explanation: "LIME identifies urgency cues ('compromised', 'immediately') and call-to-action phrases ('Click here', 'verify', 'restore access') as key spam indicators. Common words like 'your', 'has', 'been' have little influence on the classification.",
+          trustDelta: 15,
           category: "Explainability"
         }
       ]
@@ -272,6 +319,22 @@ const GAME_DATA = {
           explanation: "\u03B5-demographic parity requires that the difference in positive decision rates between groups is at most \u03B5. In COMPAS, this means similar 'high risk' labeling rates. Error rates are NOT constrained by demographic parity.",
           trustDelta: 15,
           category: "Fairness"
+        },
+        // INTERACTIVE: Feedback Loop Breaker
+        {
+          type: "feedback-loop",
+          narrative: `<p>You discover a feedback loop in the criminal justice system. Police patrols are allocated based on arrest data, but more patrols mean more arrests, which reinforces the model's predictions.</p>
+            <p><strong>Break the cycle!</strong> Click the scissors on the connection you think should be severed to stop the feedback loop.</p>`,
+          stages: [
+            "Model predicts high crime",
+            "More police patrols sent",
+            "More arrests observed",
+            "Training data updated"
+          ],
+          correctBreak: 1,
+          explanation: "Breaking the link between 'Model predicts high crime' and 'More police patrols sent' severs the feedback loop. Freezing patrol allocation based on predictions stops the self-reinforcing cycle. The other connections are data flows that don't drive the amplification.",
+          trustDelta: 15,
+          category: "Fairness"
         }
       ]
     },
@@ -336,6 +399,26 @@ const GAME_DATA = {
           ],
           correct: 2,
           explanation: "\u03B5 acts as a policy lever controlling how strictly the model must equalize positive prediction rates across groups. Smaller \u03B5 = stricter parity, often requiring more flips and reducing merit-based distinctions. It's a quantifiable 'price of diversity.'",
+          trustDelta: 15,
+          category: "Fairness"
+        },
+        // INTERACTIVE: Spot the Bias
+        {
+          type: "spot-bias",
+          narrative: `<p>The admissions office shares their historical dataset. You notice some patterns that suggest bias. <strong>Click the cells that show evidence of bias!</strong></p>`,
+          columns: ["Applicant", "Group", "GPA", "Score", "Admitted"],
+          rows: [
+            ["A1", "Majority", "3.2", "72", "Yes"],
+            ["A2", "Minority", "3.8", "89", "No"],
+            ["A3", "Majority", "3.0", "65", "Yes"],
+            ["A4", "Minority", "3.7", "85", "No"],
+            ["A5", "Majority", "3.5", "78", "Yes"],
+            ["A6", "Minority", "3.9", "91", "Yes"],
+            ["A7", "Majority", "2.8", "60", "Yes"],
+            ["A8", "Minority", "3.6", "82", "No"]
+          ],
+          biasCells: ["1-4", "3-4", "6-4", "7-4"],
+          explanation: "Minority applicants with higher GPAs and scores (A2: 3.8/89, A4: 3.7/85, A8: 3.6/82) are rejected, while majority applicants with lower qualifications (A3: 3.0/65, A7: 2.8/60) are admitted. This pattern suggests the admission decisions are influenced by group membership rather than merit alone.",
           trustDelta: 15,
           category: "Fairness"
         }
@@ -587,6 +670,84 @@ const GAME_DATA = {
       ],
       correct: 2,
       explanation: "\u03B5 is a policy lever: smaller values = stricter parity but more label flips. The 'price of diversity' is quantifiable\u2014\u03B5 lets you explicitly balance fairness and performance."
+    },
+    // INTERACTIVE: Slider question
+    {
+      type: "slider",
+      category: "\u03B1-Bias Threshold",
+      question: "Group A has a 72% admission rate. Group B has 55%. Set the slider to the minimum \u03B1 threshold that would classify this dataset as \u03B1-biased.",
+      displayFormula: "|\u0394Rate| = |0.72 \u2212 0.55| = 0.17. Set \u03B1 \u2264 0.17 for \u03B1-biased.",
+      min: 0,
+      max: 0.5,
+      step: 0.01,
+      correctRange: [0.15, 0.17],
+      explanation: "The rate difference is 0.17. Any \u03B1 \u2264 0.17 means the difference meets or exceeds the threshold, classifying the dataset as \u03B1-biased. The minimum threshold is exactly 0.17."
+    },
+    // INTERACTIVE: Slider question 2
+    {
+      type: "slider",
+      category: "\u03B5-Demographic Parity",
+      question: "A model labels 40% of Group A and 28% of Group B as 'high risk'. What is the smallest \u03B5 that this model satisfies for demographic parity?",
+      displayFormula: "|\u0394Rate| = |0.40 \u2212 0.28| = 0.12. \u03B5 must be \u2265 0.12.",
+      min: 0,
+      max: 0.5,
+      step: 0.01,
+      correctRange: [0.11, 0.13],
+      explanation: "The difference in positive prediction rates is 0.12. The model satisfies \u03B5-demographic parity when \u03B5 \u2265 0.12. So the smallest valid \u03B5 is 0.12."
+    },
+    // INTERACTIVE: Order question
+    {
+      type: "order",
+      category: "Interpretability",
+      question: "Rank these models from MOST interpretable to LEAST interpretable:",
+      items: ["Decision Tree (depth 3)", "Logistic Regression", "Random Forest (500 trees)", "Deep Neural Network"],
+      correctOrder: ["Decision Tree (depth 3)", "Logistic Regression", "Random Forest (500 trees)", "Deep Neural Network"],
+      explanation: "Shallow decision trees are most interpretable (explicit rules). Logistic regression has interpretable coefficients. Random forests aggregate many trees, reducing interpretability. Deep neural networks are the least interpretable (black box)."
+    },
+    // INTERACTIVE: Order question 2
+    {
+      type: "order",
+      category: "Explanation Methods",
+      question: "Order these steps for generating a LIME explanation:",
+      items: ["Perturb the input around the instance", "Fit a simple interpretable model locally", "Get predictions from the black-box model for perturbed inputs", "Present the interpretable model as the explanation"],
+      correctOrder: ["Perturb the input around the instance", "Get predictions from the black-box model for perturbed inputs", "Fit a simple interpretable model locally", "Present the interpretable model as the explanation"],
+      explanation: "LIME works by: (1) perturbing the input, (2) querying the black-box model on perturbations, (3) fitting a simple model to those predictions weighted by proximity, and (4) presenting that local model as the explanation."
+    },
+    // INTERACTIVE: Rapid-tap question
+    {
+      type: "rapid-tap",
+      category: "Local Explanations",
+      question: "Quick! Tap all the methods that provide LOCAL (instance-level) explanations:",
+      timeLimit: 8,
+      items: [
+        { text: "SHAP values", isCorrect: true },
+        { text: "LIME", isCorrect: true },
+        { text: "Grad-CAM", isCorrect: true },
+        { text: "Feature importance", isCorrect: false },
+        { text: "Counterfactuals", isCorrect: true },
+        { text: "Permutation importance", isCorrect: false },
+        { text: "Decision path", isCorrect: true },
+        { text: "Training loss curve", isCorrect: false }
+      ],
+      explanation: "SHAP, LIME, Grad-CAM, counterfactuals, and decision paths all explain individual predictions. Feature importance and permutation importance are global methods. Training loss curves describe model training, not predictions."
+    },
+    // INTERACTIVE: Rapid-tap question 2
+    {
+      type: "rapid-tap",
+      category: "Fairness Concepts",
+      question: "Tap all the concepts that are fairness-related (not explainability):",
+      timeLimit: 8,
+      items: [
+        { text: "\u03B1-Bias", isCorrect: true },
+        { text: "SHAP values", isCorrect: false },
+        { text: "Feedback loops", isCorrect: true },
+        { text: "Grad-CAM", isCorrect: false },
+        { text: "\u03B5-Demographic parity", isCorrect: true },
+        { text: "Label flipping", isCorrect: true },
+        { text: "LIME", isCorrect: false },
+        { text: "Price of diversity", isCorrect: true }
+      ],
+      explanation: "\u03B1-Bias, feedback loops, \u03B5-demographic parity, label flipping, and price of diversity are all fairness concepts. SHAP, Grad-CAM, and LIME are explainability methods."
     }
   ],
 
@@ -743,6 +904,21 @@ const GAME_DATA = {
       ]
     },
     {
+      title: "Fairness Balance",
+      type: "scale",
+      description: "Use the sliders to explore how different group rates affect \u03B1-bias. Then answer the challenge question.",
+      alpha: 0.10,
+      challenge: "A company's hiring rates are: Group A = 62%, Group B = 48%. With \u03B1 = 0.10, what is the status?",
+      choices: [
+        "Not \u03B1-biased, because both groups are above 40%.",
+        "\u03B1-biased, because |0.62 \u2212 0.48| = 0.14 \u2265 0.10.",
+        "Not \u03B1-biased, because the rates are within 20% of each other.",
+        "Cannot determine without knowing protected attributes."
+      ],
+      correct: 1,
+      explanation: "The difference is |0.62 \u2212 0.48| = 0.14. Since 0.14 \u2265 0.10 = \u03B1, the dataset IS \u03B1-biased. The definition only depends on the outcome rate gap, not the absolute levels."
+    },
+    {
       title: "Matching: Fairness Concepts",
       type: "matching",
       description: "Match each fairness concept to its definition.",
@@ -764,9 +940,11 @@ const GAME_DATA = {
     {
       name: "The Bias Dragon",
       hp: 100,
+      weakness: "fairness",
       attacks: [
         {
           name: "Feedback Flame",
+          tag: "fairness",
           description: "The Bias Dragon breathes fire fueled by feedback loops! Answer to douse the flames.",
           question: "A city's arrest model generates more arrests in heavily-policed areas, which feeds back into the model. What breaks this cycle?",
           choices: [
@@ -781,6 +959,7 @@ const GAME_DATA = {
         },
         {
           name: "Disparity Strike",
+          tag: "fairness",
           description: "The dragon attacks with numerical puzzles about bias thresholds!",
           question: "College admissions: Group A admitted 72%, Group B admitted 55%, \u03B1 = 0.15. Is the dataset \u03B1-biased?",
           choices: [
@@ -795,6 +974,7 @@ const GAME_DATA = {
         },
         {
           name: "Parity Puzzle",
+          tag: "optimization",
           description: "The dragon challenges you to understand fairness optimization!",
           question: "In fairness-aware optimization, what is jointly optimized to achieve \u03B5-demographic parity?",
           choices: [
@@ -809,6 +989,7 @@ const GAME_DATA = {
         },
         {
           name: "Final Breath",
+          tag: "fairness",
           description: "The Bias Dragon unleashes its ultimate attack! Only true understanding can defeat it.",
           question: "A classification tree trained to audit label flips splits on 'race = minority' and 'prior convictions > 2'. A policymaker says this proves the model is racist. Is this interpretation correct?",
           choices: [
@@ -826,9 +1007,11 @@ const GAME_DATA = {
     {
       name: "The Black Box Sphinx",
       hp: 100,
+      weakness: "explainability",
       attacks: [
         {
           name: "Opacity Riddle",
+          tag: "explainability",
           description: "The Sphinx poses a riddle about model transparency!",
           question: "A model uses deep learning for medical diagnosis. Which approach provides inherent interpretability?",
           choices: [
@@ -842,6 +1025,7 @@ const GAME_DATA = {
         },
         {
           name: "LIME Labyrinth",
+          tag: "explainability",
           description: "Navigate the maze of local explanations!",
           question: "LIME explains predictions by:",
           choices: [
@@ -856,6 +1040,7 @@ const GAME_DATA = {
         },
         {
           name: "Causation Confusion",
+          tag: "explainability",
           description: "The Sphinx challenges you on the limits of explanations!",
           question: "Grad-CAM highlights regions important for a model's prediction. These highlighted regions represent:",
           choices: [
@@ -870,6 +1055,7 @@ const GAME_DATA = {
         },
         {
           name: "Trust Trap",
+          tag: "trust",
           description: "The Sphinx's final challenge: should you trust explanations?",
           question: "'The explanations look reasonable, so we can trust the model.' Is this correct?",
           choices: [
