@@ -1134,7 +1134,7 @@ body {
 /* === Achievement Popup === */
 .achievement-popup {
   position: fixed;
-  top: 20px;
+  top: 70px;
   right: 20px;
   background: var(--bg-card);
   border: 1px solid var(--accent-orange);
@@ -1526,6 +1526,7 @@ body {
   z-index: 2;
   transition: all 0.3s ease;
   padding: 8px;
+  transform: translate(-50%, -50%);
 }
 
 .loop-break-btn {
@@ -1930,6 +1931,17 @@ body {
   width: 100%;
   accent-color: var(--accent-cyan);
   margin-top: 6px;
+}
+
+.scale-challenge {
+  margin-top: 20px;
+}
+
+.scale-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
 }
 
 /* === Effects Overlays === */

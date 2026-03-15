@@ -646,7 +646,11 @@ const Game = {
           }).join('')}
           ${scene.stages.map((s, i) => {
             const nextI = (i + 1) % scene.stages.length;
-            return `<div class="loop-arrow" id="loop-arrow-${i}" onclick="Game.breakLoop(${i})">
+            const a1 = (i / scene.stages.length) * Math.PI * 2 - Math.PI / 2;
+            const a2 = (nextI / scene.stages.length) * Math.PI * 2 - Math.PI / 2;
+            const ax = 50 + 35 * (Math.cos(a1) + Math.cos(a2)) / 2;
+            const ay = 50 + 35 * (Math.sin(a1) + Math.sin(a2)) / 2;
+            return `<div class="loop-arrow" id="loop-arrow-${i}" style="left:${ax}%;top:${ay}%" onclick="Game.breakLoop(${i})">
               <span class="loop-break-btn" title="Break here">&#x2702;</span>
             </div>`;
           }).join('')}
