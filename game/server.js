@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname)));
 
 // Store LTI sessions in memory (use Redis/DB in production)
 const sessions = new Map();
+const MAX_SESSIONS = 10000;
 
 /**
  * LTI Launch endpoint
@@ -117,12 +118,12 @@ app.get('/lti/config.xml', (req, res) => {
     and Fairness in ML (alpha-bias, epsilon-demographic parity, feedback loops, optimization).
     Features story adventure, quiz blitz, scenario lab, and boss battle modes.
   </blti:description>
-  <blti:launch_url>${baseUrl}/lti/launch</blti:launch_url>
+  <blti:launch_url>${escapeXml(baseUrl)}/lti/launch</blti:launch_url>
 
   <blti:extensions platform="canvas.instructure.com">
     <lticm:property name="tool_id">ai_ethics_quest</lticm:property>
     <lticm:property name="privacy_level">public</lticm:property>
-    <lticm:property name="domain">${new URL(BASE_URL).host}</lticm:property>
+    <lticm:property name="domain">${escapeXml(new URL(BASE_URL).host)}</lticm:property>
   </blti:extensions>
 
   <cartridge_bundle identifierref="BLTI001_Bundle"/>
@@ -137,10 +138,12 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-const MAX_SESSIONS = 10000;
-
 function generateId() {
   return 'sess_' + crypto.randomBytes(16).toString('hex');
+}
+
+function escapeXml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 }
 
 function validateOutcomeUrl(url) {

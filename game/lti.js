@@ -145,13 +145,13 @@ const LTI = {
   async sendScoreLTI13(score) {
     if (!this.config.lineItemUrl || !this.config.accessToken) {
       // Use postMessage to request the platform send the score
-      if (window.parent !== window) {
+      if (window.parent !== window && this.trustedOrigin) {
         window.parent.postMessage({
           type: 'lti-score',
           score: score,
           activityProgress: 'Completed',
           gradingProgress: 'FullyGraded'
-        }, this.trustedOrigin || window.location.origin);
+        }, this.trustedOrigin);
         console.log('[LTI 1.3] Score sent via postMessage:', score);
         return true;
       }

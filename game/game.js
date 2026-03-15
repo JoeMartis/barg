@@ -140,6 +140,7 @@ const Game = {
     if (this.state.freezeTimeout) clearTimeout(this.state.freezeTimeout);
     this.state.freezeTimeout = null;
     if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
+    if (this.toastTimeout) { clearTimeout(this.toastTimeout); this.toastTimeout = null; }
     this.state.totalSessions++;
     localStorage.setItem('aiq-sessions', this.state.totalSessions);
   },
@@ -1201,6 +1202,7 @@ const Game = {
       this.handleCombo(true);
       const points = 50 * Math.max(1, this.state.combo);
       this.state.score += points;
+      this.state.quizTimeLeft += 3;
       this.awardXP(10);
       this.showToast('correct', `+${points}`);
     } else {
