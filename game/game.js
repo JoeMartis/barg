@@ -63,6 +63,15 @@ const Game = {
       document.getElementById('best-score').textContent = best;
     }
     this.updateXPBar();
+
+    // Load reduce-motion preference
+    const reduceMotion = localStorage.getItem('aiq-reduce-motion') === 'true';
+    const toggle = document.getElementById('reduce-motion-toggle');
+    if (toggle) toggle.checked = reduceMotion;
+    if (reduceMotion) {
+      Effects.reducedMotion = true;
+      document.documentElement.classList.add('reduce-motion');
+    }
   },
 
   calcLevel(xp) {
@@ -290,6 +299,11 @@ const Game = {
         this.state.bossAttackIndex = 0;
         this.state.bossHP = 100;
         this.state.playerHP = 100;
+        // Shuffle boss order and attack order within each boss
+        this._shuffledBosses = this.shuffleArray(GAME_DATA.bosses.map(b => ({
+          ...b,
+          attacks: this.shuffleArray([...b.attacks])
+        })));
         this.showScreen('screen-boss');
         this.renderBossBattle();
         break;
@@ -361,9 +375,14 @@ const Game = {
 
   renderMCQScene(scene, el) {
     const letters = ['A', 'B', 'C', 'D'];
-    let choicesHTML = scene.choices.map((c, i) =>
+    // Shuffle choices while tracking the correct answer's new index
+    const indices = scene.choices.map((_, i) => i);
+    this.shuffleArray(indices);
+    this._advCorrectIdx = indices.indexOf(scene.correct);
+    this._advChoiceMap = indices;
+    let choicesHTML = indices.map((origIdx, i) =>
       `<button class="btn-choice" onclick="Game.answerAdventure(${i})">
-        <span class="choice-letter">${letters[i]}</span>${this.escapeHtml(c)}
+        <span class="choice-letter">${letters[i]}</span>${this.escapeHtml(scene.choices[origIdx])}
       </button>`
     ).join('');
 
@@ -829,7 +848,8 @@ const Game = {
 
     const chapter = GAME_DATA.adventure[this.state.chapter];
     const scene = chapter.scenes[this.state.sceneIndex];
-    const isCorrect = idx === scene.correct;
+    const correctIdx = this._advCorrectIdx != null ? this._advCorrectIdx : scene.correct;
+    const isCorrect = idx === correctIdx;
     this.state.total++;
 
     const buttons = document.querySelectorAll('#adv-choices .btn-choice');
@@ -837,7 +857,7 @@ const Game = {
 
     buttons.forEach((b, i) => {
       b.classList.add('disabled');
-      if (i === scene.correct) b.classList.add('correct');
+      if (i === correctIdx) b.classList.add('correct');
       if (i === idx && !isCorrect) b.classList.add('incorrect');
     });
 
@@ -1535,13 +1555,13 @@ const Game = {
 
   // === BOSS BATTLE with weakness system ===
   renderBossBattle() {
-    const bosses = GAME_DATA.bosses;
+    const bosses = this._shuffledBosses || GAME_DATA.bosses;
     if (this.state.bossIndex >= bosses.length) { this.showResults(); return; }
 
     const boss = bosses[this.state.bossIndex];
     if (this.state.bossAttackIndex >= boss.attacks.length) {
       // Boss defeated!
-      this.state.badges.push(this.state.bossIndex === 0 ? 'dragonSlayer' : 'sphinxSolver');
+      this.state.badges.push(boss.name.includes('Dragon') ? 'dragonSlayer' : 'sphinxSolver');
       this.awardXP(100);
       this.showBossDefeat(boss);
       return;
@@ -1559,9 +1579,13 @@ const Game = {
     if (this.state.bossHP <= 25) bossArea.classList.add('boss-desperate');
     else if (this.state.bossHP <= 50) bossArea.classList.add('boss-angry');
 
-    let choicesHTML = attack.choices.map((c, i) =>
+    // Shuffle answer choices for this attack
+    const indices = attack.choices.map((_, i) => i);
+    this.shuffleArray(indices);
+    this._bossCorrectIdx = indices.indexOf(attack.correct);
+    let choicesHTML = indices.map((origIdx, i) =>
       `<button class="btn-choice" onclick="Game.answerBoss(${i})">
-        <span class="choice-letter">${letters[i]}</span>${this.escapeHtml(c)}
+        <span class="choice-letter">${letters[i]}</span>${this.escapeHtml(attack.choices[origIdx])}
       </button>`
     ).join('');
 
@@ -1602,7 +1626,8 @@ const Game = {
       this.state.bossIndex++;
       this.state.bossAttackIndex = 0;
       this.state.bossHP = 100;
-      if (this.state.bossIndex >= GAME_DATA.bosses.length) {
+      const bosses = this._shuffledBosses || GAME_DATA.bosses;
+      if (this.state.bossIndex >= bosses.length) {
         this.showResults();
       } else {
         this.state.playerHP = Math.min(100, this.state.playerHP + 25);
@@ -1615,9 +1640,11 @@ const Game = {
     if (this.state.answering) return;
     this.state.answering = true;
 
-    const boss = GAME_DATA.bosses[this.state.bossIndex];
+    const bosses = this._shuffledBosses || GAME_DATA.bosses;
+    const boss = bosses[this.state.bossIndex];
     const attack = boss.attacks[this.state.bossAttackIndex];
-    const isCorrect = idx === attack.correct;
+    const correctIdx = this._bossCorrectIdx != null ? this._bossCorrectIdx : attack.correct;
+    const isCorrect = idx === correctIdx;
     this.state.total++;
 
     // Check weakness for bonus damage
@@ -1628,7 +1655,7 @@ const Game = {
     const clickedBtn = buttons[idx];
     buttons.forEach((b, i) => {
       b.classList.add('disabled');
-      if (i === attack.correct) b.classList.add('correct');
+      if (i === correctIdx) b.classList.add('correct');
       if (i === idx && !isCorrect) b.classList.add('incorrect');
     });
 
@@ -1686,7 +1713,8 @@ const Game = {
   nextBossAttack() {
     // If boss HP is depleted, skip remaining attacks
     if (this.state.bossHP <= 0) {
-      this.state.bossAttackIndex = GAME_DATA.bosses[this.state.bossIndex].attacks.length;
+      const bosses = this._shuffledBosses || GAME_DATA.bosses;
+      this.state.bossAttackIndex = bosses[this.state.bossIndex].attacks.length;
     } else {
       this.state.bossAttackIndex++;
     }
@@ -1847,6 +1875,12 @@ const Game = {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+  },
+
+  toggleReduceMotion(enabled) {
+    Effects.reducedMotion = enabled;
+    localStorage.setItem('aiq-reduce-motion', enabled);
+    document.documentElement.classList.toggle('reduce-motion', enabled);
   },
 
   shuffleArray(arr) {

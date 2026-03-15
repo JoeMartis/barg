@@ -6,6 +6,7 @@ const Effects = {
   ctx: null,
   particles: [],
   animating: false,
+  reducedMotion: false,
 
   init() {
     this.canvas = document.getElementById('fx-canvas');
@@ -23,7 +24,7 @@ const Effects = {
 
   // Spawn particle burst from an element's position
   burst(element, color, count) {
-    if (!this.canvas) return;
+    if (!this.canvas || this.reducedMotion) return;
     const rect = element.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
@@ -47,7 +48,7 @@ const Effects = {
 
   // Star burst for level-ups and big achievements
   starBurst(x, y, count) {
-    if (!this.canvas) return;
+    if (!this.canvas || this.reducedMotion) return;
     const colors = ['#ffd700', '#ff9100', '#ffeb3b', '#ffffff'];
     for (let i = 0; i < (count || 30); i++) {
       const angle = (Math.PI * 2 * i) / count;
@@ -69,7 +70,7 @@ const Effects = {
 
   // Continuous emitter (for combo fire)
   emitFrom(element, color, rate) {
-    if (!element) return;
+    if (!element || this.reducedMotion) return;
     const rect = element.getBoundingClientRect();
     for (let i = 0; i < (rate || 3); i++) {
       this.particles.push({
@@ -89,7 +90,7 @@ const Effects = {
 
   // Falling debris (boss damage)
   debris(element, color) {
-    if (!this.canvas || !element) return;
+    if (!this.canvas || !element || this.reducedMotion) return;
     const rect = element.getBoundingClientRect();
     for (let i = 0; i < 12; i++) {
       this.particles.push({
@@ -167,6 +168,7 @@ const Effects = {
 
   // Screen shake
   shake(intensity, duration) {
+    if (this.reducedMotion) return;
     const el = document.getElementById('app');
     if (!el) return;
     const str = intensity || 6;
@@ -190,6 +192,7 @@ const Effects = {
 
   // Score flyup from element
   flyup(text, element, color) {
+    if (this.reducedMotion) return;
     const rect = element ? element.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0 };
     const flyEl = document.createElement('div');
     flyEl.className = 'fx-flyup';
@@ -203,6 +206,7 @@ const Effects = {
 
   // Flash screen border (damage taken)
   flashBorder(color, duration) {
+    if (this.reducedMotion) return;
     const el = document.getElementById('app');
     if (!el) return;
     el.style.boxShadow = `inset 0 0 60px ${color || 'rgba(255,82,82,0.5)'}`;
@@ -211,6 +215,7 @@ const Effects = {
 
   // Full-screen flash (combo milestone, level up)
   screenFlash(color, duration) {
+    if (this.reducedMotion) return;
     const flash = document.createElement('div');
     flash.className = 'fx-screen-flash';
     flash.style.background = color || 'rgba(255,255,255,0.2)';
@@ -220,7 +225,7 @@ const Effects = {
 
   // Ripple effect from element center
   ripple(element, color) {
-    if (!element) return;
+    if (!element || this.reducedMotion) return;
     const rect = element.getBoundingClientRect();
     const ripEl = document.createElement('div');
     ripEl.className = 'fx-ripple';
@@ -233,6 +238,7 @@ const Effects = {
 
   // Combo streak text overlay
   streakText(text) {
+    if (this.reducedMotion) return;
     const el = document.createElement('div');
     el.className = 'fx-streak-text';
     el.textContent = text;
