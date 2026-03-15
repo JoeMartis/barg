@@ -150,6 +150,7 @@ const Game = {
     this.state.freezeTimeout = null;
     if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
     if (this._bossDefeatTimeout) { clearTimeout(this._bossDefeatTimeout); this._bossDefeatTimeout = null; }
+    if (this._playerDeathTimeout) { clearTimeout(this._playerDeathTimeout); this._playerDeathTimeout = null; }
     if (this.toastTimeout) { clearTimeout(this.toastTimeout); this.toastTimeout = null; }
     this.state.totalSessions++;
     localStorage.setItem('aiq-sessions', this.state.totalSessions);
@@ -183,6 +184,12 @@ const Game = {
   usePowerup(type) {
     if (this.state.answering) return;
     if (this.state.powerups[type] <= 0) return;
+
+    // 50/50 and hint only work on MCQ-style questions
+    if (type === 'fiftyFifty' || type === 'hint') {
+      const hasChoices = document.querySelectorAll('.scene-choices .btn-choice:not(.disabled)').length > 0;
+      if (!hasChoices) return;
+    }
 
     this.state.powerups[type]--;
     localStorage.setItem('aiq-powerups', JSON.stringify(this.state.powerups));
@@ -1711,7 +1718,7 @@ const Game = {
       }
 
       if (this.state.playerHP <= 0) {
-        setTimeout(() => { this.state.playerHP = 50; this.showResults(); }, 1500);
+        this._playerDeathTimeout = setTimeout(() => { this._playerDeathTimeout = null; this.state.playerHP = 50; this.showResults(); }, 1500);
         return;
       }
     }
