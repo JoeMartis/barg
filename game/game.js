@@ -47,9 +47,9 @@ const Game = {
 
   init() {
     // Load persistent state
-    this.state.xp = parseInt(localStorage.getItem('aiq-xp') || '0') || 0;
+    this.state.xp = parseInt(localStorage.getItem('aiq-xp') || '0', 10) || 0;
     this.state.level = this.calcLevel(this.state.xp);
-    this.state.totalSessions = parseInt(localStorage.getItem('aiq-sessions') || '0') || 0;
+    this.state.totalSessions = parseInt(localStorage.getItem('aiq-sessions') || '0', 10) || 0;
     try {
       this.state.powerups = JSON.parse(localStorage.getItem('aiq-powerups')) || { fiftyFifty: 2, hint: 1, shield: 1, timeFreeze: 1 };
     } catch (e) {
@@ -77,14 +77,15 @@ const Game = {
     if (!bar) return;
     const level = this.state.level;
     const currentThreshold = this.LEVEL_THRESHOLDS[level - 1] || 0;
-    const nextThreshold = this.LEVEL_THRESHOLDS[level] || currentThreshold + 500;
-    const progress = ((this.state.xp - currentThreshold) / (nextThreshold - currentThreshold)) * 100;
+    const isMaxLevel = level >= this.LEVEL_THRESHOLDS.length;
+    const nextThreshold = this.LEVEL_THRESHOLDS[level] || currentThreshold;
+    const progress = isMaxLevel ? 100 : ((this.state.xp - currentThreshold) / (nextThreshold - currentThreshold)) * 100;
     const title = this.LEVEL_TITLES[level - 1] || 'Sage';
 
     bar.innerHTML = `
       <div class="xp-info">
         <span class="xp-level">Lv.${level} ${title}</span>
-        <span class="xp-numbers">${this.state.xp}/${nextThreshold} XP</span>
+        <span class="xp-numbers">${isMaxLevel ? 'MAX' : `${this.state.xp}/${nextThreshold} XP`}</span>
       </div>
       <div class="xp-track"><div class="xp-fill" style="width:${Math.min(100, progress)}%"></div></div>
     `;
@@ -131,6 +132,14 @@ const Game = {
     this.state.missed = [];
     this.state.badges = [];
     this.state.answering = false;
+    this.state.shieldActive = false;
+    if (this.state.autoAdvanceTimeout) clearTimeout(this.state.autoAdvanceTimeout);
+    this.state.autoAdvanceTimeout = null;
+    if (this.state.quizTimer) clearInterval(this.state.quizTimer);
+    this.state.quizTimer = null;
+    if (this.state.freezeTimeout) clearTimeout(this.state.freezeTimeout);
+    this.state.freezeTimeout = null;
+    if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
     this.state.totalSessions++;
     localStorage.setItem('aiq-sessions', this.state.totalSessions);
   },
@@ -245,7 +254,8 @@ const Game = {
       if (!timerEl) return;
       timerEl.classList.add('timer-frozen');
       this.showToast('combo', 'Time frozen for 10s!');
-      setTimeout(() => {
+      this.state.freezeTimeout = setTimeout(() => {
+        if (this.state.mode !== 'quiz-blitz') return;
         if (timerEl) timerEl.classList.remove('timer-frozen');
         this.startQuizTimer();
       }, 10000);
@@ -375,7 +385,7 @@ const Game = {
         <div class="tree-patient-info">
           <h4>Patient Values:</h4>
           ${Object.entries(scene.patientValues).map(([k, v]) =>
-            `<span class="patient-chip"><code>${k}</code> = ${v}</span>`
+            `<span class="patient-chip"><code>${this.escapeHtml(k)}</code> = ${this.escapeHtml(String(v))}</span>`
           ).join('')}
         </div>
         <div class="tree-visual" id="tree-visual"></div>
@@ -992,12 +1002,12 @@ const Game = {
 
     if (isCorrect) {
       this.state.correct++;
+      this.handleCombo(true);
       const multiplier = Math.max(1, this.state.combo);
       const points = 50 * multiplier;
       this.state.score += points;
       this.state.quizTimeLeft += 3;
       this.awardXP(10);
-      this.handleCombo(true);
       this.showToast('correct', `+${points}`);
       Effects.screenFlash('rgba(0,230,118,0.15)');
     } else {
@@ -1043,6 +1053,7 @@ const Game = {
   orderDragStart(event, idx) {
     event.dataTransfer.setData('text/plain', idx);
     event.target.classList.add('order-dragging');
+    event.target.addEventListener('dragend', () => event.target.classList.remove('order-dragging'), { once: true });
   },
 
   orderDragOver(event) {
@@ -1051,7 +1062,7 @@ const Game = {
 
   orderDrop(event, targetIdx) {
     event.preventDefault();
-    const sourceIdx = parseInt(event.dataTransfer.getData('text/plain'));
+    const sourceIdx = parseInt(event.dataTransfer.getData('text/plain'), 10);
     if (sourceIdx === targetIdx) return;
 
     // Swap items
@@ -1092,11 +1103,11 @@ const Game = {
     const isCorrect = correctCount === this.orderState.correctOrder.length;
     if (isCorrect) {
       this.state.correct++;
+      this.handleCombo(true);
       const points = 50 * Math.max(1, this.state.combo);
       this.state.score += points;
       this.state.quizTimeLeft += 3;
       this.awardXP(10);
-      this.handleCombo(true);
       this.showToast('correct', `+${points}`);
     } else {
       this.handleCombo(false);
@@ -1129,6 +1140,9 @@ const Game = {
       </div>
     `;
 
+    // Pause quiz timer during rapid-tap to avoid double-timer race
+    if (this.state.quizTimer) clearInterval(this.state.quizTimer);
+
     // Start tap timer
     this.tapState.tapTimer = setInterval(() => {
       this.tapState.timeLeft--;
@@ -1160,7 +1174,10 @@ const Game = {
 
   finishRapidTap() {
     if (this.state.answering) return; // Prevent double-fire from race
+    if (this.state.mode !== 'quiz-blitz') return; // Guard against mode change
     if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
+    // Resume quiz timer
+    this.startQuizTimer();
     this.state.answering = true;
     this.state.total++;
 
@@ -1180,10 +1197,10 @@ const Game = {
 
     if (isGood) {
       this.state.correct++;
+      this.handleCombo(true);
       const points = 50 * Math.max(1, this.state.combo);
       this.state.score += points;
       this.awardXP(10);
-      this.handleCombo(true);
       this.showToast('correct', `+${points}`);
     } else {
       this.handleCombo(false);
@@ -1218,12 +1235,12 @@ const Game = {
 
     if (isCorrect) {
       this.state.correct++;
+      this.handleCombo(true);
       const multiplier = Math.max(1, this.state.combo);
       const points = 50 * multiplier;
       this.state.score += points;
       this.state.quizTimeLeft += 3;
       this.awardXP(10);
-      this.handleCombo(true);
       this.showToast(this.state.combo >= 5 ? 'combo' : 'correct', `${this.state.combo >= 5 ? 'COMBO x' + this.state.combo + '! ' : ''}+${points}`);
       Effects.burst(clickedBtn, '#00e676', 15);
       Effects.flyup(`+${points}`, clickedBtn);
@@ -1333,7 +1350,7 @@ const Game = {
   },
 
   updateScale(group, val) {
-    const v = parseInt(val);
+    const v = parseInt(val, 10);
     if (group === 'a') this.scaleState.groupA = v;
     else this.scaleState.groupB = v;
 
@@ -1476,17 +1493,21 @@ const Game = {
 
   selectMatchRight(idx) {
     if (this.matchState.selectedLeft === null) return;
+    if (this.matchState.matchedRight && this.matchState.matchedRight.has(idx)) return;
     const leftIdx = this.matchState.selectedLeft;
     const pair = this.matchState.pairs[leftIdx];
     const selectedRight = this.matchState.rightItems[idx];
     this.matchState.attempts++;
 
     if (pair.right === selectedRight) {
+      this.handleCombo(true);
       this.state.correct++;
       this.state.total++;
       this.state.score += 100;
       this.awardXP(15);
       this.matchState.matched.add(leftIdx);
+      if (!this.matchState.matchedRight) this.matchState.matchedRight = new Set();
+      this.matchState.matchedRight.add(idx);
       const leftEl = document.getElementById(`match-left-${leftIdx}`);
       const rightEl = document.getElementById(`match-right-${idx}`);
       leftEl.classList.remove('selected');
@@ -1714,7 +1735,7 @@ const Game = {
     // Show notification
     const notif = document.createElement('div');
     notif.className = 'achievement-popup';
-    notif.innerHTML = `<span class="achievement-icon">${def.icon}</span><div><strong>Achievement Unlocked!</strong><br>${def.name}</div>`;
+    notif.innerHTML = `<span class="achievement-icon">${def.icon}</span><div><strong>Achievement Unlocked!</strong><br>${this.escapeHtml(def.name)}</div>`;
     document.body.appendChild(notif);
     Effects.starBurst(window.innerWidth - 100, 60, 15);
     setTimeout(() => notif.remove(), 3500);
@@ -1743,7 +1764,7 @@ const Game = {
     this.checkAchievements();
 
     // Save best score
-    const best = parseInt(localStorage.getItem('aiq-best-score') || '0');
+    const best = parseInt(localStorage.getItem('aiq-best-score') || '0', 10);
     if (this.state.score > best) localStorage.setItem('aiq-best-score', this.state.score);
 
     // Award bonus powerups based on performance
@@ -1774,7 +1795,7 @@ const Game = {
     const badgesHTML = allBadges.map(b => {
       const badge = GAME_DATA.badges[b] || this.ACHIEVEMENT_DEFS[b];
       if (!badge) return '';
-      return `<div class="badge"><span class="badge-icon">${badge.icon}</span><span>${badge.name}</span></div>`;
+      return `<div class="badge"><span class="badge-icon">${badge.icon}</span><span>${this.escapeHtml(badge.name)}</span></div>`;
     }).join('');
 
     const earnedPowerups = [];
@@ -1809,6 +1830,7 @@ const Game = {
   toastTimeout: null,
   showToast(type, text) {
     const toast = document.getElementById('feedback-toast');
+    if (!toast) return;
     const iconMap = { correct: '\u2705', incorrect: '\u274C', combo: '\u{1F525}' };
     if (this.toastTimeout) clearTimeout(this.toastTimeout);
     toast.className = `feedback-toast ${type}`;
