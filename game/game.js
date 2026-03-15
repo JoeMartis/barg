@@ -25,6 +25,7 @@ const Game = {
     bossHP: 100,
     playerHP: 100,
     answering: false,
+    autoAdvanceTimeout: null,
     // Progression
     xp: 0,
     level: 1,
@@ -46,10 +47,14 @@ const Game = {
 
   init() {
     // Load persistent state
-    this.state.xp = parseInt(localStorage.getItem('aiq-xp') || '0');
+    this.state.xp = parseInt(localStorage.getItem('aiq-xp') || '0') || 0;
     this.state.level = this.calcLevel(this.state.xp);
-    this.state.totalSessions = parseInt(localStorage.getItem('aiq-sessions') || '0');
-    this.state.powerups = JSON.parse(localStorage.getItem('aiq-powerups') || '{"fiftyFifty":2,"hint":1,"shield":1,"timeFreeze":1}');
+    this.state.totalSessions = parseInt(localStorage.getItem('aiq-sessions') || '0') || 0;
+    try {
+      this.state.powerups = JSON.parse(localStorage.getItem('aiq-powerups')) || { fiftyFifty: 2, hint: 1, shield: 1, timeFreeze: 1 };
+    } catch (e) {
+      this.state.powerups = { fiftyFifty: 2, hint: 1, shield: 1, timeFreeze: 1 };
+    }
     this.loadAchievements();
 
     const best = localStorage.getItem('aiq-best-score');
@@ -183,18 +188,30 @@ const Game = {
   },
 
   applyFiftyFifty() {
-    const buttons = document.querySelectorAll('.scene-choices .btn-choice:not(.correct):not(.disabled)');
+    // Find the correct index for the current question
+    let correctIdx = -1;
+    if (this.state.mode === 'adventure') {
+      const scene = GAME_DATA.adventure[this.state.chapter].scenes[this.state.sceneIndex];
+      correctIdx = scene.correct;
+    } else if (this.state.mode === 'quiz-blitz') {
+      correctIdx = this.state.quizQuestions[this.state.quizQuestionIndex].correct;
+    } else if (this.state.mode === 'boss-battle') {
+      const boss = GAME_DATA.bosses[this.state.bossIndex];
+      correctIdx = boss.attacks[this.state.bossAttackIndex].correct;
+    } else if (this.state.mode === 'scenario-lab') {
+      const scenario = GAME_DATA.scenarios[this.state.scenarioIndex];
+      if (scenario.questions) correctIdx = scenario.questions[this.state.scenarioQIndex].correct;
+    }
+
+    const buttons = document.querySelectorAll('.scene-choices .btn-choice:not(.disabled)');
     let removed = 0;
     const indices = this.shuffleArray([...Array(buttons.length).keys()]);
     for (const i of indices) {
       if (removed >= 2) break;
-      // Don't remove the correct answer
-      const btn = buttons[i];
-      if (!btn.classList.contains('correct')) {
-        btn.style.opacity = '0.2';
-        btn.style.pointerEvents = 'none';
-        removed++;
-      }
+      if (i === correctIdx) continue; // Protect correct answer
+      buttons[i].style.opacity = '0.2';
+      buttons[i].style.pointerEvents = 'none';
+      removed++;
     }
     Effects.screenFlash('rgba(78, 140, 255, 0.15)');
     this.showToast('combo', '50/50 activated!');
@@ -284,7 +301,7 @@ const Game = {
     const el = document.getElementById('adventure-scene');
 
     document.getElementById('adv-score').textContent = this.state.score;
-    document.getElementById('adv-chapter').textContent = (this.state.chapter + 1) + '/5';
+    document.getElementById('adv-chapter').textContent = (this.state.chapter + 1) + '/' + GAME_DATA.adventure.length;
     document.getElementById('adv-trust').style.width = Math.max(0, Math.min(100, this.state.trust)) + '%';
 
     // Route to appropriate renderer based on scene type
@@ -463,7 +480,8 @@ const Game = {
       placed: [],
       basePrediction: scene.basePrediction,
       targetPrediction: scene.targetPrediction,
-      currentPrediction: scene.basePrediction
+      currentPrediction: scene.basePrediction,
+      explanation: scene.explanation || 'Each SHAP value shows how much a feature pushes the prediction up or down from the base rate. The final prediction is the sum of all contributions.'
     };
 
     el.innerHTML = `
@@ -551,7 +569,7 @@ const Game = {
       const feedback = document.createElement('div');
       feedback.className = `scene-feedback ${isClose ? 'correct' : 'incorrect'}`;
       feedback.innerHTML = `<strong>${isClose ? 'Great job!' : 'Close!'}</strong>
-        <div class="explanation">${this.escapeHtml(scene.explanation || 'Each SHAP value shows how much a feature pushes the prediction up or down from the base rate. The final prediction is the sum of all contributions.')}</div>`;
+        <div class="explanation">${this.escapeHtml(this.shapState.explanation)}</div>`;
       container.appendChild(feedback);
       const cont = document.createElement('div');
       cont.className = 'scene-continue';
@@ -993,7 +1011,7 @@ const Game = {
     fb.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Incorrect.'}</strong><div class="explanation">${this.escapeHtml(q.explanation)}</div>`;
     el.appendChild(fb);
 
-    setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2200);
+    this.state.autoAdvanceTimeout = setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2200);
   },
 
   // === INTERACTIVE QUIZ: Ordering ===
@@ -1084,7 +1102,7 @@ const Game = {
     }
 
     document.getElementById('quiz-score').textContent = this.state.score;
-    setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2200);
+    this.state.autoAdvanceTimeout = setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2200);
   },
 
   // === INTERACTIVE QUIZ: Rapid Tap ===
@@ -1174,7 +1192,7 @@ const Game = {
     });
 
     document.getElementById('quiz-score').textContent = this.state.score;
-    setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2500);
+    this.state.autoAdvanceTimeout = setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2500);
   },
 
   answerQuiz(idx) {
@@ -1221,7 +1239,7 @@ const Game = {
       <div class="explanation">${this.escapeHtml(q.explanation)}</div>`;
     document.getElementById('quiz-question').appendChild(explanationDiv);
 
-    setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2200);
+    this.state.autoAdvanceTimeout = setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); }, 2200);
   },
 
   // === SCENARIO LAB ===
@@ -1457,10 +1475,10 @@ const Game = {
     const pair = this.matchState.pairs[leftIdx];
     const selectedRight = this.matchState.rightItems[idx];
     this.matchState.attempts++;
-    this.state.total++;
 
     if (pair.right === selectedRight) {
       this.state.correct++;
+      this.state.total++;
       this.state.score += 100;
       this.awardXP(15);
       this.matchState.matched.add(leftIdx);
@@ -1477,6 +1495,7 @@ const Game = {
         setTimeout(() => { this.state.scenarioIndex++; this.state.scenarioQIndex = 0; this.renderScenario(); }, 800);
       }
     } else {
+      this.handleCombo(false);
       const rightEl = document.getElementById(`match-right-${idx}`);
       rightEl.classList.add('wrong');
       setTimeout(() => rightEl.classList.remove('wrong'), 500);
@@ -1635,7 +1654,18 @@ const Game = {
     document.getElementById('boss-battle-area').appendChild(continueBtn);
   },
 
-  nextBossAttack() { this.state.bossAttackIndex++; this.renderBossBattle(); },
+  nextBossAttack() {
+    // If boss HP is depleted, skip remaining attacks and trigger defeat
+    if (this.state.bossHP <= 0) {
+      const boss = GAME_DATA.bosses[this.state.bossIndex];
+      this.state.badges.push(this.state.bossIndex === 0 ? 'dragonSlayer' : 'sphinxSolver');
+      this.awardXP(100);
+      this.showBossDefeat(boss);
+      return;
+    }
+    this.state.bossAttackIndex++;
+    this.renderBossBattle();
+  },
 
   updateBossHP() {
     const hp = Math.max(0, this.state.bossHP);
@@ -1664,7 +1694,11 @@ const Game = {
   },
 
   loadAchievements() {
-    this.achievements = JSON.parse(localStorage.getItem('aiq-achievements') || '{}');
+    try {
+      this.achievements = JSON.parse(localStorage.getItem('aiq-achievements')) || {};
+    } catch (e) {
+      this.achievements = {};
+    }
   },
 
   unlockAchievement(id) {
@@ -1699,6 +1733,7 @@ const Game = {
   // === RESULTS ===
   showResults() {
     if (this.state.quizTimer) clearInterval(this.state.quizTimer);
+    if (this.state.autoAdvanceTimeout) clearTimeout(this.state.autoAdvanceTimeout);
     if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
 
     const pct = this.state.total > 0 ? Math.round((this.state.correct / this.state.total) * 100) : 0;
@@ -1768,13 +1803,15 @@ const Game = {
   },
 
   // === UTILITIES ===
+  toastTimeout: null,
   showToast(type, text) {
     const toast = document.getElementById('feedback-toast');
     const iconMap = { correct: '\u2705', incorrect: '\u274C', combo: '\u{1F525}' };
+    if (this.toastTimeout) clearTimeout(this.toastTimeout);
     toast.className = `feedback-toast ${type}`;
     document.getElementById('feedback-icon').textContent = iconMap[type] || '';
     document.getElementById('feedback-text').textContent = text;
-    setTimeout(() => toast.classList.add('hidden'), 1800);
+    this.toastTimeout = setTimeout(() => toast.classList.add('hidden'), 1800);
   },
 
   escapeHtml(text) {

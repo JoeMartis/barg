@@ -4,6 +4,7 @@
 // Requires: npm install express ims-lti
 
 const express = require('express');
+const crypto = require('crypto');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,11 @@ const PORT = process.env.PORT || 3000;
 // LTI configuration - set these via environment variables
 const LTI_KEY = process.env.LTI_CONSUMER_KEY || 'ai-ethics-quest-key';
 const LTI_SECRET = process.env.LTI_CONSUMER_SECRET || 'ai-ethics-quest-secret';
+const BASE_URL = process.env.BASE_URL || ''; // Set in production to prevent host header injection
+
+if (!process.env.LTI_CONSUMER_KEY || !process.env.LTI_CONSUMER_SECRET) {
+  console.warn('[SECURITY] Using default LTI credentials. Set LTI_CONSUMER_KEY and LTI_CONSUMER_SECRET environment variables for production.');
+}
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -86,7 +92,7 @@ app.post('/lti/outcomes', async (req, res) => {
  * Provides LMS with tool configuration for easy installation
  */
 app.get('/lti/config.xml', (req, res) => {
-  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  const baseUrl = BASE_URL || `${req.protocol}://${req.get('host')}`;
 
   res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?>
 <cartridge_basiclti_link
@@ -124,7 +130,7 @@ app.get('/health', (req, res) => {
 });
 
 function generateId() {
-  return 'sess_' + Math.random().toString(36).substring(2, 15);
+  return 'sess_' + crypto.randomBytes(16).toString('hex');
 }
 
 // Cleanup old sessions every 30 minutes
