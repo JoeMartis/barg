@@ -21,6 +21,7 @@
       <div class="title-buttons">
         <button class="btn btn-primary btn-large" onclick="Game.startAdventure()">Start Adventure</button>
         <button class="btn btn-secondary" onclick="Game.showScreen('screen-modes')">Choose Game Mode</button>
+        <button class="btn btn-back" onclick="Game.showScreen('screen-help')">How to Play</button>
       </div>
       <div class="title-stats" id="returning-stats" style="display:none">
         <p>Welcome back! Best score: <span id="best-score">0</span></p>
@@ -58,7 +59,10 @@
           <span class="mode-tag">Challenge</span>
         </div>
       </div>
-      <button class="btn btn-back" onclick="Game.showScreen('screen-title')">Back</button>
+      <div class="modes-footer">
+        <button class="btn btn-back" onclick="Game.showScreen('screen-title')">Back</button>
+        <button class="btn btn-back" onclick="Game.showScreen('screen-help')">How to Play</button>
+      </div>
     </div>
   </div>
 
@@ -164,6 +168,106 @@
       <div class="boss-battle-area" id="boss-battle-area">
         <!-- Dynamic content -->
       </div>
+    </div>
+  </div>
+
+  <!-- Help Screen -->
+  <div id="screen-help" class="screen">
+    <div class="help-container">
+      <h2>How to Play</h2>
+      <p class="help-intro">AI Ethics Quest teaches Explainable AI and Fairness in Machine Learning through four game modes. Answer questions, complete interactive challenges, and level up your knowledge!</p>
+
+      <div class="help-section">
+        <h3><span class="help-icon">&#x1F3F0;</span> Story Adventure</h3>
+        <p>Play through 5 chapters as an AI auditor investigating real-world scenarios. Each chapter mixes multiple-choice questions with hands-on interactive challenges:</p>
+        <ul>
+          <li><strong>Decision Tree Tracing</strong> &mdash; Click nodes to follow a patient's path through a decision tree.</li>
+          <li><strong>SHAP Force Plot Builder</strong> &mdash; Drag features onto a force plot to see how they push a prediction up or down.</li>
+          <li><strong>LIME Word Highlighter</strong> &mdash; Click words in a message that LIME identifies as spam indicators.</li>
+          <li><strong>Feedback Loop Breaker</strong> &mdash; Find and cut the right connection to break a bias-amplifying feedback loop.</li>
+          <li><strong>Spot the Bias</strong> &mdash; Click cells in a dataset that show evidence of unfair outcomes.</li>
+        </ul>
+        <p>Build <strong>trust</strong> with correct answers. Your trust meter rises and falls based on your choices.</p>
+      </div>
+
+      <div class="help-section">
+        <h3><span class="help-icon">&#x26A1;</span> Quiz Blitz</h3>
+        <p>Race through 20 questions before the 90-second timer runs out. Includes multiple question types:</p>
+        <ul>
+          <li><strong>Multiple Choice</strong> &mdash; Classic pick-the-best-answer questions.</li>
+          <li><strong>Slider</strong> &mdash; Set a numeric threshold (e.g., &alpha;-bias) by dragging a slider.</li>
+          <li><strong>Ordering</strong> &mdash; Drag items into the correct rank order.</li>
+          <li><strong>Rapid Tap</strong> &mdash; Tap floating bubbles that match the prompt before time runs out.</li>
+        </ul>
+        <p>Correct answers add <strong>+3 seconds</strong> to the clock. Build <strong>combos</strong> by answering correctly in a row &mdash; each combo level multiplies your score!</p>
+      </div>
+
+      <div class="help-section">
+        <h3><span class="help-icon">&#x1F52C;</span> Scenario Lab</h3>
+        <p>Work through interactive case studies with visuals like decision tree diagrams, SHAP value charts, and &alpha;-bias calculations. Also includes:</p>
+        <ul>
+          <li><strong>Matching Challenges</strong> &mdash; Click a term on the left, then its definition on the right.</li>
+          <li><strong>Fairness Scale</strong> &mdash; Adjust sliders to explore how group rates affect &alpha;-bias, with a tilting balance beam visualization.</li>
+        </ul>
+      </div>
+
+      <div class="help-section">
+        <h3><span class="help-icon">&#x1F409;</span> Boss Battle</h3>
+        <p>Face two bosses: <strong>The Bias Dragon</strong> and <strong>The Black Box Sphinx</strong>. Each boss attacks with themed questions. Answer correctly to deal damage; answer wrong and you take a hit.</p>
+        <p>Some attacks match a boss's <strong>weakness</strong> &mdash; correct answers on these deal <strong>1.5x critical damage!</strong></p>
+      </div>
+
+      <div class="help-section">
+        <h3><span class="help-icon">&#x2B50;</span> Progression &amp; Power-ups</h3>
+        <p>Your progress is saved between sessions:</p>
+        <ul>
+          <li><strong>XP &amp; Levels</strong> &mdash; Earn XP from every correct answer. Level up from Intern to Legendary Sage (10 levels).</li>
+          <li><strong>Achievements</strong> &mdash; Unlock badges for milestones like perfect scores, high combos, and defeating bosses.</li>
+          <li><strong>Power-ups</strong> &mdash; Earn and spend these during gameplay:
+            <ul>
+              <li><strong>50/50</strong> &mdash; Removes two wrong answers.</li>
+              <li><strong>Hint</strong> &mdash; Shows a clue from the explanation.</li>
+              <li><strong>Shield</strong> &mdash; Blocks the next boss attack (Boss Battle only).</li>
+              <li><strong>Time Freeze</strong> &mdash; Pauses the quiz timer for 10 seconds (Quiz Blitz only).</li>
+            </ul>
+          </li>
+        </ul>
+        <p>Score 80%+ to earn bonus power-ups at the end of each session. Score 90%+ for extra rewards!</p>
+      </div>
+
+      <div class="help-section">
+        <h3><span class="help-icon">&#x1F4DA;</span> Topics Covered</h3>
+        <div class="help-topics">
+          <div class="help-topic-col">
+            <h4>Explainability</h4>
+            <ul>
+              <li>SHAP values (local &amp; global)</li>
+              <li>LIME explanations</li>
+              <li>Grad-CAM heatmaps</li>
+              <li>Decision trees &amp; paths</li>
+              <li>Feature importance</li>
+              <li>Global vs. local explanations</li>
+              <li>Counterfactuals</li>
+              <li>Surrogate models</li>
+            </ul>
+          </div>
+          <div class="help-topic-col">
+            <h4>Fairness</h4>
+            <ul>
+              <li>&alpha;-Bias thresholds</li>
+              <li>&epsilon;-Demographic parity</li>
+              <li>Feedback loops</li>
+              <li>Label flipping (Z<sub>i</sub>)</li>
+              <li>Price of diversity</li>
+              <li>COMPAS case study</li>
+              <li>Proxy leakage</li>
+              <li>Mixed-integer optimization</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="Game.showScreen('screen-title')">Back to Main Menu</button>
     </div>
   </div>
 
