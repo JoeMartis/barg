@@ -47,9 +47,9 @@ const Game = {
 
   init() {
     // Load persistent state
-    this.state.xp = parseInt(localStorage.getItem('aiq-xp') || '0') || 0;
+    this.state.xp = parseInt(localStorage.getItem('aiq-xp') || '0', 10) || 0;
     this.state.level = this.calcLevel(this.state.xp);
-    this.state.totalSessions = parseInt(localStorage.getItem('aiq-sessions') || '0') || 0;
+    this.state.totalSessions = parseInt(localStorage.getItem('aiq-sessions') || '0', 10) || 0;
     try {
       this.state.powerups = JSON.parse(localStorage.getItem('aiq-powerups')) || { fiftyFifty: 2, hint: 1, shield: 1, timeFreeze: 1 };
     } catch (e) {
@@ -131,6 +131,11 @@ const Game = {
     this.state.missed = [];
     this.state.badges = [];
     this.state.answering = false;
+    this.state.shieldActive = false;
+    if (this.state.autoAdvanceTimeout) clearTimeout(this.state.autoAdvanceTimeout);
+    this.state.autoAdvanceTimeout = null;
+    if (this.state.quizTimer) clearInterval(this.state.quizTimer);
+    this.state.quizTimer = null;
     this.state.totalSessions++;
     localStorage.setItem('aiq-sessions', this.state.totalSessions);
   },
@@ -245,7 +250,8 @@ const Game = {
       if (!timerEl) return;
       timerEl.classList.add('timer-frozen');
       this.showToast('combo', 'Time frozen for 10s!');
-      setTimeout(() => {
+      this.state.freezeTimeout = setTimeout(() => {
+        if (this.state.mode !== 'quiz-blitz') return;
         if (timerEl) timerEl.classList.remove('timer-frozen');
         this.startQuizTimer();
       }, 10000);
@@ -1051,7 +1057,7 @@ const Game = {
 
   orderDrop(event, targetIdx) {
     event.preventDefault();
-    const sourceIdx = parseInt(event.dataTransfer.getData('text/plain'));
+    const sourceIdx = parseInt(event.dataTransfer.getData('text/plain'), 10);
     if (sourceIdx === targetIdx) return;
 
     // Swap items
@@ -1333,7 +1339,7 @@ const Game = {
   },
 
   updateScale(group, val) {
-    const v = parseInt(val);
+    const v = parseInt(val, 10);
     if (group === 'a') this.scaleState.groupA = v;
     else this.scaleState.groupB = v;
 
@@ -1482,6 +1488,7 @@ const Game = {
     this.matchState.attempts++;
 
     if (pair.right === selectedRight) {
+      this.handleCombo(true);
       this.state.correct++;
       this.state.total++;
       this.state.score += 100;
@@ -1714,7 +1721,7 @@ const Game = {
     // Show notification
     const notif = document.createElement('div');
     notif.className = 'achievement-popup';
-    notif.innerHTML = `<span class="achievement-icon">${def.icon}</span><div><strong>Achievement Unlocked!</strong><br>${def.name}</div>`;
+    notif.innerHTML = `<span class="achievement-icon">${def.icon}</span><div><strong>Achievement Unlocked!</strong><br>${this.escapeHtml(def.name)}</div>`;
     document.body.appendChild(notif);
     Effects.starBurst(window.innerWidth - 100, 60, 15);
     setTimeout(() => notif.remove(), 3500);
@@ -1743,7 +1750,7 @@ const Game = {
     this.checkAchievements();
 
     // Save best score
-    const best = parseInt(localStorage.getItem('aiq-best-score') || '0');
+    const best = parseInt(localStorage.getItem('aiq-best-score') || '0', 10);
     if (this.state.score > best) localStorage.setItem('aiq-best-score', this.state.score);
 
     // Award bonus powerups based on performance
@@ -1774,7 +1781,7 @@ const Game = {
     const badgesHTML = allBadges.map(b => {
       const badge = GAME_DATA.badges[b] || this.ACHIEVEMENT_DEFS[b];
       if (!badge) return '';
-      return `<div class="badge"><span class="badge-icon">${badge.icon}</span><span>${badge.name}</span></div>`;
+      return `<div class="badge"><span class="badge-icon">${badge.icon}</span><span>${this.escapeHtml(badge.name)}</span></div>`;
     }).join('');
 
     const earnedPowerups = [];
@@ -1809,6 +1816,7 @@ const Game = {
   toastTimeout: null,
   showToast(type, text) {
     const toast = document.getElementById('feedback-toast');
+    if (!toast) return;
     const iconMap = { correct: '\u2705', incorrect: '\u274C', combo: '\u{1F525}' };
     if (this.toastTimeout) clearTimeout(this.toastTimeout);
     toast.className = `feedback-toast ${type}`;

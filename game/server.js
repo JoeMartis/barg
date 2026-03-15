@@ -45,6 +45,11 @@ app.post('/lti/launch', (req, res) => {
   // const provider = new lti.Provider(LTI_KEY, LTI_SECRET);
   // provider.valid_request(req, (err, isValid) => { ... });
 
+  // Cap session count to prevent unbounded memory growth
+  if (sessions.size >= MAX_SESSIONS) {
+    return res.status(503).send('Server at capacity. Please try again later.');
+  }
+
   // Create session
   const sessionId = generateId();
   sessions.set(sessionId, {
@@ -52,7 +57,7 @@ app.post('/lti/launch', (req, res) => {
     userName: params.lis_person_name_full || 'Student',
     courseId: params.context_id,
     courseName: params.context_title,
-    outcomeServiceUrl: params.lis_outcome_service_url,
+    outcomeServiceUrl: validateOutcomeUrl(params.lis_outcome_service_url),
     resultSourcedId: params.lis_result_sourcedid,
     consumerKey: params.oauth_consumer_key,
     timestamp: Date.now()
@@ -79,7 +84,7 @@ app.post('/lti/outcomes', async (req, res) => {
     // const oauth = require('oauth-sign');
     // ... sign and send request to session.outcomeServiceUrl
 
-    console.log(`[LTI] Score passback for user ${session.userId}:`, req.body);
+    console.log('[LTI] Score passback for session:', sessionId);
     res.json({ success: true });
   } catch (err) {
     console.error('[LTI] Outcome service error:', err);
@@ -129,8 +134,21 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', sessions: sessions.size });
 });
 
+const MAX_SESSIONS = 10000;
+
 function generateId() {
   return 'sess_' + crypto.randomBytes(16).toString('hex');
+}
+
+function validateOutcomeUrl(url) {
+  if (!url) return null;
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return null;
+    return url;
+  } catch (e) {
+    return null;
+  }
 }
 
 // Cleanup old sessions every 30 minutes
