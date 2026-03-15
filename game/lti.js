@@ -159,6 +159,18 @@ const LTI = {
       return false;
     }
 
+    // Validate lineItemUrl scheme
+    try {
+      const parsed = new URL(this.config.lineItemUrl);
+      if (parsed.protocol !== 'https:') {
+        console.error('[LTI 1.3] lineItemUrl must use HTTPS');
+        return false;
+      }
+    } catch (e) {
+      console.error('[LTI 1.3] Invalid lineItemUrl');
+      return false;
+    }
+
     const scorePayload = {
       scoreGiven: score * 100,
       scoreMaximum: 100,

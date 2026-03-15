@@ -131,7 +131,7 @@ app.get('/lti/config.xml', (req, res) => {
  * Health check
  */
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', sessions: sessions.size });
+  res.json({ status: 'ok' });
 });
 
 const MAX_SESSIONS = 10000;
