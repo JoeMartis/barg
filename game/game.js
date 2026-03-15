@@ -210,16 +210,17 @@ const Game = {
     // Find the correct index for the current question
     let correctIdx = -1;
     if (this.state.mode === 'adventure') {
-      const scene = GAME_DATA.adventure[this.state.chapter].scenes[this.state.sceneIndex];
-      correctIdx = scene.correct;
+      correctIdx = this._advCorrectIdx != null ? this._advCorrectIdx :
+        GAME_DATA.adventure[this.state.chapter].scenes[this.state.sceneIndex].correct;
     } else if (this.state.mode === 'quiz-blitz') {
-      correctIdx = this.state.quizQuestions[this.state.quizQuestionIndex].correct;
+      correctIdx = this._quizCorrectIdx != null ? this._quizCorrectIdx :
+        this.state.quizQuestions[this.state.quizQuestionIndex].correct;
     } else if (this.state.mode === 'boss-battle') {
-      const boss = GAME_DATA.bosses[this.state.bossIndex];
-      correctIdx = boss.attacks[this.state.bossAttackIndex].correct;
+      correctIdx = this._bossCorrectIdx != null ? this._bossCorrectIdx :
+        (this._shuffledBosses || GAME_DATA.bosses)[this.state.bossIndex].attacks[this.state.bossAttackIndex].correct;
     } else if (this.state.mode === 'scenario-lab') {
-      const scenario = GAME_DATA.scenarios[this.state.scenarioIndex];
-      if (scenario.questions) correctIdx = scenario.questions[this.state.scenarioQIndex].correct;
+      correctIdx = this._scenarioCorrectIdx != null ? this._scenarioCorrectIdx :
+        GAME_DATA.scenarios[this.state.scenarioIndex].questions[this.state.scenarioQIndex].correct;
     }
 
     const buttons = document.querySelectorAll('.scene-choices .btn-choice:not(.disabled)');
@@ -977,9 +978,12 @@ const Game = {
 
   renderStandardQuizQuestion(q) {
     const letters = ['A', 'B', 'C', 'D'];
-    let choicesHTML = q.choices.map((c, i) =>
+    const indices = q.choices.map((_, i) => i);
+    this.shuffleArray(indices);
+    this._quizCorrectIdx = indices.indexOf(q.correct);
+    let choicesHTML = indices.map((origIdx, i) =>
       `<button class="btn-choice" onclick="Game.answerQuiz(${i})">
-        <span class="choice-letter">${letters[i]}</span>${this.escapeHtml(c)}
+        <span class="choice-letter">${letters[i]}</span>${this.escapeHtml(q.choices[origIdx])}
       </button>`
     ).join('');
 
@@ -1245,14 +1249,15 @@ const Game = {
     this.state.answering = true;
 
     const q = this.state.quizQuestions[this.state.quizQuestionIndex];
-    const isCorrect = idx === q.correct;
+    const correctIdx = this._quizCorrectIdx != null ? this._quizCorrectIdx : q.correct;
+    const isCorrect = idx === correctIdx;
     this.state.total++;
 
     const buttons = document.querySelectorAll('#quiz-choices .btn-choice');
     const clickedBtn = buttons[idx];
     buttons.forEach((b, i) => {
       b.classList.add('disabled');
-      if (i === q.correct) b.classList.add('correct');
+      if (i === correctIdx) b.classList.add('correct');
       if (i === idx && !isCorrect) b.classList.add('incorrect');
     });
 
@@ -1307,9 +1312,12 @@ const Game = {
     const q = scenario.questions[this.state.scenarioQIndex];
     if (!q) { this.state.scenarioIndex++; this.state.scenarioQIndex = 0; this.renderScenario(); return; }
     const letters = ['A', 'B', 'C', 'D'];
-    let choicesHTML = q.choices.map((c, i) =>
+    const indices = q.choices.map((_, i) => i);
+    this.shuffleArray(indices);
+    this._scenarioCorrectIdx = indices.indexOf(q.correct);
+    let choicesHTML = indices.map((origIdx, i) =>
       `<button class="btn-choice" onclick="Game.answerScenario(${i})">
-        <span class="choice-letter">${letters[i]}</span>${this.escapeHtml(c)}
+        <span class="choice-letter">${letters[i]}</span>${this.escapeHtml(q.choices[origIdx])}
       </button>`
     ).join('');
 
@@ -1435,14 +1443,15 @@ const Game = {
     this.state.answering = true;
     const scenario = GAME_DATA.scenarios[this.state.scenarioIndex];
     const q = scenario.questions[this.state.scenarioQIndex];
-    const isCorrect = idx === q.correct;
+    const correctIdx = this._scenarioCorrectIdx != null ? this._scenarioCorrectIdx : q.correct;
+    const isCorrect = idx === correctIdx;
     this.state.total++;
 
     const buttons = document.querySelectorAll('#scenario-choices .btn-choice');
     const clickedBtn = buttons[idx];
     buttons.forEach((b, i) => {
       b.classList.add('disabled');
-      if (i === q.correct) b.classList.add('correct');
+      if (i === correctIdx) b.classList.add('correct');
       if (i === idx && !isCorrect) b.classList.add('incorrect');
     });
 
