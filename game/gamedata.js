@@ -1079,12 +1079,12 @@ const GAME_DATA = {
   badges: {
     perfectChapter: { icon: "\u2B50", name: "Perfect Chapter" },
     speedDemon: { icon: "\u26A1", name: "Speed Demon" },
-    comboMaster: { icon: "\u1F525", name: "Combo Master" },
+    comboMaster: { icon: "\u{1F525}", name: "Combo Master" },
     fairnessChampion: { icon: "\u2696\uFE0F", name: "Fairness Champion" },
-    explainabilityExpert: { icon: "\u1F52C", name: "Explainability Expert" },
-    dragonSlayer: { icon: "\u1F409", name: "Dragon Slayer" },
-    sphinxSolver: { icon: "\u1F9E0", name: "Sphinx Solver" },
-    fullMarks: { icon: "\u1F3C6", name: "Full Marks" },
-    noMistakes: { icon: "\u1F4AF", name: "Flawless" }
+    explainabilityExpert: { icon: "\u{1F52C}", name: "Explainability Expert" },
+    dragonSlayer: { icon: "\u{1F409}", name: "Dragon Slayer" },
+    sphinxSolver: { icon: "\u{1F9E0}", name: "Sphinx Solver" },
+    fullMarks: { icon: "\u{1F3C6}", name: "Full Marks" },
+    noMistakes: { icon: "\u{1F4AF}", name: "Flawless" }
   }
 };

@@ -19,12 +19,30 @@ if (!LTI_KEY || !LTI_SECRET) {
   console.error('[SECURITY] LTI endpoints will reject all launches until credentials are configured.');
 }
 
+// Security headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('X-XSS-Protection', '0'); // Disabled per OWASP recommendation; rely on CSP
+  next();
+});
+
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 app.use(express.json({ limit: '100kb' }));
 app.use(express.text({ type: 'application/xml', limit: '100kb' }));
 
+// Block access to server-side files
+app.use((req, res, next) => {
+  const blocked = ['/server.js', '/package.json', '/package-lock.json', '/node_modules'];
+  if (blocked.some(p => req.path === p || req.path.startsWith('/node_modules/'))) {
+    return res.status(403).send('Forbidden');
+  }
+  next();
+});
+
 // Serve static game files
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname), { index: 'index.html', dotfiles: 'deny' }));
 
 // Store LTI sessions in memory (use Redis/DB in production)
 const sessions = new Map();

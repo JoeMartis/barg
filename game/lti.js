@@ -115,7 +115,8 @@ const LTI = {
 </imsx_POXEnvelopeRequest>`;
 
     // Send via server-side proxy to handle OAuth signing
-    const response = await fetch('/lti/outcomes', {
+    const sessionId = new URLSearchParams(window.location.search).get('session');
+    const response = await fetch(`/lti/outcomes${sessionId ? '?session=' + encodeURIComponent(sessionId) : ''}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/xml' },
       body: xml
