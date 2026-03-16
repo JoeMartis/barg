@@ -36,16 +36,8 @@ const LTI = {
       return;
     }
 
-    // Try to read from URL parameters (for simple integrations)
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('lis_outcome_service_url')) {
-      this.config = {
-        outcomeServiceUrl: params.get('lis_outcome_service_url'),
-        resultSourcedId: params.get('lis_result_sourcedid'),
-        consumerKey: params.get('oauth_consumer_key'),
-        version: '1.1'
-      };
-    }
+    // LTI config should come from server-injected window.ltiConfig or postMessage
+    // URL parameters are not used to avoid leaking credentials in browser history/logs
 
     // LTI 1.3: Listen for postMessage from LMS platform
     // Store the parent origin from the referrer for validation
@@ -58,13 +50,12 @@ const LTI = {
         console.warn('[LTI] Rejected postMessage from untrusted origin:', event.origin);
         return;
       }
-      if (!this.trustedOrigin && window.parent !== window) {
-        // No referrer available - only accept if we're in an iframe context
-        // and lock to the first origin we receive from
-        console.warn('[LTI] No trusted origin set. Accepting first postMessage origin:', event.origin);
+      if (!this.trustedOrigin) {
+        // No referrer available - reject messages when we can't verify origin
+        console.warn('[LTI] Rejected postMessage: no trusted origin established. Set origin via server config.');
+        return;
       }
       if (event.data && event.data.type === 'lti-config') {
-        if (!this.trustedOrigin) this.trustedOrigin = event.origin;
         this.config = event.data.config;
       }
     });

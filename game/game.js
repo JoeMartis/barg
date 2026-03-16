@@ -50,8 +50,11 @@ const Game = {
     if (new URLSearchParams(window.location.search).get('preview') === '1') {
       try {
         const preview = JSON.parse(localStorage.getItem('aiq-preview-data'));
+        const ALLOWED_KEYS = ['adventure', 'quizQuestions', 'scenarios', 'bosses', 'badges'];
         if (preview) {
-          Object.assign(GAME_DATA, preview);
+          for (const key of ALLOWED_KEYS) {
+            if (key in preview) GAME_DATA[key] = preview[key];
+          }
           document.body.insertAdjacentHTML('afterbegin',
             '<div style="position:fixed;top:0;left:0;right:0;z-index:9999;background:var(--accent-orange);color:#000;text-align:center;padding:4px;font-weight:700;font-size:0.85rem">PREVIEW MODE — content from editor</div>');
           document.body.style.paddingTop = '28px';
@@ -253,14 +256,16 @@ const Game = {
     }
 
     const buttons = document.querySelectorAll('.scene-choices .btn-choice:not(.disabled)');
-    let removed = 0;
-    const indices = this.shuffleArray([...Array(buttons.length).keys()]);
-    for (const i of indices) {
-      if (removed >= 2) break;
-      if (i === correctIdx) continue; // Protect correct answer
+    // Build list of removable indices (excluding the correct answer)
+    const removable = [];
+    for (let i = 0; i < buttons.length; i++) {
+      if (i !== correctIdx) removable.push(i);
+    }
+    this.shuffleArray(removable);
+    const toRemove = removable.slice(0, 2);
+    for (const i of toRemove) {
       buttons[i].style.opacity = '0.2';
       buttons[i].style.pointerEvents = 'none';
-      removed++;
     }
     Effects.screenFlash('rgba(78, 140, 255, 0.15)');
     this.showToast('combo', '50/50 activated!');
@@ -426,7 +431,7 @@ const Game = {
     ).join('');
 
     el.innerHTML = `
-      <div class="scene-narrative">${scene.narrative}</div>
+      <div class="scene-narrative">${this.sanitizeHTML(scene.narrative)}</div>
       <div class="scene-question">
         <p style="font-weight:600; margin-bottom:12px;">${this.escapeHtml(scene.question)}</p>
       </div>
@@ -439,7 +444,7 @@ const Game = {
   // === INTERACTIVE: Decision Tree Tracer ===
   renderTreeTrace(scene, el) {
     el.innerHTML = `
-      <div class="scene-narrative">${scene.narrative}</div>
+      <div class="scene-narrative">${this.sanitizeHTML(scene.narrative)}</div>
       <div class="tree-trace-container">
         <div class="tree-patient-info">
           <h4>Patient Values:</h4>
@@ -556,7 +561,7 @@ const Game = {
     };
 
     el.innerHTML = `
-      <div class="scene-narrative">${scene.narrative}</div>
+      <div class="scene-narrative">${this.sanitizeHTML(scene.narrative)}</div>
       <div class="shap-build-container">
         <div class="shap-prediction-display">
           <span class="shap-label">Current Prediction:</span>
@@ -654,7 +659,7 @@ const Game = {
     this.loopState = { stages: scene.stages, correctBreak: scene.correctBreak, broken: false };
 
     el.innerHTML = `
-      <div class="scene-narrative">${scene.narrative}</div>
+      <div class="scene-narrative">${this.sanitizeHTML(scene.narrative)}</div>
       <div class="feedback-loop-container">
         <div class="loop-ring" id="loop-ring">
           ${scene.stages.map((s, i) => {
@@ -731,7 +736,7 @@ const Game = {
     this.limeState = { words: scene.words, correctIndices: new Set(scene.highlightIndices), selected: new Set() };
 
     el.innerHTML = `
-      <div class="scene-narrative">${scene.narrative}</div>
+      <div class="scene-narrative">${this.sanitizeHTML(scene.narrative)}</div>
       <div class="lime-container">
         <div class="lime-message-label">Message classified as: <strong class="lime-spam">SPAM</strong></div>
         <div class="lime-message" id="lime-message">
@@ -814,7 +819,7 @@ const Game = {
     this.biasState = { correctCells: new Set(scene.biasCells), selected: new Set() };
 
     el.innerHTML = `
-      <div class="scene-narrative">${scene.narrative}</div>
+      <div class="scene-narrative">${this.sanitizeHTML(scene.narrative)}</div>
       <div class="bias-container">
         <table class="bias-table">
           <thead><tr>${scene.columns.map(c => `<th>${this.escapeHtml(c)}</th>`).join('')}</tr></thead>
@@ -1366,7 +1371,7 @@ const Game = {
     document.getElementById('scenario-content').innerHTML = `
       <h3 style="color: var(--accent-cyan); margin-bottom:8px;">${this.escapeHtml(scenario.title)}</h3>
       <p style="color: var(--text-secondary); margin-bottom:16px;">${this.escapeHtml(scenario.description)}</p>
-      ${scenario.visual || ''}
+      ${this.sanitizeHTML(scenario.visual || '')}
       <div style="margin-top:20px;">
         <p style="font-weight:600; margin-bottom:12px;">Question ${this.state.scenarioQIndex + 1} of ${scenario.questions.length}: ${this.escapeHtml(q.question)}</p>
         <div class="scene-choices" id="scenario-choices">${choicesHTML}</div>
@@ -1851,6 +1856,7 @@ const Game = {
   showResults() {
     if (this.state.quizTimer) clearInterval(this.state.quizTimer);
     if (this.state.autoAdvanceTimeout) clearTimeout(this.state.autoAdvanceTimeout);
+    if (this.state.freezeTimeout) clearTimeout(this.state.freezeTimeout);
     if (this.tapState && this.tapState.tapTimer) clearInterval(this.tapState.tapTimer);
 
     const pct = this.state.total > 0 ? Math.round((this.state.correct / this.state.total) * 100) : 0;
@@ -1937,6 +1943,40 @@ const Game = {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+  },
+
+  // Sanitize HTML: allow safe formatting tags, strip everything else
+  sanitizeHTML(html) {
+    if (!html) return '';
+    const SAFE_TAGS = new Set(['p','h1','h2','h3','h4','h5','h6','em','strong','b','i','u',
+      'span','code','pre','br','hr','ul','ol','li','table','thead','tbody','tr','td','th',
+      'div','blockquote','sub','sup','small','mark','del','ins','dl','dt','dd']);
+    const SAFE_ATTRS = new Set(['class','style']);
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    function clean(node) {
+      const children = [...node.childNodes];
+      for (const child of children) {
+        if (child.nodeType === 3) continue; // text node OK
+        if (child.nodeType !== 1) { child.remove(); continue; }
+        if (!SAFE_TAGS.has(child.tagName.toLowerCase())) {
+          // Replace unsafe element with its text content
+          child.replaceWith(document.createTextNode(child.textContent));
+          continue;
+        }
+        // Strip unsafe attributes
+        for (const attr of [...child.attributes]) {
+          if (!SAFE_ATTRS.has(attr.name.toLowerCase())) child.removeAttribute(attr.name);
+        }
+        // Strip dangerous CSS (javascript: urls, expression())
+        if (child.hasAttribute('style')) {
+          const s = child.getAttribute('style');
+          if (/javascript\s*:|expression\s*\(/i.test(s)) child.removeAttribute('style');
+        }
+        clean(child);
+      }
+    }
+    clean(doc.body);
+    return doc.body.innerHTML;
   },
 
   toggleReduceMotion(enabled) {
