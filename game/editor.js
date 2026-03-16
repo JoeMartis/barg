@@ -78,7 +78,7 @@ const Editor = {
   showHTMLPreview(html) {
     const modal = document.getElementById('preview-modal');
     const iframe = document.getElementById('preview-frame');
-    const doc = `<!DOCTYPE html><html><head><link rel="stylesheet" href="style.css"><style>body{background:var(--bg-card,#1a1a2e);color:var(--text-primary,#e0e0e0);padding:16px;margin:0;font-family:inherit;}</style></head><body>${html}</body></html>`;
+    const doc = `<!DOCTYPE html><html><head><style>body{background:#1a1a2e;color:#e0e0e0;padding:16px;margin:0;font-family:system-ui,sans-serif;line-height:1.6;}h1,h2,h3,h4{color:#4e8cff;}p{margin:0 0 8px;}em{color:#00d4ff;}strong{color:#ff9100;}code{background:#0d0d1a;padding:2px 6px;border-radius:4px;}table{border-collapse:collapse;width:100%;}th,td{border:1px solid #333;padding:8px;text-align:left;}th{background:#0d0d1a;}</style></head><body>${html}</body></html>`;
     iframe.srcdoc = doc;
     modal.style.display = 'flex';
   },
@@ -440,7 +440,7 @@ const Editor = {
       html += `
         <div class="form-group">
           <label>Time Limit (seconds)</label>
-          <input type="number" id="f-quiz-timeLimit" value="${q.timeLimit || 8}" min="1">
+          <input type="number" id="f-quiz-timeLimit" value="${q.timeLimit != null ? q.timeLimit : 8}" min="1">
         </div>
         <div class="form-group">
           <label>Items (check the correct ones)</label>
@@ -565,7 +565,7 @@ const Editor = {
                 <div class="choice-item ${ci === q.correct ? 'correct' : ''}">
                   <input type="radio" name="scn-q-${qi}-correct" value="${ci}" ${ci === q.correct ? 'checked' : ''} onchange="Editor.updateChoiceHighlight(this.closest('.choice-list'))">
                   <input type="text" value="${this.escAttr(typeof c === 'string' ? c : c.text || '')}">
-                  <button class="choice-remove" onclick="this.closest('.choice-item').remove()">&times;</button>
+                  <button class="choice-remove" onclick="Editor.removeScnChoice(${si}, ${qi}, ${ci})">&times;</button>
                 </div>
               `).join('')}
             </div>
@@ -610,7 +610,7 @@ const Editor = {
           </div>
           <div class="form-group">
             <label>Damage</label>
-            <input type="number" id="f-atk-damage" value="${atk.damage || 25}" min="0">
+            <input type="number" id="f-atk-damage" value="${atk.damage != null ? atk.damage : 25}" min="0">
           </div>
         </div>
         <div class="form-group">
@@ -657,7 +657,7 @@ const Editor = {
         </div>
         <div class="form-group">
           <label>HP</label>
-          <input type="number" id="f-boss-hp" value="${boss.hp || 100}" min="1">
+          <input type="number" id="f-boss-hp" value="${boss.hp != null ? boss.hp : 100}" min="1">
         </div>
         <div class="form-group">
           <label>Weakness</label>
@@ -727,7 +727,12 @@ const Editor = {
           for (const key of Object.keys(scene)) {
             if (!common.includes(key)) delete scene[key];
           }
-          Object.assign(scene, parsed);
+          // Only assign known scene properties, not prototype-polluting keys
+          for (const [key, val] of Object.entries(parsed)) {
+            if (key !== '__proto__' && key !== 'constructor' && key !== 'prototype') {
+              scene[key] = val;
+            }
+          }
           const errEl = document.getElementById('f-scene-json-error');
           if (errEl) errEl.textContent = '';
         } catch (e) {
@@ -907,8 +912,14 @@ const Editor = {
       obj = this.data.bosses[bi].attacks[ai];
     }
     if (obj && obj.choices) {
+      const wasCorrect = obj.correct === index;
       obj.choices.splice(index, 1);
-      if (obj.correct >= index && obj.correct > 0) obj.correct--;
+      if (wasCorrect) {
+        // Deleted the correct choice — reset to first remaining choice
+        obj.correct = 0;
+      } else if (obj.correct > index) {
+        obj.correct--;
+      }
       if (obj.correct >= obj.choices.length) obj.correct = Math.max(0, obj.choices.length - 1);
     }
     this.markDirty();
@@ -1058,6 +1069,22 @@ const Editor = {
     this.saveCurrentForm();
     const s = this.data.scenarios[si];
     if (s.questions) s.questions.splice(qi, 1);
+    this.markDirty();
+    this.renderForm();
+  },
+
+  removeScnChoice(si, qi, ci) {
+    this.saveCurrentForm();
+    const q = this.data.scenarios[si]?.questions?.[qi];
+    if (!q || !q.choices) return;
+    const wasCorrect = q.correct === ci;
+    q.choices.splice(ci, 1);
+    if (wasCorrect) {
+      q.correct = 0;
+    } else if (q.correct > ci) {
+      q.correct--;
+    }
+    if (q.correct >= q.choices.length) q.correct = Math.max(0, q.choices.length - 1);
     this.markDirty();
     this.renderForm();
   },

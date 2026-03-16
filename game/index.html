@@ -42,25 +42,25 @@
     <div class="modes-container">
       <h2>Choose Your Path</h2>
       <div class="mode-grid">
-        <div class="mode-card" onclick="Game.startMode('adventure')">
+        <div class="mode-card" role="button" tabindex="0" onclick="Game.startMode('adventure')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();Game.startMode('adventure')}">
           <div class="mode-icon">&#x1F3F0;</div>
           <h3>Story Adventure</h3>
           <p>Play as an AI auditor investigating real-world scenarios. Make decisions, uncover bias, and explain AI systems to stakeholders.</p>
           <span class="mode-tag">Recommended</span>
         </div>
-        <div class="mode-card" onclick="Game.startMode('quiz-blitz')">
+        <div class="mode-card" role="button" tabindex="0" onclick="Game.startMode('quiz-blitz')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();Game.startMode('quiz-blitz')}">
           <div class="mode-icon">&#x26A1;</div>
           <h3>Quiz Blitz</h3>
           <p>Race against the clock! Answer rapid-fire questions on explainability and fairness. Build combos for bonus points.</p>
           <span class="mode-tag">Fast-paced</span>
         </div>
-        <div class="mode-card" onclick="Game.startMode('scenario-lab')">
+        <div class="mode-card" role="button" tabindex="0" onclick="Game.startMode('scenario-lab')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();Game.startMode('scenario-lab')}">
           <div class="mode-icon">&#x1F52C;</div>
           <h3>Scenario Lab</h3>
           <p>Interactive case studies: examine SHAP plots, decision trees, and fairness metrics. Drag-and-drop matching challenges.</p>
           <span class="mode-tag">Hands-on</span>
         </div>
-        <div class="mode-card" onclick="Game.startMode('boss-battle')">
+        <div class="mode-card" role="button" tabindex="0" onclick="Game.startMode('boss-battle')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();Game.startMode('boss-battle')}">
           <div class="mode-icon">&#x1F409;</div>
           <h3>Boss Battle</h3>
           <p>Face the ultimate AI ethics challenges. Multi-part scenarios that test deep understanding. Can you defeat the Bias Dragon?</p>

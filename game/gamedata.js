@@ -331,7 +331,7 @@ const GAME_DATA = {
             "More arrests observed",
             "Training data updated"
           ],
-          correctBreak: 1,
+          correctBreak: 0,
           explanation: "Breaking the link between 'Model predicts high crime' and 'More police patrols sent' severs the feedback loop. Freezing patrol allocation based on predictions stops the self-reinforcing cycle. The other connections are data flows that don't drive the amplification.",
           trustDelta: 15,
           category: "Fairness"
@@ -417,7 +417,7 @@ const GAME_DATA = {
             ["A7", "Majority", "2.8", "60", "Yes"],
             ["A8", "Minority", "3.6", "82", "No"]
           ],
-          biasCells: ["1-4", "3-4", "6-4", "7-4"],
+          biasCells: ["1-4", "2-4", "3-4", "6-4", "7-4"],
           explanation: "Minority applicants with higher GPAs and scores (A2: 3.8/89, A4: 3.7/85, A8: 3.6/82) are rejected, while majority applicants with lower qualifications (A3: 3.0/65, A7: 2.8/60) are admitted. This pattern suggests the admission decisions are influenced by group membership rather than merit alone.",
           trustDelta: 15,
           category: "Fairness"
@@ -680,7 +680,7 @@ const GAME_DATA = {
       min: 0,
       max: 0.5,
       step: 0.01,
-      correctRange: [0.15, 0.17],
+      correctRange: [0.16, 0.17],
       explanation: "The rate difference is 0.17. Any \u03B1 \u2264 0.17 means the difference meets or exceeds the threshold, classifying the dataset as \u03B1-biased. The minimum threshold is exactly 0.17."
     },
     // INTERACTIVE: Slider question 2
