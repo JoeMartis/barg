@@ -1288,7 +1288,7 @@ const Game = {
     });
 
     document.getElementById('quiz-score').textContent = this.state.score;
-    this.state.autoAdvanceTimeout = setTimeout(() => { this.state.quizQuestionIndex++; this.startQuizTimer(); this.renderQuizQuestion(); }, 2500);
+    this.state.autoAdvanceTimeout = setTimeout(() => { this.state.quizQuestionIndex++; this.renderQuizQuestion(); this.startQuizTimer(); }, 2500);
   },
 
   answerQuiz(idx) {
@@ -1951,27 +1951,48 @@ const Game = {
     const SAFE_TAGS = new Set(['p','h1','h2','h3','h4','h5','h6','em','strong','b','i','u',
       'span','code','pre','br','hr','ul','ol','li','table','thead','tbody','tr','td','th',
       'div','blockquote','sub','sup','small','mark','del','ins','dl','dt','dd']);
-    const SAFE_ATTRS = new Set(['class','style']);
+    const SAFE_ATTRS = new Set(['class']);
+    const SAFE_CSS = new Set(['color','background','background-color','font-weight','font-style',
+      'font-size','text-align','text-decoration','margin','margin-top','margin-bottom','margin-left',
+      'margin-right','padding','padding-top','padding-bottom','padding-left','padding-right',
+      'border','border-radius','opacity','line-height','white-space','vertical-align','width',
+      'max-width','min-width','height','display','list-style-type']);
     const doc = new DOMParser().parseFromString(html, 'text/html');
+    function sanitizeStyle(el) {
+      const raw = el.getAttribute('style');
+      if (!raw) return;
+      const temp = doc.createElement('span');
+      temp.setAttribute('style', raw);
+      const safe = [];
+      for (let i = 0; i < temp.style.length; i++) {
+        const prop = temp.style[i];
+        if (SAFE_CSS.has(prop)) {
+          const val = temp.style.getPropertyValue(prop);
+          // Block url(), expression(), javascript: in values
+          if (!/url\s*\(|expression\s*\(|javascript\s*:/i.test(val)) {
+            safe.push(`${prop}:${val}`);
+          }
+        }
+      }
+      if (safe.length) el.setAttribute('style', safe.join(';'));
+      else el.removeAttribute('style');
+    }
     function clean(node) {
       const children = [...node.childNodes];
       for (const child of children) {
         if (child.nodeType === 3) continue; // text node OK
         if (child.nodeType !== 1) { child.remove(); continue; }
         if (!SAFE_TAGS.has(child.tagName.toLowerCase())) {
-          // Replace unsafe element with its text content
-          child.replaceWith(document.createTextNode(child.textContent));
+          child.replaceWith(doc.createTextNode(child.textContent));
           continue;
         }
-        // Strip unsafe attributes
+        // Strip unsafe attributes, sanitize style separately
+        const hasStyle = child.hasAttribute('style');
         for (const attr of [...child.attributes]) {
+          if (attr.name.toLowerCase() === 'style') continue; // handle below
           if (!SAFE_ATTRS.has(attr.name.toLowerCase())) child.removeAttribute(attr.name);
         }
-        // Strip dangerous CSS (javascript: urls, expression())
-        if (child.hasAttribute('style')) {
-          const s = child.getAttribute('style');
-          if (/javascript\s*:|expression\s*\(/i.test(s)) child.removeAttribute('style');
-        }
+        if (hasStyle) sanitizeStyle(child);
         clean(child);
       }
     }

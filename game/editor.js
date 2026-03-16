@@ -69,10 +69,13 @@ const Editor = {
       callback();
     };
     modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
   },
 
   closeModal() {
-    document.getElementById('editor-modal').style.display = 'none';
+    const modal = document.getElementById('editor-modal');
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
   },
 
   showHTMLPreview(html) {
@@ -81,10 +84,13 @@ const Editor = {
     const doc = `<!DOCTYPE html><html><head><style>body{background:#1a1a2e;color:#e0e0e0;padding:16px;margin:0;font-family:system-ui,sans-serif;line-height:1.6;}h1,h2,h3,h4{color:#4e8cff;}p{margin:0 0 8px;}em{color:#00d4ff;}strong{color:#ff9100;}code{background:#0d0d1a;padding:2px 6px;border-radius:4px;}table{border-collapse:collapse;width:100%;}th,td{border:1px solid #333;padding:8px;text-align:left;}th{background:#0d0d1a;}</style></head><body>${html}</body></html>`;
     iframe.srcdoc = doc;
     modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
   },
 
   closePreviewModal() {
-    document.getElementById('preview-modal').style.display = 'none';
+    const modal = document.getElementById('preview-modal');
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
     document.getElementById('preview-frame').srcdoc = '';
   },
 
@@ -245,7 +251,7 @@ const Editor = {
         </div>
         <div class="form-group">
           <label>Chapter Number</label>
-          <input type="number" id="f-ch-number" value="${ch.chapter || ci + 1}" min="1">
+          <input type="number" id="f-ch-number" value="${ch.chapter != null ? ch.chapter : ci + 1}" min="1">
         </div>
         <p style="color:var(--text-dim);font-size:0.85rem;margin-top:12px;">This chapter has ${(ch.scenes || []).length} scene(s). Click a scene in the sidebar to edit it.</p>`;
       return;
@@ -688,7 +694,7 @@ const Editor = {
       const title = this.val('f-ch-title');
       const num = this.val('f-ch-number');
       if (title !== null) ch.title = title;
-      if (num !== null) ch.chapter = parseInt(num) || ci + 1;
+      if (num !== null) { const n = parseInt(num); ch.chapter = isNaN(n) ? ci + 1 : n; }
       return;
     }
 
@@ -1334,15 +1340,15 @@ const Editor = {
   },
 
   esc(str) {
-    if (!str) return '';
+    if (str == null) return '';
     const div = document.createElement('div');
-    div.textContent = str;
+    div.textContent = String(str);
     return div.innerHTML;
   },
 
   escAttr(str) {
-    if (!str) return '';
-    return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    if (str == null) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   },
 
   truncate(str, len) {
