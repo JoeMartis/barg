@@ -77,12 +77,15 @@ const Editor = {
 
   showHTMLPreview(html) {
     const modal = document.getElementById('preview-modal');
-    document.getElementById('preview-frame').innerHTML = html;
+    const iframe = document.getElementById('preview-frame');
+    const doc = `<!DOCTYPE html><html><head><link rel="stylesheet" href="style.css"><style>body{background:var(--bg-card,#1a1a2e);color:var(--text-primary,#e0e0e0);padding:16px;margin:0;font-family:inherit;}</style></head><body>${html}</body></html>`;
+    iframe.srcdoc = doc;
     modal.style.display = 'flex';
   },
 
   closePreviewModal() {
     document.getElementById('preview-modal').style.display = 'none';
+    document.getElementById('preview-frame').srcdoc = '';
   },
 
   // ── Sidebar ────────────────────────────────────────────────
