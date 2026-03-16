@@ -910,7 +910,9 @@ body {
 }
 
 .feedback-toast.hidden {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .feedback-toast.correct {
@@ -1041,7 +1043,7 @@ body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 1500; /* below level-up overlay (2000) and achievement popup (2500) */
 }
 
 /* === XP Bar === */
