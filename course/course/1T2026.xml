@@ -1,8 +1,0 @@
-<course allow_anonymous="true" allow_anonymous_to_peers="false" cert_html_view_enabled="true" certificates_display_behavior="early_no_info" days_early_for_beta="365.0" discussions_settings="{&quot;enable_graded_units&quot;: false, &quot;enable_in_context&quot;: true, &quot;openedx&quot;: {&quot;group_at_subsection&quot;: false}, &quot;posting_restrictions&quot;: &quot;enabled&quot;, &quot;provider_type&quot;: &quot;openedx&quot;, &quot;unit_level_visibility&quot;: true}" display_name="Module 15: Explainability and Fairness" end="null" enrollment_start="2026-03-06T15:00:00Z" giturl="git@github.mit.edu:mitxonline/UAI_SOURCE-UAI.11-3T2025.git" graceperiod="" instructor_info="{&quot;instructors&quot;: []}" language="en" learning_info="[]" minimum_grade_credit="0.8" other_course_settings="{&quot;OL_OPENEDX_CHAT_PROBLEM_BLOCK_ENABLED&quot;: true, &quot;OL_OPENEDX_CHAT_VIDEO_BLOCK_ENABLED&quot;: true}" self_paced="true" showanswer="after_all_attempts_or_correct" start="2026-03-06T15:00:00Z">
-  <chapter url_name="a7dceb746bfb498bb986107212cf2a64"/>
-  <chapter url_name="68f514c5582849dbbdd7f484344abf5f"/>
-  <chapter url_name="d170fc25fa8c4266be3da1db8d8dbfb8"/>
-  <chapter url_name="5708d3c4973f455bbc7eed3d7c7db8a3"/>
-  <chapter url_name="7f3c97533dfd461092042195f29a90f8"/>
-  <wiki slug="UAI_SOURCE.UAI.15.1T2026"/>
-</course>
