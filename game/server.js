@@ -9,13 +9,14 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// LTI configuration - set these via environment variables
-const LTI_KEY = process.env.LTI_CONSUMER_KEY || 'ai-ethics-quest-key';
-const LTI_SECRET = process.env.LTI_CONSUMER_SECRET || 'ai-ethics-quest-secret';
+// LTI configuration - MUST be set via environment variables
+const LTI_KEY = process.env.LTI_CONSUMER_KEY;
+const LTI_SECRET = process.env.LTI_CONSUMER_SECRET;
 const BASE_URL = process.env.BASE_URL || ''; // Set in production to prevent host header injection
 
-if (!process.env.LTI_CONSUMER_KEY || !process.env.LTI_CONSUMER_SECRET) {
-  console.warn('[SECURITY] Using default LTI credentials. Set LTI_CONSUMER_KEY and LTI_CONSUMER_SECRET environment variables for production.');
+if (!LTI_KEY || !LTI_SECRET) {
+  console.error('[SECURITY] LTI_CONSUMER_KEY and LTI_CONSUMER_SECRET environment variables are required.');
+  console.error('[SECURITY] LTI endpoints will reject all launches until credentials are configured.');
 }
 
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
@@ -33,7 +34,7 @@ const MAX_SESSIONS = 10000;
  * LTI Launch endpoint
  * The LMS POSTs here with OAuth-signed LTI parameters
  */
-app.post('/lti/launch', (req, res) => {
+app.post('/lti/launch', async (req, res) => {
   const params = req.body;
 
   // Validate required LTI parameters
@@ -41,10 +42,25 @@ app.post('/lti/launch', (req, res) => {
     return res.status(400).send('Invalid LTI launch request');
   }
 
-  // In production, validate OAuth signature using ims-lti library:
-  // const lti = require('ims-lti');
-  // const provider = new lti.Provider(LTI_KEY, LTI_SECRET);
-  // provider.valid_request(req, (err, isValid) => { ... });
+  // Reject if LTI credentials are not configured
+  if (!LTI_KEY || !LTI_SECRET) {
+    return res.status(503).send('LTI not configured. Set LTI_CONSUMER_KEY and LTI_CONSUMER_SECRET environment variables.');
+  }
+
+  // Validate OAuth signature
+  try {
+    const lti = require('ims-lti');
+    const provider = new lti.Provider(LTI_KEY, LTI_SECRET);
+    await new Promise((resolve, reject) => {
+      provider.valid_request(req, (err, isValid) => {
+        if (err || !isValid) reject(err || new Error('Invalid OAuth signature'));
+        else resolve();
+      });
+    });
+  } catch (err) {
+    console.error('[LTI] OAuth validation failed:', err.message);
+    return res.status(401).send('LTI authentication failed');
+  }
 
   // Cap session count to prevent unbounded memory growth
   if (sessions.size >= MAX_SESSIONS) {
